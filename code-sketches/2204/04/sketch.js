@@ -5,7 +5,7 @@ var bend = 6
 var sizeconst = 4
 
 function setup() {
-    createCanvas(1000,1000);
+    createCanvas(windowWidth,windowHeight);
     
     //spacing slider
     SpaceSlider = createSlider(0, 255, 150);
@@ -63,13 +63,8 @@ function draw() {
               centrey- (i*bend) * spacing, centrex-(sizeconst*width));
         
     };
-    
-    /*
-    //vertical
-    for (let i = 0; i*spacing < width; i++) {
-        curve(centrex+ (i*bend) * spacing, centrey-(1.1*width),  centrex+ (i) * spacing ,centrey-(1.1*width) , centrex+ (i) * spacing,centrey+(1.1*width), centrey+ (i*bend) * spacing,centrey+(1.1*width));
+}
 
-        curve(centrex- (i*bend) * spacing, centrey-(1.1*width),  centrex- (i) * spacing ,centrey-(1.1*width) , centrex- i*spacing,centrey+(2*width) , centrey-(i*bend)* spacing,centrey+(1.1*width));
-    } 
-    */
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
