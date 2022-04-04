@@ -13,24 +13,24 @@ function setup() {
     SpaceSlider.style('width', '80px');
     
     //bend slider
-    BendSlider = createSlider(0, 20, 3);
+    BendSlider = createSlider(0, 200, 30);
     BendSlider.position(10, 30);
     BendSlider.style('width', '80px');
     
-    SizeSlider = createSlider(0, 4, 1);
+    SizeSlider = createSlider(0, 40, 10);
     SizeSlider.position(10, 50);
     SizeSlider.style('width', '80px');
     
 }
 
 function draw() {
-    background(0,20,40);
+    background(0,30,40);
     noFill();
     centrex=mouseX;
     centrey=mouseY;
     spacing = SpaceSlider.value();
-    bend = BendSlider.value();
-    sizeconst = SizeSlider.value();
+    bend = BendSlider.value() / 10;
+    sizeconst = SizeSlider.value() / 40     ;
     
     
     stroke(235,255,255);
