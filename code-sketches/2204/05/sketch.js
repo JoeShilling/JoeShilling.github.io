@@ -81,7 +81,10 @@ function checkPolygon(ps) { //ps = points
             let AB2 = dist( ps[i+1].x,  ps[i+1].y, ps[i].x , ps[i].y);
             */
             
-            if ( Math.round(AC1 + CB1) == Math.round(AB1)) { //PRAISE BE TO THE ROUND FUNCTION
+            let a = Math.round(AC1 + CB1); //this is not good programming
+            let b = Math.round(AB1);
+            
+            if ( a == b ) { //PRAISE BE TO THE ROUND FUNCTION
                 
                 console.log("intersection");
                 let output = [];
@@ -94,16 +97,14 @@ function checkPolygon(ps) { //ps = points
                 active_polygons.push(new Polygon(output));
                 
                 active_points = []; //clear the existing points
+                console.log("AC1 + CB1 = " + a);
+                console.log("AB1 = " + b);
             } else {
-                console.log("AC1 + CB1 = " + (AC1 + CB1));
-                console.log("AB1 = " + AB1);
+                console.log("AC1 + CB1 = " + a);
+                console.log("AB1 = " + b);
             }
-            
-            
         }
-        
-    }
-    
+    }  
 }
 
 function Polygon(points) {
