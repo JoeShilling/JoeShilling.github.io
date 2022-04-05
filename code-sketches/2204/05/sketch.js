@@ -69,17 +69,19 @@ function checkPolygon(ps) { //ps = points
         } else {
             var X = (B2 * C1 - B1 * C2) / det; //should be the coords of the intersection
             var Y = (A1 * C2 - A2 * C1) / det;
-            //then have to check if the intersection is actually on the line they drew
+            //then have to check if the intersection is actually on the lines they drew
             //if distance(a,c ) + distance(c,b) = distance (a,b)
             let AC1 = dist(ps[ps.length-1].x, ps[ps.length-1].y, X, Y);
             let CB1 = dist( X, Y, ps[ps.length-2].x, ps[ps.length-2].y);
             let AB1 = dist( ps[ps.length-1].x,  ps[ps.length-1].y, ps[ps.length-2].x , ps[ps.length-2].y);
+            
+            /* 
             let AC2 = dist(ps[i+1].x, ps[i+1].y, X, Y);
             let CB2 = dist( X, Y, ps[i].x, ps[i].y);
             let AB2 = dist( ps[i+1].x,  ps[i+1].y, ps[i].x , ps[i].y);
+            */
             
-            
-            if ( AC1 + CB1 == AB1  && AC2 + CB2 == AB2) {
+            if ( Math.round(AC1 + CB1) == Math.round(AB1)) { //PRAISE BE TO THE ROUND FUNCTION
                 
                 console.log("intersection");
                 let output = [];
@@ -92,6 +94,9 @@ function checkPolygon(ps) { //ps = points
                 active_polygons.push(new Polygon(output));
                 
                 active_points = []; //clear the existing points
+            } else {
+                console.log("AC1 + CB1 = " + (AC1 + CB1));
+                console.log("AB1 = " + AB1);
             }
             
             
