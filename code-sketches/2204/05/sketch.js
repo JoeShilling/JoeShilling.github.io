@@ -84,7 +84,7 @@ function checkPolygon(ps) { //ps = points
             let a = Math.round(AC1 + CB1); //this is not good programming
             let b = Math.round(AB1);
             
-            if ( a == b ) { //PRAISE BE TO THE ROUND FUNCTION
+            if ( a == b ) { //~~PRAISE BE TO THE ROUND FUNCTION~~ // THE ROUND FUNCTION BETRAYED ME
                 
                 console.log("intersection");
                 let output = [];
