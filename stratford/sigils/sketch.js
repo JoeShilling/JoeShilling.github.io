@@ -1,52 +1,23 @@
 function setup() {
     cnv = createCanvas(windowWidth,windowHeight);
-    /*
-    noFill();
-    stroke(255, 102, 0);
-    line(85, 20, 10, 10);
-    line(90, 90, 15, 80);
-    stroke(0, 0, 0);
-    bezier(85, 20, 10, 10, 90, 90, 15, 80);
+    p = new sigilLayer(300,300,50,5);
     
-    
-    strokeWeight(30);
-    bezierShow(
-        150,100, //anchor 1
-        100,70, //control 1
-        20,100, //control 2
-        50,200 //anchor 2
-    );
-    bezierShow(
-        50,200, //anchor 1
-        60,250, //control 1
-        150,230, //control 2
-        160,200 //anchor 2
-    );
-    bezierShow(
-        160,200, //anchor 1
-        165,180, //control 1
-        180,140, //control 2
-        150,100 //anchor 2
-    );
-    */
+    t = new sigilLayer(500,500,50,3);
 }
 
 function draw() {
   // put drawing code here
-    noFill();
+    background(255,255,255);
     
-    s = new sigilLayer(100,100,50,4);
-    strokeWeight(5);
-    s.sDraw();
-    
-    t = new sigilLayer(200,200,50,3);
-    t.sDraw();
-    
-    p = new sigilLayer(300,300,50,5);
+    console.log(p.controls);
+    //p.wiggleAnchors();
+    p.wiggleControls(0.02);
+    p.wiggleAnchors(0.02);
     p.sDraw();
     
-    c = new sigilLayer(400,400,50,2);
-    c.sDraw();
+    t.wiggleControls(0.02);
+    t.wiggleAnchors(0.02);
+    t.sDraw();
     
 }
 
@@ -65,6 +36,8 @@ function sigilLayer(x,y,r,s=4) { //x,y are positions, r is approx radius, s is n
     this.s = s;
     this.sDraw = sDraw;
     this.pointPrint = pointPrint;
+    this.wiggleAnchors = wiggleAnchors;
+    this.wiggleControls = wiggleControls;
     this.anchors = [];
     this.controls = [];
     
@@ -91,7 +64,21 @@ function sigilLayer(x,y,r,s=4) { //x,y are positions, r is approx radius, s is n
         this.controls.push(v2);
     }
 }
-    
+
+function wiggleAnchors(a=0.1) { //a is maximum possible % change
+    for (let i =0; i < this.anchors.length; i++) {
+        this.anchors[i].x = wiggle(this.anchors[i].x, this.r, a);
+        this.anchors[i].y = wiggle(this.anchors[i].y, this.r, a);
+    }
+}
+
+function wiggleControls(p=0.1) { //p is maximum possible % change
+    for (let i =0; i < this.controls.length; i++) {
+        this.controls[i].x = wiggle(this.controls[i].x, this.r, p);
+        this.controls[i].y = wiggle(this.controls[i].y, this.r, p);
+    }
+}
+
 function sDraw() { //draw function for a sigil layer
     noFill()
     for (let i = 0; i < this.anchors.length; i++) {
@@ -137,6 +124,17 @@ function bezierShow(a,b,c,d,e,f,g,h) { //prints the curve and the control points
     bezier(a, b, c, d, e, f, g, h);
 }
 
+function wiggle(v, a, p) { //v is value to change, a is the maximum adjustment value, p is the maximum possible adjustment in decimal
+    let r = Math.random() + 0.00000001 //just so it doesnt return 0
+    p = p * r
+    if (Math.random() < 0.5) {
+        v = v - (a * p)
+        
+    } else {
+        v = v + (a * p)
+    }
+    return(v);
+}
 
 function rotatePoint(cx, cy, angle, x, y) { // cx,cy are the point to rotate around, angle is angle to rotate, x,y is point
   let s = sin(angle);
