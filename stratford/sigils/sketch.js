@@ -39,6 +39,12 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
+
+function sigil(x,y,r,s) { //x,y are positions, r is approx radius, s is number of segments
+    
+}
+
+
 function bezierShow(a,b,c,d,e,f,g,h) {
     noFill();
     stroke(255, 102, 0);
