@@ -55,6 +55,8 @@ function windowResized() {
 }
 
 
+
+//maybe change this function so you specify a point on the edge of the polygon rather than the centre? would allow for connecting sigils
 function sigilLayer(x,y,r,s=4) { //x,y are positions, r is approx radius, s is number of segments
     fill(0,0,0);
     this.x = x;
