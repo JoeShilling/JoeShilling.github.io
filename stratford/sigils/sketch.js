@@ -9,12 +9,13 @@ function draw() {
   // put drawing code here
     background(255,255,255);
     //p.wiggleAnchors();
+    strokeWeight(10);
     p.wiggleControls(0.02);
     p.wiggleAnchors(0.02);
     p.sDraw();
     
-    t.wiggleControls(0.02);
-    t.wiggleAnchors(0.02);
+    t.wiggleControls(0.1);
+    t.wiggleAnchors(0.1);
     t.sDraw();
     
 }
