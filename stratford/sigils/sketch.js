@@ -8,8 +8,6 @@ function setup() {
 function draw() {
   // put drawing code here
     background(255,255,255);
-    
-    console.log(p.controls);
     //p.wiggleAnchors();
     p.wiggleControls(0.02);
     p.wiggleAnchors(0.02);
