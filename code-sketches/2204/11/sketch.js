@@ -11,7 +11,7 @@ var newButton;
 function setup() {
     cnv = createCanvas(windowWidth,windowHeight);
     
-    slider = createSlider(2,9,4,1)
+    slider = createSlider(2,7,4,1)
     slider.position(30,20);
     weirdBox = createCheckbox('Weird?', false);
     weirdBox.position(30,40);
@@ -28,7 +28,7 @@ function setupPattern() {
     toDraw = []
     colours = []
     toDraw.push({
-            sigil: new sigilLayer(windowWidth/2,windowHeight/2, radius, slider.value()),
+            sigil: new sigilLayer(windowWidth/2,windowHeight/2, windowWidth/4, slider.value()),
             s:0,
             t:0,
             d:0 // is it done?
