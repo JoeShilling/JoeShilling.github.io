@@ -1,24 +1,32 @@
 
 
-var toDraw = [];
-var colours = [];
-var radius = 200;
+var toDraw;
+var colours;
+var radius = 250;
 
 function setup() {
     cnv = createCanvas(windowWidth,windowHeight);
+    setupPattern();
+
+}
+
+function setupPattern() {
+    toDraw = []
+    colours = []
     toDraw.push({
-            sigil: new sigilLayer(windowWidth/2,windowHeight/2, radius,7),
+            sigil: new sigilLayer(windowWidth/2,windowHeight/2, radius,3),
             s:0,
-            t:0
+            t:0,
+            d:0 // is it done?
     });
     for (let c = 0; c < toDraw[0].sigil.s; c ++) {
         colours.push(getRndColour());
     }
-
 }
 
 function draw() {
     let o;
+    let done = 1;
     //p.sDraw();
     noStroke();
     
@@ -37,7 +45,8 @@ function draw() {
                     toDraw.push({
                         sigil: new sigilLayer(pointt.x, pointt.y, radius, toDraw[o].sigil.s-1),
                         s:0,
-                        t:0
+                        t:0,
+                        d:0
                     });
                 }
 
@@ -49,10 +58,16 @@ function draw() {
             }
             //toDraw[o].sigil.wiggleAnchors(); //the COOL function
             toDraw[o].sigil.wiggleControls(0.1);
-        }
-        
-        
-    } 
+            done = 0;
+        } else {
+            toDraw[0].d = 1;
+        } 
+    }
+    
+    if (done == 1) {
+        setupPattern();
+    }
+    
 }
 
 function windowResized() {
