@@ -28,7 +28,7 @@ function setupPattern() {
     toDraw = []
     colours = []
     toDraw.push({
-            sigil: new sigilLayer(windowWidth/2,windowHeight/2, windowWidth/4, slider.value()),
+            sigil: new sigilLayer(windowWidth/2,windowHeight/2, windowWidth/8, slider.value()),
             s:0,
             t:0,
             d:0 // is it done?
@@ -51,7 +51,7 @@ function draw() {
                 pointt = toDraw[o].sigil.getPoint(toDraw[o].s, toDraw[o].t);
                 
                 fill(colours[toDraw[o].sigil.s-2]);
-                ellipse(pointt.x,pointt.y,4,20); //change this to different shapes?
+                ellipse(pointt.x,pointt.y,20,4); //change this to different shapes?
 
                 
                 if (Math.round((toDraw[o].t + Number.EPSILON) * 100) / 100 //add a new shape to the toDraw
