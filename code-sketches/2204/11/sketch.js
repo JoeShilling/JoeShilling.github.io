@@ -3,9 +3,23 @@
 var toDraw;
 var colours;
 var radius = 250;
+var segments = 3
+var weirdBox;
+var slider;
+var newButton;
 
 function setup() {
     cnv = createCanvas(windowWidth,windowHeight);
+    
+    slider = createSlider(2,9,4,1)
+    slider.position(30,20);
+    weirdBox = createCheckbox('Weird?', false);
+    weirdBox.position(30,40);
+    newButton = createButton('New');
+    newButton.position(30,60);
+    newButton.mousePressed(setupPattern);
+    
+    
     setupPattern();
 
 }
@@ -14,7 +28,7 @@ function setupPattern() {
     toDraw = []
     colours = []
     toDraw.push({
-            sigil: new sigilLayer(windowWidth/2,windowHeight/2, radius,3),
+            sigil: new sigilLayer(windowWidth/2,windowHeight/2, radius, slider.value()),
             s:0,
             t:0,
             d:0 // is it done?
@@ -37,7 +51,7 @@ function draw() {
                 pointt = toDraw[o].sigil.getPoint(toDraw[o].s, toDraw[o].t);
                 
                 fill(colours[toDraw[o].sigil.s-2]);
-                ellipse(pointt.x,pointt.y,2,20); //change this to different shapes?
+                ellipse(pointt.x,pointt.y,4,20); //change this to different shapes?
 
                 
                 if (Math.round((toDraw[o].t + Number.EPSILON) * 100) / 100 //add a new shape to the toDraw
@@ -50,14 +64,19 @@ function draw() {
                     });
                 }
 
-                toDraw[o].t += 0.01
+                toDraw[o].t += 0.005
 
             } else { //go to the next segment of the shape
                 toDraw[o].t = 0;
                 toDraw[o].s +=1;
             }
-            //toDraw[o].sigil.wiggleAnchors(); //the COOL function
-            toDraw[o].sigil.wiggleControls(0.1);
+            
+            if (weirdBox.checked()) {
+                toDraw[o].sigil.wiggleControls(0.05);
+            }
+            
+            // //the COOL function
+            //toDraw[o].sigil.wiggleControls(0.1);
             done = 0;
         } else {
             toDraw[0].d = 1;
