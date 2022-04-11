@@ -51,7 +51,7 @@ function draw() {
                 pointt = toDraw[o].sigil.getPoint(toDraw[o].s, toDraw[o].t);
                 
                 fill(colours[toDraw[o].sigil.s-2]);
-                ellipse(pointt.x,pointt.y,20,4); //change this to different shapes?
+                ellipse(pointt.x,pointt.y,5,20); //change this to different shapes?
 
                 
                 if (Math.round((toDraw[o].t + Number.EPSILON) * 100) / 100 //add a new shape to the toDraw
