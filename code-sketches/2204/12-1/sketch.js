@@ -11,12 +11,11 @@ var sigil3;
 function setup() {
     strokeWeight(10);
     cnv = createCanvas(windowWidth,windowHeight);
-    sigil =  new sigilLayer( windowWidth/2 + 200,600, 100, 3);
-    sigil2 =  new sigilLayer(windowWidth/2 - 200,600, 100, 4);
+    sigil =  new sigilLayer( windowWidth/2 + 300,500, 100, 3);
+    sigil2 =  new sigilLayer(windowWidth/2 - 300,500, 100, 4);
     sigil3 = new sigilLayer(windowWidth/2, 1000, 100, 5);
 
-    noLoop();
-    cnv.mouseClicked(loop);
+    cnv.mouseClicked(windowResized);
 
 }
 
