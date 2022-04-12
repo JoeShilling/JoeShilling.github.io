@@ -4,7 +4,7 @@ var toDraw = [];
 var colours;
 var radius = 250;
 var segments = 3
-var weird = 0.01;
+var weird = 0.005;
 var sigil;
 var sigil2;
 var sigil3;
