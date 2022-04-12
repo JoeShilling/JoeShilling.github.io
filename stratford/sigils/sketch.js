@@ -1,29 +1,29 @@
+//making it so you can specify the start of a shape at the side
+
+var toDraw;
+var colours;
+
+var sigil;
+
 function setup() {
     cnv = createCanvas(windowWidth,windowHeight);
-    p = new sigilLayer(300,300,50,5);
-    
-    t = new sigilLayer(500,500,50,3);
+    sigil =  new sigilLayer(windowWidth/2,windowHeight/2, 80, 3);
+
 }
 
 function draw() {
-  // put drawing code here
-    background(255,255,255);
-    //p.wiggleAnchors();
-    strokeWeight(10);
-    p.wiggleControls(0.02);
-    p.wiggleAnchors(0.02);
-    p.sDraw();
-    
-    t.wiggleControls(0.1);
-    t.wiggleAnchors(0.1);
-    t.sDraw();
+    sigil.sDraw();
+
+    sigil.sRotate(PI/100);
+    sigil.sTranslate(createVector(4,4));
+    sigil.wiggleControls();
+    sigil.wiggleAnchors();
     
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+    resizeCanvas(windowWidth, windowHeight);
 }
-
 
 
 //maybe change this function so you specify a point on the edge of the polygon rather than the centre? would allow for connecting sigils
@@ -37,16 +37,21 @@ function sigilLayer(x,y,r,s=4) { //x,y are positions, r is approx radius, s is n
     this.pointPrint = pointPrint;
     this.wiggleAnchors = wiggleAnchors;
     this.wiggleControls = wiggleControls;
+    this.getPoint = getPoint;
     this.anchors = [];
     this.controls = [];
+    this.sTranslate = sTranslate;
+    this.sRotate = sRotate;
     
     //taken from p5.js example - https://p5js.org/examples/form-regular-polygon.html
     //function polygon(x, y, radius, npoints) {
     
+    //generates anchor points
     var angle = TWO_PI / s;
+
     for (let a = 0; a < TWO_PI; a += angle) {
-        let sx = x + cos(a) * r;
-        let sy = y + sin(a) * r;
+        let sx = (x) + cos(a) * r;
+        let sy = (y) + sin(a) * r;
         this.anchors.push(createVector(sx,sy));
     }
     
@@ -64,6 +69,26 @@ function sigilLayer(x,y,r,s=4) { //x,y are positions, r is approx radius, s is n
     }
 }
 
+function sTranslate(trans) { //translate sigils
+    for (let i in this.anchors) {
+        this.anchors[i].add(trans);
+    }
+    for (let i in this.controls) {
+        this.controls[i].add(trans);
+    }
+}
+
+function sRotate(rotat) { //rotates sigils around their centres
+    for (let i in this.anchors) {
+        this.anchors[i] = rotatePoint(this.x,this.y, rotat, this.anchors[i].x, this.anchors[i].y);
+    }
+
+    for (let i in this.controls) {
+        this.controls[i] = rotatePoint(this.x,this.y, rotat, this.controls[i].x, this.controls[i].y);
+    }
+}
+
+
 function wiggleAnchors(a=0.1) { //a is maximum possible % change
     for (let i =0; i < this.anchors.length; i++) {
         this.anchors[i].x = wiggle(this.anchors[i].x, this.r, a);
@@ -76,6 +101,17 @@ function wiggleControls(p=0.1) { //p is maximum possible % change
         this.controls[i].x = wiggle(this.controls[i].x, this.r, p);
         this.controls[i].y = wiggle(this.controls[i].y, this.r, p);
     }
+}
+
+function getPoint(s,t) { //t is the % along the side, s is the side on which you want the point
+    if (s == this.anchors.length-1) {
+        let points  = [this.anchors[s], this.controls[2* s + 1], this.controls[0], this.anchors[0]];
+        return pointAlongCurve(t, points);
+    } else {
+        let points  = [this.anchors[s], this.controls[2* s + 1], this.controls[2* s + 2], this.anchors[s+1]];
+        return pointAlongCurve(t, points);
+    }
+    
 }
 
 function sDraw() { //draw function for a sigil layer
@@ -151,4 +187,20 @@ function rotatePoint(cx, cy, angle, x, y) { // cx,cy are the point to rotate aro
   x = xnew + cx;
   y = ynew + cy;
   return createVector(x, y);
+}
+
+function pointAlongCurve(t, points) { //find point along a bezier curve, t is the % along it you want to find
+    
+    if (points.length != 1) {
+        let newPoints = [];
+        for (let i = 0; i < points.length-1; i++) {
+            newPoints.push(createVector(
+                (1-t)*points[i].x + t*points[i+1].x,
+                (1-t)*points[i].y + t*points[i+1].y
+            ));
+        }
+        return pointAlongCurve(t, newPoints);
+    } else {
+        return points[0]; //i hate javascript
+    }
 }

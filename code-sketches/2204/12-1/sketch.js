@@ -8,13 +8,17 @@ var sigil
 
 function setup() {
     cnv = createCanvas(windowWidth,windowHeight);
-    sigil =  new sigilLayer(200,200, 80, 5);
+    sigil =  new sigilLayer(windowWidth/2,windowHeight/2, 80, 3);
 
 }
 
 function draw() {
     sigil.sDraw();
-    sigil.stranslate(createVector(2,2));
+
+    sigil.sRotate(PI/100);
+    sigil.sTranslate(createVector(4,4));
+    sigil.wiggleControls();
+    sigil.wiggleAnchors();
     
 }
 
@@ -37,7 +41,8 @@ function sigilLayer(x,y,r,s=4) { //x,y are positions, r is approx radius, s is n
     this.getPoint = getPoint;
     this.anchors = [];
     this.controls = [];
-    this.stranslate = stranslate;
+    this.sTranslate = sTranslate;
+    this.sRotate = sRotate;
     
     //taken from p5.js example - https://p5js.org/examples/form-regular-polygon.html
     //function polygon(x, y, radius, npoints) {
@@ -65,9 +70,22 @@ function sigilLayer(x,y,r,s=4) { //x,y are positions, r is approx radius, s is n
     }
 }
 
-function stranslate(trans) {
+function sTranslate(trans) { //translate sigils
     for (let i in this.anchors) {
         this.anchors[i].add(trans);
+    }
+    for (let i in this.controls) {
+        this.controls[i].add(trans);
+    }
+}
+
+function sRotate(rotat) { //rotates sigils around their centres
+    for (let i in this.anchors) {
+        this.anchors[i] = rotatePoint(this.x,this.y, rotat, this.anchors[i].x, this.anchors[i].y);
+    }
+
+    for (let i in this.controls) {
+        this.controls[i] = rotatePoint(this.x,this.y, rotat, this.controls[i].x, this.controls[i].y);
     }
 }
 
