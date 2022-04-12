@@ -4,21 +4,43 @@ var toDraw;
 var colours;
 var radius = 250;
 var segments = 3
-var sigil
+var sigil;
+var sigil2;
+var sigil3;
 
 function setup() {
+    strokeWeight(10);
     cnv = createCanvas(windowWidth,windowHeight);
-    sigil =  new sigilLayer(windowWidth/2,windowHeight/2, 80, 3);
+    sigil =  new sigilLayer( windowWidth/2 + 200,600, 100, 3);
+    sigil2 =  new sigilLayer(windowWidth/2 - 200,600, 100, 4);
+    sigil3 = new sigilLayer(windowWidth/2, 1000, 100, 5);
+
+    noLoop();
+    cnv.mouseClicked(loop);
 
 }
 
 function draw() {
     sigil.sDraw();
+    sigil2.sDraw();
+    sigil3.sDraw();
 
-    sigil.sRotate(PI/100);
-    sigil.sTranslate(createVector(4,4));
-    sigil.wiggleControls();
-    sigil.wiggleAnchors();
+    
+    sigil.sRotate(PI/8);
+    sigil.sTranslate(createVector(-30,-30));
+    sigil.wiggleAnchors(0.02);
+    
+    sigil2.sRotate(TWO_PI-PI/8);
+    sigil2.sTranslate(createVector(30,30));
+    sigil2.wiggleControls(0.02);
+    
+    sigil3.sRotate(PI/8);
+    sigil3.sTranslate(createVector(-30,-30));
+    sigil3.wiggleAnchors(0.006);
+    sigil3.wiggleControls(0.006);
+    
+    
+    //sigil.wiggleAnchors(0.1);
     
 }
 
