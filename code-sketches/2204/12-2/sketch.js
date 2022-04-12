@@ -1,27 +1,27 @@
 //making it so you can specify the start of a shape at the side
 
 var toDraw = [];
-var colours;
-var radius = 250;
-var segments = 3
 var weird = 0.005;
-var sigil;
-var sigil2;
-var sigil3;
+
+var centreX;
+var centreY;
 
 function setup() {
+    stroke('red');
+    centreX =windowWidth/2;
+    centreY = windowHeight/2;
     strokeWeight(10);
     cnv = createCanvas(windowWidth,windowHeight);
-    background('black');
-    stroke('white');
+    background('white');
+    fill('black');
     
     toDraw.push({
-            sigil: new sigilLayer( windowWidth/2, windowHeight/2, 80, 5),
+            sigil: new sigilLayer( centreX, centreY, 80, 5),
             s:0,
             t:0,
     });
     toDraw.push({
-            sigil: new sigilLayer( windowWidth/2, windowHeight/2, 160, 4),
+            sigil: new sigilLayer( centreX, centreY, 160, 4),
             s:0,
             t:0,
     });
@@ -46,8 +46,8 @@ function draw() {
             if (toDraw[o].t <= 1) { //if % is less than 100
                 pointt = toDraw[o].sigil.getPoint(toDraw[o].s, toDraw[o].t);
                 
-                fill('white');
-                ellipse(pointt.x,pointt.y,2,15); //change this to different shapes?
+                fill('black');
+                ellipse(pointt.x,pointt.y,30,9); //change this to different shapes?
 
                 toDraw[o].t += 0.008
 
@@ -62,7 +62,7 @@ function draw() {
 
             //toDraw[o].sigil.sRotate(PI/10);
             //toDraw[o].sigil.sTranslate(createVector(-30,-30));
-            toDraw[o].sigil.wiggleAnchors(weird);
+            toDraw[o].sigil.wiggleControls(weird);
 
         } else {
             toDraw[o].s = 0;
@@ -101,7 +101,7 @@ function draw() {
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
-    background('black');
+    background('white');
 }
 
 

@@ -1,28 +1,113 @@
 //making it so you can specify the start of a shape at the side
 
-var toDraw;
-var colours;
+var toDraw = [];
+var weird = 0.005;
 
-var sigil;
+var centreX;
+var centreY;
 
 function setup() {
+    noStroke();
+    centreX =windowWidth/2;
+    centreY = windowHeight/2;
+    strokeWeight(10);
     cnv = createCanvas(windowWidth,windowHeight);
-    sigil =  new sigilLayer(windowWidth/2,windowHeight/2, 80, 3);
+    background('black');
+    fill('white');
+    
+    toDraw.push({
+            sigil: new sigilLayer( centreX, centreY, 380, 3),
+            s:0,
+            t:0,
+    });
+    toDraw.push({
+            sigil: new sigilLayer( centreX, centreY, 200, 4),
+            s:0,
+            t:0,
+    });
+    toDraw.push({
+            sigil: new sigilLayer( centreX, centreY, 150, 3),
+            s:0,
+            t:0,
+    });
+    toDraw.push({
+            sigil: new sigilLayer( centreX, centreY, 30, 4),
+            s:0,
+            t:0,
+    });
+    
+    toDraw[1].sigil.sTranslate(createVector(-100,0));
+    toDraw[2].sigil.sTranslate(createVector(200,0));
+    toDraw[3].sigil.sTranslate(createVector(270,270));
+
+    cnv.doubleClicked(windowResized);
 
 }
 
 function draw() {
-    sigil.sDraw();
 
-    sigil.sRotate(PI/100);
-    sigil.sTranslate(createVector(4,4));
-    sigil.wiggleControls();
-    sigil.wiggleAnchors();
+    for (let o in toDraw) {
+        if (toDraw[o].s < toDraw[o].sigil.s) { //only draw if you havent drawn all the segments yet
+            
+            if (toDraw[o].t <= 1) { //if % is less than 100
+                pointt = toDraw[o].sigil.getPoint(toDraw[o].s, toDraw[o].t);
+                
+                fill('white');
+                ellipse(pointt.x,pointt.y,30,9); //change this to different shapes?
+
+                toDraw[o].t += 0.005
+
+            } else { //go to the next segment of the shape
+                toDraw[o].t = 0;
+                toDraw[o].s +=1;
+            }
+
+            // //the COOL function
+            //toDraw[o].sigil.wiggleControls(0.1);
+            
+
+            //toDraw[o].sigil.sRotate(PI/10);
+            //toDraw[o].sigil.sTranslate(createVector(-30,-30));
+            toDraw[o].sigil.wiggleControls(weird);
+
+        } else {
+            toDraw[o].s = 0;
+        }
+        
+        
+    
+    }
+    
+    
+    
+    //sigil.sDraw();
+    //sigil2.sDraw();
+    //sigil3.sDraw();
+
+
+    /*
+    sigil.sRotate(PI/4);
+    sigil.sTranslate(createVector(-30,-30));
+    sigil.wiggleAnchors(weird);
+    
+    sigil2.sRotate(TWO_PI-PI/8);
+    sigil2.sTranslate(createVector(30,30));
+    sigil2.wiggleControls(weird);
+    
+    sigil3.sRotate(PI/8);
+    sigil3.sTranslate(createVector(-30,-30));
+    sigil3.wiggleAnchors(weird);
+    sigil3.wiggleControls(weird);
+    */
+    
+    //sigil.wiggleAnchors(0.1);
     
 }
 
+
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+    background('black');
 }
 
 
