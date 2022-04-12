@@ -16,17 +16,17 @@ function setup() {
     stroke('white');
     
     toDraw.push({
-            sigil: new sigilLayer( windowWidth/2, windowWidth/2, 80, 5),
+            sigil: new sigilLayer( windowWidth/2, windowHeight/2, 80, 5),
             s:0,
             t:0,
     });
     toDraw.push({
-            sigil: new sigilLayer( windowWidth/2, windowWidth/2, 160, 4),
+            sigil: new sigilLayer( windowWidth/2, windowHeight/2, 160, 4),
             s:0,
             t:0,
     });
     toDraw.push({
-            sigil: new sigilLayer( windowWidth/2, windowWidth/2, 400, 2),
+            sigil: new sigilLayer( windowWidth/2, windowHeight/2, 400, 2),
             s:0,
             t:0,
     });
