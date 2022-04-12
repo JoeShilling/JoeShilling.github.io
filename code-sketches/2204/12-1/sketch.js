@@ -4,6 +4,7 @@ var toDraw;
 var colours;
 var radius = 250;
 var segments = 3
+var weird = 0.008;
 var sigil;
 var sigil2;
 var sigil3;
@@ -11,40 +12,46 @@ var sigil3;
 function setup() {
     strokeWeight(10);
     cnv = createCanvas(windowWidth,windowHeight);
-    sigil =  new sigilLayer( windowWidth/2 + 300,500, 100, 3);
-    sigil2 =  new sigilLayer(windowWidth/2 - 300,500, 100, 4);
-    sigil3 = new sigilLayer(windowWidth/2, 1000, 100, 5);
+    background('black');
+    stroke('white');
+    sigil =  new sigilLayer( windowWidth/2 + 300,500, 50, 3);
+    sigil2 =  new sigilLayer(windowWidth/2 - 300,500, 50, 4);
+    sigil3 = new sigilLayer(windowWidth/2, 1000, 50, 5);
 
-    cnv.mouseClicked(windowResized);
+    cnv.doubleClicked(windowResized);
 
 }
 
 function draw() {
+
+    
     sigil.sDraw();
     sigil2.sDraw();
     sigil3.sDraw();
 
     
-    sigil.sRotate(PI/8);
+    sigil.sRotate(PI/4);
     sigil.sTranslate(createVector(-30,-30));
-    sigil.wiggleAnchors(0.02);
+    sigil.wiggleAnchors(weird);
     
     sigil2.sRotate(TWO_PI-PI/8);
     sigil2.sTranslate(createVector(30,30));
-    sigil2.wiggleControls(0.02);
+    sigil2.wiggleControls(weird);
     
     sigil3.sRotate(PI/8);
     sigil3.sTranslate(createVector(-30,-30));
-    sigil3.wiggleAnchors(0.006);
-    sigil3.wiggleControls(0.006);
+    sigil3.wiggleAnchors(weird);
+    sigil3.wiggleControls(weird);
     
     
     //sigil.wiggleAnchors(0.1);
     
 }
 
+
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+    background('black');
 }
 
 
