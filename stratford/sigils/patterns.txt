@@ -1,0 +1,30 @@
+
+
+//LOVE
+
+toDraw.push({
+            sigil: new sigilLayer( centreX, centreY, 380, 3),
+            s:0,
+            t:0,
+    });
+    toDraw.push({
+            sigil: new sigilLayer( centreX, centreY, 200, 4),
+            s:0,
+            t:0,
+    });
+    toDraw.push({
+            sigil: new sigilLayer( centreX, centreY, 150, 3),
+            s:0,
+            t:0,
+    });
+    toDraw.push({
+            sigil: new sigilLayer( centreX, centreY, 30, 4),
+            s:0,
+            t:0,
+    });
+    
+    toDraw[1].sigil.sTranslate(createVector(-100,0));
+    toDraw[2].sigil.sTranslate(createVector(200,0));
+    toDraw[3].sigil.sTranslate(createVector(270,270));
+    
+    //
