@@ -32,7 +32,7 @@ function draw() {
     mask_.clear();
     mask_.noStroke;
     mask_.fill(60);
-    //mask_.ellipse(mouseX,mouseY, 50);
+    
     
     s1.sDraw(mask_);
     
