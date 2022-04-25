@@ -19,9 +19,8 @@ function setup() {
 
 function draw() {
     synth.triggerAttackRelease(slider.value(), Tone.now());
-
-    
 }
+
 
 function switchPlaying() {
     if (playing) {
@@ -32,4 +31,5 @@ function switchPlaying() {
         Tone.Transport.stop();
     }
 
-}
+
+    
