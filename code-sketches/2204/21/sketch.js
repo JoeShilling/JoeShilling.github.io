@@ -33,7 +33,6 @@ function draw() {
     mask_.noStroke;
     mask_.fill(60);
     
-    
     s1.sDraw(mask_);
     
     maskedPhoto.mask(mask_);

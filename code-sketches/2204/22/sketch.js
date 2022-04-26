@@ -30,6 +30,6 @@ function switchPlaying() {
         playing = true;
         Tone.Transport.stop();
     }
-
+}
 
     
