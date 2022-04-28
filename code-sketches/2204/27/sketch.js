@@ -1,28 +1,53 @@
-let penSound, penImage;
+let penSound, penImage; //0
+let coffeeSound, coffeeImage; //1
+let dryerSound, dryerImage; //2
+let mouseSound, mouseImage; //3
+
 let shapes = [];
 let dragStart, soundLoop;
+let sounds = [];
+
 
 let circleProgress = 0;
 let circleSelector = 0;
 let directions = [0,1,2,3];
 
 class shape {
-    constructor(x,y,image,width,height, sound, scaleLimit=2, clickFunction=clicked, doubleFunction) { //x,y is the centre point
+    constructor(x,y, width,height, sound, scaleLimit=2) { //x,y is the centre point
         this.x = x;
         this.y = y;
-        this.image = image;
         this.swidth = width; //starting width
         this.width = width;
         this.sheight = height; //starting height
         this.height = height;
         this.scaleLimit = scaleLimit;
-        this.clickFunction = clickFunction;
-        this.doubleFunction = doubleFunction;
+
         this.looping = 0;
         this.shrinking = 0;
         this.rotation = 0;
         
-        this.sound = sound;
+        switch (sound) {
+            case 0:
+                this.sound = penSound;
+                this.image = penImage;
+                this.looper = new p5.SoundLoop(penLooper, this.ratio);
+                break;
+            case 1:
+                this.sound = coffeeSound;
+                this.image = coffeeImage;
+                this.looper = new p5.SoundLoop(coffeeLooper, this.ratio);
+                break;
+            case 2:
+                this.sound = dryerSound;
+                this.image = dryerImage;
+                this.looper = new p5.SoundLoop(dryerLooper, this.ratio);
+                break;
+            default:
+                this.sound = mouseSound;
+                this.image = mouseImage;
+                this.looper = new p5.SoundLoop(mouseLooper, this.ratio);
+                break;  
+        }
         
     }
     
@@ -34,7 +59,28 @@ class shape {
         return(this.width/this.swidth);
     }
     
+    
+    looperFunction(s) {
+        console.log("looping");
+        console.log(s.looper.interval);
+        s.sound.play();
+        //penSound.play();
+    }
+    
+    
     beenClicked(x,y) { //has this shape been clicked?
+
+    }
+    
+    beenDoubleClicked(x,y) {
+        /*
+        if (x >= (this.x - 0.5 * this.width) && x <= (this.x + 0.5 * this.width) && y >= (this.y - 0.5 * this.height) && y <= (this.y + 0.5 * this.height) ) { 
+            
+            if (this.looping) { this.looping = false }
+            else {this.looping = true}   
+        }
+        */
+        
         if (x >= (this.x - 0.5 * this.width) && x <= (this.x + 0.5 * this.width) && y >= (this.y - 0.5 * this.height) && y <= (this.y + 0.5 * this.height) ) { 
             
             
@@ -42,15 +88,7 @@ class shape {
             this.sound.play();
             
         }
-    }
-    
-    beenDoubleClicked(x,y) {
         
-        if (x >= (this.x - 0.5 * this.width) && x <= (this.x + 0.5 * this.width) && y >= (this.y - 0.5 * this.height) && y <= (this.y + 0.5 * this.height) ) { 
-            
-            if (this.looping) { this.looping = false }
-            else {this.looping = true}   
-        }
     }
     
     beenDragged(dragStartX,dragStartY) { //
@@ -74,9 +112,9 @@ class shape {
                 
                 if (this.height < this.sheight*this.scaleLimit && this.width < this.swidth*this.scaleLimit) {
                     let mult = p5.Vector.mag(dragCurrent.sub(dragStart));
-                    
+                    //expanding
                     mult = 1 + (mult / 700);
-                    if (mult > 1.2) {
+                    if (mult > 1.15) {
                         mult = 1.01;
                     } else {
                         mult = 1;
@@ -86,6 +124,7 @@ class shape {
                     this.height = this.height * mult;
                     this.width = this.width * mult;
                     
+                    this.looper.interval = this.ratio;
                     
                 }
                 
@@ -93,11 +132,11 @@ class shape {
  
                 this.shrinking = 1;
                 if (this.height > this.sheight/this.scaleLimit && this.width > this.swidth/this.scaleLimit) {
-
+                    //shrinking
                     let mult = p5.Vector.mag(dragCurrent.sub(dragStart));
                     
                     mult = 1 - (mult / 700);
-                    if (mult < 0.8) {
+                    if (mult < 0.85) {
                         mult = 0.99;
                     } else {
                         mult = 1;
@@ -107,6 +146,7 @@ class shape {
                     this.height = this.height * mult;
                     this.width = this.width * mult;
                     
+                    this.looper.interval = this.ratio;
                     
                 }   
             }
@@ -139,8 +179,10 @@ class shape {
                     console.log("loop complete " + circleProgress);
                     if (this.looping) {
                         this.looping = false;
+                        this.looper.stop();
                     } else {
                         this.looping = true;
+                        this.looper.start();
                     } 
                 }
             }
@@ -164,33 +206,38 @@ class shape {
     
 }
 
-function clicked() { //default clicked function
-    console.log('shape clicked');
-} //default clicked function
-
-function doubled() { //default doubleclicked function
-    console.log('shape double clicked');
-} //default doubleclicked function
-
 function preload() {
     soundFormats('mp3');
     penSound = loadSound('sounds/pen');
-    penImage = loadImage('images/island.jpeg');
+    penImage = loadImage('images/pen.png');
+    
+    coffeeSound = loadSound('sounds/coffee');
+    coffeeImage = loadImage('images/coffee2.png');
+    
+    dryerSound = loadSound('sounds/dryer');
+    dryerImage = loadImage('images/dryer.png');
+    
+    mouseSound = loadSound('sounds/mouse');
+    mouseImage = loadImage('images/mouse.png');
+    
 }
 
 function setup() {
     //userStartAudio();
     let cnv = createCanvas(windowWidth,windowHeight);
-    shapes.push(new shape(400,400, penImage, 200,200, penSound, 2, pen, doubled));
-    shapes.push(new shape(600,100, penImage, 100,100, penSound, 2.5, clicked, doubled));
+    shapes.push(new shape(400,400,  200,200, 0, 2));
+    shapes.push(new shape(600,100,  100,100, 1, 2.5));
+    
+    shapes.push(new shape(600,600,  200,200, 2, 2.5));
+    
+    
     
     directions[0] = createVector(0,1); //progress 0
     directions[1] = createVector(1,0); //progress 1
     directions[2] = createVector(0,-1); //progress 2
     directions[3] = createVector(-1,0); // progress 3 
     
-    soundLoop = new p5.SoundLoop(sequencer, 1);
-    
+    //soundLoop = new p5.SoundLoop(sequencer, 1);
     //penImage.mouseClicked(pen);
 }
 
@@ -203,13 +250,13 @@ function draw() {
         }
     }
     if (stop) {
-        soundLoop.stop();
+        //soundLoop.stop();
     } else {
-        soundLoop.start();
+        //soundLoop.start();
     }
     
     
-    background('white');
+    background('grey');
     for (let i in shapes) {
         
         if (shapes[i].looping) {
@@ -225,6 +272,7 @@ function sequencer(timeFromNow) {
     for (let i in shapes) {
         if (shapes[i].looping) {
             console.log('a shape is looping');
+            shapes[i].sound.play();
         }
     }
 }
@@ -242,6 +290,9 @@ function touchEnded() {
 } //mostly used for resetting variables
 
 function touchStarted() {
+    
+    userStartAudio();
+    
     console.log("circleprogress " + circleProgress);
     dragStart = createVector(mouseX, mouseY);
 }
@@ -258,7 +309,23 @@ function doubleClicked() {
     }
 }
 
-function pen() {
+
+//sound loopers because im bad at programming
+
+function penLooper() {
     penSound.play();
 }
+
+function coffeeLooper() {
+    coffeeSound.play();
+}
+
+function dryerLooper() {
+    dryerSound.play();
+}
+
+function mouseLooper() {
+    mouseSound.play();
+}
+
 
