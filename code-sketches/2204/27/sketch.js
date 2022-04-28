@@ -212,7 +212,7 @@ function preload() {
     penImage = loadImage('images/pen.png');
     
     coffeeSound = loadSound('sounds/coffee');
-    coffeeImage = loadImage('images/coffee2.png');
+    coffeeImage = loadImage('images/coffee.png');
     
     dryerSound = loadSound('sounds/dryer');
     dryerImage = loadImage('images/dryer.png');
@@ -229,6 +229,8 @@ function setup() {
     shapes.push(new shape(600,100,  100,100, 1, 2.5));
     
     shapes.push(new shape(600,600,  200,200, 2, 2.5));
+    
+    shapes.push(new shape(400,800, 200,200, 3, 3));
     
     
     
@@ -256,7 +258,7 @@ function draw() {
     }
     
     
-    background('grey');
+    background('white');
     for (let i in shapes) {
         
         if (shapes[i].looping) {
