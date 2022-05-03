@@ -206,6 +206,12 @@ class shape {
     
 }
 
+
+
+
+
+
+
 function preload() {
     soundFormats('mp3');
     penSound = loadSound('sounds/pen');
@@ -225,12 +231,12 @@ function preload() {
 function setup() {
     //userStartAudio();
     let cnv = createCanvas(windowWidth,windowHeight);
-    shapes.push(new shape(400,400,  200,200, 0, 2));
-    shapes.push(new shape(600,100,  100,100, 1, 2.5));
+    shapes.push(new shape(windowWidth/2,windowHeight/4,  250,250, 0, 2.5));
+    shapes.push(new shape(windowWidth/4,windowHeight/2,  250,250, 1, 2.5));
     
-    shapes.push(new shape(600,600,  200,200, 2, 2.5));
+    shapes.push(new shape(windowWidth/2, windowHeight - (windowHeight/4),  250,250, 2, 2.5));
     
-    shapes.push(new shape(400,800, 200,200, 3, 3));
+    shapes.push(new shape( windowWidth-windowWidth/4 ,windowHeight/2, 250,250, 3, 2.5));
     
     
     
@@ -267,14 +273,29 @@ function draw() {
         
         shapes[i].printImage();
     }
+    
+    rectMode(RADIUS);
+    fill('#266384')
+    noStroke();
+    push();
+    
+    rotate(PI/7.5);
+    
+    rect(windowWidth/2, windowHeight/2, 50, 50);
+    pop();
+    
+    
+    
 }
 
 
 function sequencer(timeFromNow) {
     for (let i in shapes) {
         if (shapes[i].looping) {
-            console.log('a shape is looping');
             shapes[i].sound.play();
+            
+            ellipse()
+            
         }
     }
 }
