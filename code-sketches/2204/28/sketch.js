@@ -1,38 +1,66 @@
 const morse = {
-    'a' : '01',
-    'b' : '1000',
-    'c' : '1010',
-    'd' : '100',
-    'e' : '0',
-    'f' : '00',
-    'g' : '110',
-    'h' : '0000',
-    'i' : '00',
-    'j' : '0111',
-    'k' : '101',
-    'l' : '0100',
-    'm' : '11',
-    'n' : '10',
-    'o' : '111',
-    'p' : '0110',
-    'q' : '1101',
-    'r' : '010',
-    's' : '000',
-    't' : '1',
-    'u' : '001',
-    'v' : '0001',
-    'w' : '011',
-    'x' : '1001',
-    'y' : '1011',
-    'z' : '1100'
+    'a' : [2,1],
+    'b' : [1,2,2,2],
+    'c' : [1,2,1,2],
+    'd' : [1,2,2],
+    'e' : [2],
+    'f' : [2,2],
+    'g' : [1,1,2],
+    'h' : [2,2,2,2],
+    'i' : [2,2],
+    'j' : [2,1,1,1],
+    'k' : [1,2,1],
+    'l' : [2,1,2,2],
+    'm' : [1,1],
+    'n' : [1,2],
+    'o' : [1,1,1],
+    'p' : [2,1,1,2],
+    'q' : [1,1,2,1],
+    'r' : [2,1,2],
+    's' : [2,2,2],
+    't' : [1],
+    'u' : [2,2,1],
+    'v' : [2,2,2,1],
+    'w' : [2,1,1],
+    'x' : [1,2,2,1],
+    'y' : [1,2,1,1],
+    'z' : [1,1,2,2]
 }
 
-let inp, button;
+
+let morseSounds = {};
+
+let inp, button, testPart, cnv;
+let penSound,coffeeSound,dryerSound,mouseSound;
+
+function preload() {
+    soundFormats('mp3');
+    
+    penSound = loadSound('sounds/pen');
+    coffeeSound = loadSound('sounds/coffee');
+    dryerSound = loadSound('sounds/dryer');
+    mouseSound = loadSound('sounds/mouse');
+    
+}
 
 function setup() {
   // put setup code here
+    let m1 = [1,1,1];
+    let m2 = [2,2,2];
+    let m3 = [1,1,1,2,2,2,1,1,1];
     
-    createCanvas(windowWidth, windowHeight);
+    let S = new p5.Phrase('morseS', mStep, m1);
+    let O = new p5.Phrase('morseO', mStep, m2);
+    let SOS = new p5.Phrase('morseSOS', mStep, m3);
+    
+    testPart = new p5.Part();
+    
+    testPart.addPhrase(SOS);
+    testPart.setBPM(24);
+    
+    cnv = createCanvas(windowWidth, windowHeight);
+    //cnv.mousePressed(playPart);
+    
     inp = createInput('');
     inp.position(20,20);
     inp.size(100);
@@ -48,15 +76,46 @@ function draw() {
 
 
 function convertMorse() {
+    userStartAudio();
     console.log(inp.value());
     
     var text = inp.value();
-    var converted = [];
+    let converted = [];
     
     for (let letter in text) {
-        converted.push(morse[text[letter]]);
+        console.log(morse[text[letter]]);
+        converted = converted.concat(morse[text[letter]]);
     }
     
     console.log(converted);
     
+    let morsePattern = new p5.Phrase('morse pattern', mStep, converted);
+    let morsePart = new p5.Part();
+    morsePart.addPhrase(morsePattern);
+    morsePart.setBPM(14);
+    morsePart.start();
+    
+    
+}
+
+
+function mStep(time, sound) {
+    switch (sound) { //2 is 0 because 0 is not passed to the function for whatever reason
+        case 2:
+
+            dryerSound.play();
+            break;
+        case 1:
+
+            coffeeSound.play();
+            break;
+        default:
+            console.log('-');
+    }
+}
+
+function playPart() {
+    console.log("doing something");
+    userStartAudio();
+    testPart.start();
 }
