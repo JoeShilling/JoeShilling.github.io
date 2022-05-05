@@ -8,9 +8,79 @@ let dragStart, soundLoop;
 let sounds = [];
 
 
+
+
 let circleProgress = 0;
 let circleSelector = 0;
 let directions = [0,1,2,3];
+
+
+let diamondRadius = 20;
+
+let rotateDiamond = 1;
+
+class snake {
+    constructor(x,y, direction) {
+        this.a1 = createVector(x,y);
+        this.c1 = createVector(x,y);
+        this.c2 = createVector(x,y);
+        this.a2 = createVector(x,y);
+        this.delta = 256;
+        
+        switch (direction) {
+            case 1:
+                this.direction = createVector(1,0);
+                break;
+            case 2:
+                this.direction = createVector(0,-1);
+                break;
+            case 3:
+                this.direction = createVector(-1,0);
+                break;
+            default:
+                this.direction = createVector(0,1);
+                
+        }
+    }
+    
+    grow (length, rotation) {
+        let unit = this.direction.copy();
+        
+        
+        //this.delta = this.delta * 1.01;
+        this.direction.rotate(PI/this.delta);
+        console.log(this.direction.toString());
+        this.c1.add(this.direction);
+        
+        
+        for (let i = 0; i < 3; i++) {this.direction.rotate(PI/this.delta);}
+        
+        this.c2.add(p5.Vector.mult(this.direction , 1.5));
+        
+        for (let i = 0; i < 7; i++) {this.direction.rotate(PI/this.delta);}
+
+        this.a2.add(p5.Vector.mult(this.direction, 2));
+        console.log(p5.Vector.mult(this.direction, 2));
+
+    }
+    
+    print() {
+        //push();
+        strokeWeight(5);
+        stroke(0);
+        
+        bezier(this.a1.x, this.a1.y, this.c1.x, this.c1.y, this.c2.x, this.c2.y, this.a2.x, this.a2.y);
+        
+        fill('#2ae0a1');
+        ellipse(this.c1.x, this.c1.y, 20); //green
+        fill('#d22ae0');
+        ellipse(this.c2.x, this.c2.y, 20); //purple
+        fill('#e0e02a');
+        ellipse(this.a2.x, this.a2.y, 20); //yellow
+        
+        //pop();
+    }
+}
 
 class shape {
     constructor(x,y, width,height, sound, scaleLimit=2) { //x,y is the centre point
@@ -245,6 +315,9 @@ function setup() {
     directions[2] = createVector(0,-1); //progress 2
     directions[3] = createVector(-1,0); // progress 3 
     
+    //genLine1 = new snake(windowWidth/2, windowHeight/2 + diamondRadius*1.1, 0);
+    
+    
     //soundLoop = new p5.SoundLoop(sequencer, 1);
     //penImage.mouseClicked(pen);
 }
@@ -274,18 +347,20 @@ function draw() {
         shapes[i].printImage();
     }
     
+    
+    push();
     rectMode(RADIUS);
     fill('#266384')
     noStroke();
-    push();
+    translate(windowWidth/2, windowHeight/2);
+    rotate( (PI/256) * rotateDiamond);
+    rotateDiamond+=1;
+    translate(-windowWidth/2, -windowHeight/2);
     
-    rotate(PI/7.5);
-    
-    rect(windowWidth/2, windowHeight/2, 50, 50);
+    rect(windowWidth/2, windowHeight/2, diamondRadius, diamondRadius);
     pop();
     
-    
-    
+    //bezier(genLine1.c1.x, genLine1.c1.y, genLine1.a1.x, genLine1.a1.y, genLine1.a2.x, genLine1.a2.y, genLine1.c2.x, genLine1.c2.y);
 }
 
 
@@ -294,7 +369,6 @@ function sequencer(timeFromNow) {
         if (shapes[i].looping) {
             shapes[i].sound.play();
             
-            ellipse()
             
         }
     }
