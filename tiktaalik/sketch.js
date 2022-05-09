@@ -4,8 +4,11 @@ function preload() {
 
 
 let quotes = [
-    "I am impressed by your air breathing ability",
-    'phrase 2'
+    "i am impressed by your air breathing",
+    'remember to drink water!',
+    'woah you can hold stuff so well with those graspers!',
+    "look how far you've come (out of the water)"
+    
 ]
 
 function setup() {

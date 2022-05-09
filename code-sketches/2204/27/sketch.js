@@ -386,10 +386,10 @@ function touchEnded() {
     }
 } //mostly used for resetting variables
 
+
 function touchStarted() {
     
     userStartAudio();
-    
     console.log("circleprogress " + circleProgress);
     dragStart = createVector(mouseX, mouseY);
 }
