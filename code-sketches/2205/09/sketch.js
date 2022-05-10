@@ -2,28 +2,44 @@
 
 var toDraw = [];
 var weird = 0.005;
-var scaleFactor = 1.01;
+
+let fileLimit = 100;
+let filesGenerated = 0;
+
 var canvasWidth;
 var canvasHeight;
 var centreX;
 var centreY;
 var c = 255;
 var t = 0;
-var odd = 1; //alternates between white and black stroke
-var cnv;
-var graph;
-var file = 0;
+
+
+let scaleFactor = 1;
+let translateFactor;
+let rotateFactor;
+let rotateY, rotateX;
+
+let seed = 0;
+
+let unit =1;
+
+let cnv;
+let graph;
+let file = 0;
 
 function setup() {
-    canvasHeight = 10000;
-    canvasWidth = 10000;
+    canvasHeight = 8000;
+    canvasWidth = 8000;
     centreX =canvasWidth/2;
     centreY = canvasHeight/2;
-    strokeWeight(10);
+    strokeWeight(100);
+    
+
+    
     cnv = createCanvas(canvasWidth,canvasHeight);
     graph = createGraphics(canvasWidth, canvasHeight);
     background('black');
-    fill('white');
+    
     
     /*
     toDraw.push({
@@ -57,17 +73,80 @@ function setup() {
 }
 
 function generateShapes() {
-    toDraw = [];
-    t = 0;
-    if (odd == 1) {
-        odd = 0;
+    if (filesGenerated < fileLimit) {
+        toDraw = [];
+        t = 0;
         c = 255;
         background('black');
+        noFill();
+        seed = getRndInteger(1, 10000000000);
+        fill('white');
+
+        switch (seed % 9) { //picking which way to move
+            case 1:
+                translateFactor = createVector(0,unit);
+                break;
+            case 2:
+                translateFactor = createVector(unit,unit);
+                break;
+            case 3:
+                translateFactor = createVector(unit,0);
+                break;
+            case 4:
+                translateFactor = createVector(unit,-unit);
+                break;
+            case 5:
+                translateFactor = createVector(0,-unit);
+                break;
+            case 6:
+                translateFactor = createVector(-unit,-unit);
+                break;
+            case 7:
+                translateFactor = createVector(-unit,0);
+                break;
+            case 8:
+                translateFactor = createVector(-unit,unit);
+                break;
+            default:
+                translateFactor = createVector(0,0);
+        }
+
+        if (seed % 64 < 3) {
+            rotateFactor = 3;
+        } else {
+            rotateFactor = seed%64;
+        }
+
+        if (seed % 2 == 1) { //decides the direction of the rotation
+            rotateFactor = -rotateFactor;
+
+            noFill();
+
+        }
+
+        switch (seed % 3) { //picking whether to rotate around the centre of the shape or a point within the canvas
+            case 1,2:
+                rotateX = null;
+                rotateY = null;
+                break;
+            default:
+                rotateX = seed % canvasWidth;
+                rotateY = seed % canvasHeight;
+        }
+
+        unit = canvasWidth / (seed % 20)/100 //sets speed of movement
+
+        scaleFactor = (getRndInteger(9900, 10100))/10000;
+        rotate
+
+        toDraw.push({sigil: new sigilLayer(getRndInteger(0, canvasWidth/2) + canvasWidth/4, getRndInteger(0, canvasHeight/2) + canvasHeight/4,  getRndInteger(canvasWidth/8, canvasWidth/3), (seed%10) + 1, seed%2, getRndInteger(3,6))});
     } else {
-        odd = 1;
-        c = 0;
-        background('white');
+        noLoop();
     }
+    
+    
+    
+    /*
     let num = getRndInteger(1,6);
     for (let i = 0; i < num; i ++) {
         toDraw.push({sigil: new sigilLayer( centreX, centreY, 2, getRndInteger(2,6))});
@@ -80,23 +159,23 @@ function generateShapes() {
         }
         
     }
+    */
 }
 
 function draw() {
     for (let o in toDraw) {
         stroke(c);
-        if (odd == 0) {
-            c = c - 0.001;
-            toDraw[o].sigil.sRotate(PI/32);
-        } else {
-            c = c + 0.001;
-            toDraw[o].sigil.sRotate(-(PI/32));   
-       }
         
-        toDraw[o].sigil.sDraw(graph);
+        c = c - 0.001;
+        toDraw[o].sigil.sRotate(PI/rotateFactor, rotateX, rotateY);   
+       
+        
+        toDraw[o].sigil.sDraw();
+        
+        toDraw[o].sigil.sTranslate(translateFactor);
         toDraw[o].sigil.sScale(createVector(centreX, centreY), scaleFactor , scaleFactor);
-        toDraw[o].sigil.wiggleControls(0.03);
-        toDraw[o].sigil.wiggleAnchors(0.03);
+        toDraw[o].sigil.wiggleControls(0.01);
+        //toDraw[o].sigil.wiggleAnchors(0.03);
         
         /*
         if (toDraw[o].s < toDraw[o].sigil.s) { //only draw if you havent drawn all the segments yet
@@ -132,8 +211,8 @@ function draw() {
     t +=1;
     if (t > 700) {
         image(graph,0,0);
-        saveCanvas(cnv, 'images' + file , 'png');
-        file+=1;
+        saveCanvas(cnv, 'image' + seed , 'png');
+        filesGenerated+=1;
         generateShapes();
         
     }
@@ -142,11 +221,13 @@ function draw() {
 
 
 class sigilLayer{ 
-    constructor(x,y,r,s=4) { //x,y are positions, r is approx radius, s is number of segments
+    constructor(x,y,r,w,filled,s=4) { //x,y are positions, r is approx radius, s is number of segments
         fill(0,0,0);
         this.x = x;
         this.y = y;
         this.r = r;
+        this.weight = w;
+        this.isFilled = filled;
         this.s = s;
         this.anchors = [];
         this.controls = [];
@@ -187,13 +268,25 @@ class sigilLayer{
         }
     }
     
-    sRotate(rotat) { //rotates sigils around their centres
-        for (let i in this.anchors) {
+    sRotate(rotat, x=null, y=null) { //rotates sigils around their centres
+        
+        if (x != null && y != null) {
+            for (let i in this.anchors) {
+            this.anchors[i] = rotatePoint(x,y, rotat, this.anchors[i].x, this.anchors[i].y);
+            }
+            for (let i in this.controls) {
+                this.controls[i] = rotatePoint(x,y, rotat, this.controls[i].x, this.controls[i].y);
+            }
+        } else {
+            for (let i in this.anchors) {
             this.anchors[i] = rotatePoint(this.x,this.y, rotat, this.anchors[i].x, this.anchors[i].y);
+            }
+            for (let i in this.controls) {
+                this.controls[i] = rotatePoint(this.x,this.y, rotat, this.controls[i].x, this.controls[i].y);
+            }
         }
-        for (let i in this.controls) {
-            this.controls[i] = rotatePoint(this.x,this.y, rotat, this.controls[i].x, this.controls[i].y);
-        }
+        
+        
     }
     
     sScale(point, fX, fY) {
@@ -238,7 +331,13 @@ class sigilLayer{
     }
     
     sDraw(image=null) { //draw function for a sigil layer, parameter lets you draw to graphics objects
-        graph.noFill()
+        if (this.isFilled == 0) {
+            noFill();
+        } else {
+            fill('black');
+        }
+        strokeWeight(this.weight);
+        
         for (let i = 0; i < this.anchors.length; i++) {
             if (i == this.anchors.length-1) {
                 if (image === null) {
