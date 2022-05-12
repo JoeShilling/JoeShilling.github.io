@@ -12,7 +12,7 @@ function setup() {
     frameRate(120);
     
 
-    let unit = windowWidth/12;
+    let unit = windowWidth/10;
     for (let x = unit; x <= windowWidth; x += unit) {
         for (let y = unit; y <= windowHeight; y += unit) {
             herbages.push(new herbage(x, y, 120));
@@ -25,10 +25,13 @@ function setup() {
     
     preys.push(new prey (50,50));
     preys.push(new prey (900,900));
+    
+    predators.push(new predator(600,600));
+    
 }
 
 function draw() {
-    //background('white');
+    background('white');
     
     for (let herb of herbages) {
         herb.update();
@@ -44,26 +47,19 @@ function draw() {
             preys[i].show();
         }
     }
-    /*
-    for (let prey of preys) {
-
-    }
-    */
-}
-
-
-class predator {
-    constructor() {}
-}
-
-
-class prey {
-    constructor(x, y) {
-        this.pos = createVector(x,y);
-        this.speed = 2;
-        this.hunger = 50; //when reaches 0 it dies, rip
+    
+    for (let i = 0; i < predators.length; i++) {
+        if (predators[i].isDead()) {
+            predators.splice(i,1);
+        } else {
+            predators[i].update();
+            predators[i].show();
+        }
     }
     
+}
+
+class animal {
     isDead() {
         if (this.hunger <= 0) {
             return (true);
@@ -71,22 +67,96 @@ class prey {
             return (false);
         }
     }
+}
+
+class predator extends animal {
+    constructor(x, y) {
+        super(x, y);
+        this.pos = createVector(x, y);
+        this.speed = 0.3;
+        this.hunger = 100;
+    }
+    
+    update() {
+        
+        if (this.hunger > 0) {
+            this.hunger -= 0.1;
+        }
+        
+        if (this.hunger <= 0) {
+            console.log('predator died');
+        } else {
+            
+            let direction = createVector(0,0);
+            let distance = 10000000000000000;
+            
+            for (let prey of preys) {
+                if (prey.isDead() == false) {
+
+                    if (this.pos.dist(prey.pos) < distance) {
+                        distance  = this.pos.dist(prey.pos);
+                        direction = p5.Vector.sub(prey.pos,  this.pos);
+
+                        if (direction.mag() > 1.5) { //so this probably shouldnt be here but we access to which prey the predator is touching
+                            direction.normalize();
+                            direction.mult(this.speed);
+
+                        } else {
+                            this.hunger += 25;
+                            prey.hunger = 0;
+                            console.log(prey.isDead());
+                        }
+                    }
+                }
+                this.pos.add(direction);
+            }
+            
+        }   
+    
+    }
+    
+    show() {
+        rectMode(RADIUS);
+        colorMode(HSB)
+        
+        let colour = color(20, 100, 70);
+
+        fill(colour);
+        translate(this.pos.x, this.pos.y);
+        rotate(PI/4);
+        translate(-this.pos.x, -this.pos.y);
+        rect(this.pos.x, this.pos.y, 19);
+    }
+    
+}
+
+
+class prey extends animal {
+    constructor(x, y) {
+        super(x, y);
+        this.pos = createVector(x,y);
+        this.speed = 2;
+        this.hunger = 70; //when reaches 0 it dies, rip
+    }
     
     update() {
         
         if (this.hunger >= 109) {
             preys.push(new prey(this.pos.x, this.pos.y));
-            this.hunger = 70;
+            this.hunger -= 30;
         }
         
         if (this.hunger > 0) {
-            this.hunger -= 0.3;
+            this.hunger -= 0.2;
         }
         
         if (this.hunger <= 0) {
-            console.log('dead');
+            console.log('prey died');
         } else {
-            let direction = createVector(0,0);
+            let Hdirection = createVector(0,0);
+            
+            let Pdirection = createVector(0,0);
+            
             let distance = 10000000000000000;
 
 
@@ -96,14 +166,14 @@ class prey {
                 if (herb.growth >= 1) {
                     if (this.pos.dist(herb.pos) < distance) {
                         distance  = this.pos.dist(herb.pos);
-                        direction = p5.Vector.sub(herb.pos,  this.pos)
+                        Hdirection = p5.Vector.sub(herb.pos,  this.pos)
 
-                        if (direction.mag() > 1.5) { //so this probably shouldnt be here but we access to which herb the prey is touching
-                            direction.normalize();
-                            direction.mult(this.speed);
+                        if (Hdirection.mag() > 1.5) { //so this probably shouldnt be here but we access to which herb the prey is touching
+                            Hdirection.normalize();
+                            Hdirection.mult(this.speed);
 
                         } else {
-                            this.hunger += 25;
+                            this.hunger += 55;
                             herb.growth = 0;
                         }
 
@@ -114,10 +184,21 @@ class prey {
             }
 
 
+            for (let predator of predators) {
+                if (this.pos.dist(predator.pos) <= 100) {
+                    let v = createVector(0,0);
+                    v.add(p5.Vector.normalize(p5.Vector.sub(this.pos, predator.pos)));
+                    v.mult(((100 - this.pos.dist(predator.pos))-1) / 10)
+                    Pdirection.add(v);
+                    
+                    
+                }
+                
+            }
 
-
-
-            this.pos.add(direction);
+            
+            this.pos.add(Pdirection);
+            this.pos.add(Hdirection);
         }
         
 
@@ -137,7 +218,7 @@ class prey {
 class herbage {
     constructor (x, y) { //xy is position, regrow is number of frames required to regrow
         this.pos = createVector(x,y);
-        this.regrowTime = 1500; //frames required to regrow
+        this.regrowTime = 500; //frames required to regrow
         this.growth = 1; //shows state of growth
     }
     
