@@ -13,8 +13,8 @@ function setup() {
     
 
     let unit = windowWidth/10;
-    for (let x = unit; x <= windowWidth; x += unit) {
-        for (let y = unit; y <= windowHeight; y += unit) {
+    for (let x = unit*2; x <= windowWidth - 400; x += unit) {
+        for (let y = unit*2; y <= windowHeight - 400; y += unit) {
             herbages.push(new herbage(x, y, 120));
         }
     }
@@ -27,6 +27,7 @@ function setup() {
     preys.push(new prey (900,900));
     
     predators.push(new predator(600,600));
+    predators.push(new predator(800,600));
     
 }
 
@@ -73,14 +74,14 @@ class predator extends animal {
     constructor(x, y) {
         super(x, y);
         this.pos = createVector(x, y);
-        this.speed = 0.3;
+        this.speed = 0.4;
         this.hunger = 100;
     }
     
     update() {
         
         if (this.hunger > 0) {
-            this.hunger -= 0.1;
+            this.hunger -= 0.12;
         }
         
         if (this.hunger <= 0) {
@@ -97,17 +98,17 @@ class predator extends animal {
                         distance  = this.pos.dist(prey.pos);
                         direction = p5.Vector.sub(prey.pos,  this.pos);
 
-                        if (direction.mag() > 1.5) { //so this probably shouldnt be here but we access to which prey the predator is touching
+                        if (direction.mag() > 1) { //so this probably shouldnt be here but we access to which prey the predator is touching
                             direction.normalize();
                             direction.mult(this.speed);
 
                         } else {
                             this.hunger += 25;
                             prey.hunger = 0;
-                            console.log(prey.isDead());
                         }
                     }
                 }
+
                 this.pos.add(direction);
             }
             
@@ -116,6 +117,7 @@ class predator extends animal {
     }
     
     show() {
+        push();
         rectMode(RADIUS);
         colorMode(HSB)
         
@@ -126,6 +128,7 @@ class predator extends animal {
         rotate(PI/4);
         translate(-this.pos.x, -this.pos.y);
         rect(this.pos.x, this.pos.y, 19);
+        pop();
     }
     
 }
@@ -141,7 +144,7 @@ class prey extends animal {
     
     update() {
         
-        if (this.hunger >= 109) {
+        if (this.hunger >= 100) {
             preys.push(new prey(this.pos.x, this.pos.y));
             this.hunger -= 30;
         }
@@ -159,7 +162,16 @@ class prey extends animal {
             
             let distance = 10000000000000000;
 
-
+            
+            for (let predator of predators) {
+                if (this.pos.dist(predator.pos) <= 100) {
+                    let v = createVector(0,0);
+                    v.add(p5.Vector.normalize(p5.Vector.sub(this.pos, predator.pos)));
+                    v.mult(((100 - this.pos.dist(predator.pos))-1) / 100)
+                    Pdirection.add(v.mult(this.speed) );
+                      
+                }
+            }
 
             //moving towards herbs
             for (let herb of herbages) {
@@ -168,7 +180,7 @@ class prey extends animal {
                         distance  = this.pos.dist(herb.pos);
                         Hdirection = p5.Vector.sub(herb.pos,  this.pos)
 
-                        if (Hdirection.mag() > 1.5) { //so this probably shouldnt be here but we access to which herb the prey is touching
+                        if (Hdirection.mag() > 2.5) { //so this probably shouldnt be here but we access to which herb the prey is touching
                             Hdirection.normalize();
                             Hdirection.mult(this.speed);
 
@@ -184,17 +196,7 @@ class prey extends animal {
             }
 
 
-            for (let predator of predators) {
-                if (this.pos.dist(predator.pos) <= 100) {
-                    let v = createVector(0,0);
-                    v.add(p5.Vector.normalize(p5.Vector.sub(this.pos, predator.pos)));
-                    v.mult(((100 - this.pos.dist(predator.pos))-1) / 10)
-                    Pdirection.add(v);
-                    
-                    
-                }
-                
-            }
+            
 
             
             this.pos.add(Pdirection);
