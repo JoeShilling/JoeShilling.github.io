@@ -35,11 +35,20 @@ function draw() {
         herb.show();
     }
     
-    for (let prey of preys) {
-        prey.update();
-        prey.show();
+
+    for (let i = 0; i < preys.length; i++) {
+        if (preys[i].isDead()) {
+            preys.splice(i,1);
+        } else {
+            preys[i].update();
+            preys[i].show();
+        }
     }
-    
+    /*
+    for (let prey of preys) {
+
+    }
+    */
 }
 
 
@@ -53,6 +62,14 @@ class prey {
         this.pos = createVector(x,y);
         this.speed = 2;
         this.hunger = 50; //when reaches 0 it dies, rip
+    }
+    
+    isDead() {
+        if (this.hunger <= 0) {
+            return (true);
+        } else {
+            return (false);
+        }
     }
     
     update() {
