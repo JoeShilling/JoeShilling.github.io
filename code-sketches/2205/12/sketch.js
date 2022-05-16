@@ -12,7 +12,7 @@ function setup() {
     frameRate(120);
     
 
-    let unit = windowWidth/16;
+    let unit = windowWidth/8;
     for (let x = unit*2; x <= windowWidth - 400; x += unit) {
         for (let y = unit*2; y <= windowHeight - 400; y += unit) {
             herbages.push(new herbage(x, y, 120));
