@@ -12,7 +12,7 @@ function setup() {
     frameRate(120);
     
 
-    let unit = windowWidth/10;
+    let unit = windowWidth/16;
     for (let x = unit*2; x <= windowWidth - 400; x += unit) {
         for (let y = unit*2; y <= windowHeight - 400; y += unit) {
             herbages.push(new herbage(x, y, 120));
@@ -74,7 +74,7 @@ class predator extends animal {
     constructor(x, y) {
         super(x, y);
         this.pos = createVector(x, y);
-        this.speed = 0.4;
+        this.speed = 0.3;
         this.hunger = 100;
     }
     
@@ -108,7 +108,7 @@ class predator extends animal {
                         }
                     }
                 }
-
+                console.log('Predator direction - ' + direction.mag());
                 this.pos.add(direction);
             }
             
@@ -198,7 +198,7 @@ class prey extends animal {
 
             
 
-            
+            console.log("prey direction - " + Pdirection.mag());
             this.pos.add(Pdirection);
             this.pos.add(Hdirection);
         }
