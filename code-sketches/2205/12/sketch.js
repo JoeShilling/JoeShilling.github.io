@@ -32,7 +32,7 @@ function setup() {
 }
 
 function draw() {
-    background('white');
+    //background('white');
     
     for (let herb of herbages) {
         herb.update();
@@ -121,7 +121,7 @@ class predator extends animal {
         rectMode(RADIUS);
         colorMode(HSB)
         
-        let colour = color(20, 100, 70);
+        let colour = color(20, this.hunger, 70);
 
         fill(colour);
         translate(this.pos.x, this.pos.y);
@@ -231,6 +231,11 @@ class herbage {
     }
     
     show() {
+        
+        colorMode(HSB)
+        let colour = color(72, this.growth, 63);
+        
+        
         fill('#32a852');
         noStroke();
         ellipse(this.pos.x, this.pos.y, this.growth * 20);
