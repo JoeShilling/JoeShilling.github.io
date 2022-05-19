@@ -16,3 +16,22 @@ function getRndColour(format='rgb') {
     
 
 }
+
+function rotateAroundPoint(x , y, angle) {
+    translate(x, y);
+    rotate(angle);
+    translate(-x,-y);
+}
+
+function getOppositeHue(hue) { //returns the hue on the opposite side of the colour wheel
+    
+    let temp = hue - 180;
+    if (temp >= 0) {
+        return (temp);
+    } else {
+        temp = temp ^ 2;
+        temp = temp ^ 1/2;
+        return (360 - temp);
+    }
+    
+}
