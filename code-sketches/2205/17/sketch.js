@@ -13,12 +13,14 @@ function setup() {
     bookshelf1.addBook('Book3');
     bookshelf1.addBook('Book3');
     bookshelf1.addBook('Orb pondering for beginners');
+    
+    bookshelf1.print();
 
 
 }
     
 function draw() {
-    bookshelf1.print();
+    
 }
 
 
@@ -33,7 +35,13 @@ class bookshelf {
         let localX = 0;
 
         for (let i in this.books) {
+            push();
             noStroke();
+            
+            if (i % 3 == 0) { //change this to be psuedorandom
+                rotateAroundPoint(this.pos.x + localX + this.books[i].width, this.pos.y, PI/8);
+            }
+            
             
             fill(this.books[i].colour);
             rect( this.pos.x + localX, this.pos.y, this.books[i].width, -this.books[i].height );
@@ -47,11 +55,9 @@ class bookshelf {
             
             
             
-            /*
-            if (i == 3) { //change this to be psuedorandom
-                rotate();
-            }
-            */
+            
+            
+            
             
             push();
             fill(color( getOppositeHue(hue(this.books[i].colour)), Math.max(saturation(this.books[i].colour), 0),  Math.max(brightness(this.books[i].colour), 0) ));
@@ -67,7 +73,7 @@ class bookshelf {
             pop();
             
             localX += this.books[i].width;
-            
+            pop();
         }
         
     }

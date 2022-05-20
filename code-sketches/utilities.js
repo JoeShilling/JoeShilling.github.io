@@ -18,9 +18,11 @@ function getRndColour(format='rgb') {
 }
 
 function rotateAroundPoint(x , y, angle) {
+
     translate(x, y);
     rotate(angle);
     translate(-x,-y);
+
 }
 
 function getOppositeHue(hue) { //returns the hue on the opposite side of the colour wheel
