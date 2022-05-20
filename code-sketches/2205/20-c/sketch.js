@@ -23,8 +23,8 @@ function setup() {
     herbages.push(new herbage (400,600));
     //herbages.push(new herbage (800,100));
     
-    preys.push(new prey (50,50));
-    preys.push(new prey (900,900));
+    //preys.push(new prey (50,50));
+    preys.push(new prey (0, 0));
     
     //predators.push(new predator(600,600));
     //predators.push(new predator(800,600));
@@ -35,8 +35,8 @@ function draw() {
     //background('white');
     
     for (let herb of herbages) {
-        herb.update();
-        //herb.show();
+        //herb.update();
+        herb.show();
     }
     
 
@@ -179,13 +179,14 @@ class prey extends animal {
     
     update() {
         
-        if (this.hunger >= 100) {
+        /*
+        if (this.hunger >= 150) {
             preys.push(new prey(this.pos.x, this.pos.y));
             this.hunger -= 30;
-        }
+        } */
         
         if (this.hunger > 0) {
-            this.hunger -= 0.2;
+            this.hunger -= 0.01;
         }
         
         if (this.hunger <= 0) {
@@ -223,14 +224,19 @@ class prey extends animal {
             }
             
             if (this.heading == null) {
+
                 direction.normalize();
                 this.heading = createVector(direction.x, direction.y);
             }
             
-            if (this.heading < direction.heading()) {
-                this.heading.rotate(PI/12);
-            } else if (this.heading > direction.heading()) {
-                this.heading.rotate(-PI/12);       
+            
+            let turn = PI / 48;
+            if (this.heading.heading() < direction.heading()) {
+
+                this.heading.rotate(turn);
+            } else if (this.heading.heading() > direction.heading()) {
+
+                this.heading.rotate(-turn);       
             }
             
             
@@ -264,7 +270,7 @@ class prey extends animal {
         
         push()
         fill('black');
-        //rotateAroundPoint(this.pos.x, this.pos.y , direction.heading() + PI/2);
+        rotateAroundPoint(this.pos.x, this.pos.y , this.heading.heading() + PI/2);
         
         /*
         if (direction.heading() <= PI) {
