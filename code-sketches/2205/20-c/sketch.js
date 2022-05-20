@@ -36,7 +36,7 @@ function draw() {
     
     for (let herb of herbages) {
         //herb.update();
-        herb.show();
+        //herb.show();
     }
     
 
