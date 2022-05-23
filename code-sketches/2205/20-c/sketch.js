@@ -13,18 +13,24 @@ function setup() {
     
 
     let unit = windowWidth/12;
+    /*
     for (let x = unit*2; x <= windowWidth - 400; x += unit) {
         for (let y = unit*2; y <= windowHeight - 400; y += unit) {
             herbages.push(new herbage(x, y, 120));
         }
-    }
+    } */
     
-    herbages.push(new herbage (200,200));
-    herbages.push(new herbage (400,600));
+    //herbages.push(new herbage (200,200));
+    herbages.push(new herbage (500,500));
+    herbages.push(new herbage (300,500));
+    herbages.push(new herbage (300,300));
+    herbages.push(new herbage (100,300));
+    herbages.push(new herbage (300,650));
+    herbages.push(new herbage (900,490));
     //herbages.push(new herbage (800,100));
     
     //preys.push(new prey (50,50));
-    preys.push(new prey (0, 0));
+    preys.push(new prey (700, 500));
     
     //predators.push(new predator(600,600));
     //predators.push(new predator(800,600));
@@ -36,7 +42,7 @@ function draw() {
     
     for (let herb of herbages) {
         //herb.update();
-        //herb.show();
+        herb.show();
     }
     
 
@@ -199,49 +205,68 @@ class prey extends animal {
 
 
             //moving towards herbs
-            for (let herb of herbages) {
-                if (herb.growth >= 1) {
-                    if (this.pos.dist(herb.pos) < distance) {
-                        distance  = this.pos.dist(herb.pos);
-                        direction = p5.Vector.sub(herb.pos,  this.pos)
-                        
-                        
-                        
-                        
-                        if (direction.mag() > 2.5) { //so this probably shouldnt be here but we access to which herb the prey is touching
-                            direction.normalize();
-                            direction.mult(this.speed);
+            
+            if (herbages.length > 0) {
+                for (let herb of herbages) {
+                    if (herb.growth >= 1) {
+                        if (this.pos.dist(herb.pos) < distance) {
 
-                        } else {
-                            this.hunger += 55;
-                            herb.growth = 0;
+                            distance  = this.pos.dist(herb.pos);
+                            direction = p5.Vector.sub(herb.pos,  this.pos)
+
+
+                            print(herb.pos);
+
+                            if (direction.mag() > 2.5) { //so this probably shouldnt be here but we need access to which herb the prey is touching
+                                /*
+                                direction.normalize();
+                                direction.mult(this.speed); */
+
+                            } else {
+                                this.hunger += 55;
+                                herb.growth = 0;
+                            }
                         }
-
-
                     }
+
                 }
 
+
+                if (this.heading == null) {
+                    direction.normalize();
+                    this.heading = createVector(direction.x, direction.y);
+
+                }
+
+
+
+                let turn = PI / 36;
+                
+                print("Prey heading: " + this.heading.heading() + " Direction heading: " + direction.heading());
+                
+                if (this.heading.angleBetween(direction) < 0) {
+                    this.heading.rotate(-turn); 
+                } else if (this.heading.angleBetween(direction) > 0) {
+                    this.heading.rotate(turn); 
+                }
+                
+                
+                /*
+                if (this.heading.heading() < direction.heading()) {
+                    this.heading.rotate(turn);
+                } else if (this.heading.heading() > direction.heading()) {
+                    this.heading.rotate(-turn);       
+                } */
+
+
+                this.pos.add(this.heading) ;
+                
+                
+                
+            } else {
+                this.heading == null
             }
-            
-            if (this.heading == null) {
 
-                direction.normalize();
-                this.heading = createVector(direction.x, direction.y);
-            }
-            
-            
-            let turn = PI / 48;
-            if (this.heading.heading() < direction.heading()) {
-
-                this.heading.rotate(turn);
-            } else if (this.heading.heading() > direction.heading()) {
-
-                this.heading.rotate(-turn);       
-            }
-            
-            
-
-            this.pos.add(this.heading);
         }
         
 
@@ -252,44 +277,22 @@ class prey extends animal {
         rectMode(RADIUS);
         colorMode(HSB)
         let colour = color(200, this.hunger, 80);
-        let pointSize = 0.5;
-        let ropeWidth = 20;
-        
-        //rope?
-        let direction = createVector(0,0);
-        let distance = 10000000000000000;
-        for (let herb of herbages) {
-            if (herb.growth >= 1) {
-                if (this.pos.dist(herb.pos) < distance) {
-                    distance  = this.pos.dist(herb.pos);
-                    direction = p5.Vector.sub(herb.pos, this.pos);
-                }
-            }
-        }
+        let pointSize = 2;
+        let ropeWidth = 30;
         
         
         push()
         fill('black');
         rotateAroundPoint(this.pos.x, this.pos.y , this.heading.heading() + PI/2);
         
-        /*
-        if (direction.heading() <= PI) {
-            rotateAroundPoint(this.pos.x, this.pos.y , PI/16);
-        } else {
-            rotateAroundPoint(this.pos.x, this.pos.y , -PI/16);
-        }
-        */
-        
-        
-        
         
         
         if (this.hunger > 0) {
-            ellipse(this.pos.x - (ropeWidth/2) + ((frameCount + (ropeWidth/3)) % 20), this.pos.y, pointSize); //centre strand
+            ellipse(this.pos.x - (ropeWidth/2) + ((frameCount + (ropeWidth/3)) % ropeWidth), this.pos.y, pointSize); //centre strand
         } if (this.hunger > 10) {
-            ellipse(this.pos.x - (ropeWidth/2) + (frameCount % 20), this.pos.y, pointSize); //left strand
+            ellipse(this.pos.x - (ropeWidth/2) + (frameCount % ropeWidth), this.pos.y, pointSize); //left strand
         } if (this.hunger > 20) {
-            ellipse(this.pos.x - (ropeWidth/2) + ((frameCount + (ropeWidth/3)*2) % 20), this.pos.y, pointSize); //right strand     
+            ellipse(this.pos.x - (ropeWidth/2) + ((frameCount + (ropeWidth/3)*2) % ropeWidth), this.pos.y, pointSize); //right strand     
         }
         
         if (this.hunger > 30) {
@@ -302,10 +305,6 @@ class prey extends animal {
                 ellipse(this.pos.x + (ropeWidth/2), this.pos.y, pointSize);
             } 
         }
-
-                
-        
-        
         
         
         
