@@ -8,29 +8,27 @@ let backgroundC = 'white';
 
 
 function setup() {
-    cnv = createCanvas(windowWidth, windowHeight);
+    cnv = createCanvas(1000, 1000);
     frameRate(120);
     
-
+    push();
+    noFill();
+    strokeWeight(8);
+    rect(0,0, 1000, 1000);
+    pop();
+    
     let unit = windowWidth/12;
-    /*
-    for (let x = unit*2; x <= windowWidth - 400; x += unit) {
-        for (let y = unit*2; y <= windowHeight - 400; y += unit) {
+
+    for (let x = unit*2; x <= windowWidth - 100; x += unit) {
+        for (let y = unit*2; y <= windowHeight - 100; y += unit) {
             herbages.push(new herbage(x, y, 120));
         }
-    } */
-    
-    //herbages.push(new herbage (200,200));
-    herbages.push(new herbage (500,500));
-    herbages.push(new herbage (300,500));
-    herbages.push(new herbage (300,300));
-    herbages.push(new herbage (100,300));
-    herbages.push(new herbage (300,650));
-    herbages.push(new herbage (900,490));
-    //herbages.push(new herbage (800,100));
+    }
     
     //preys.push(new prey (50,50));
-    preys.push(new prey (700, 500));
+    preys.push(new prey (-10, 200));
+    preys.push(new prey (-10, 400));
+    preys.push(new prey (-10, 600));
     
     //predators.push(new predator(600,600));
     //predators.push(new predator(800,600));
@@ -41,7 +39,7 @@ function draw() {
     //background('white');
     
     for (let herb of herbages) {
-        //herb.update();
+        herb.update();
         herb.show();
     }
     
@@ -181,6 +179,7 @@ class prey extends animal {
         this.speed = 2;
         this.hunger = 70; //when reaches 0 it dies, rip
         this.heading;
+        this.headingTowards;
     }
     
     update() {
@@ -213,7 +212,7 @@ class prey extends animal {
 
                             distance  = this.pos.dist(herb.pos);
                             direction = p5.Vector.sub(herb.pos,  this.pos)
-
+                            this.headingTowards = herb;
 
                             print(herb.pos);
 
@@ -332,8 +331,8 @@ class herbage {
         colorMode(HSB)
         let colour = color(72, this.growth, 63);
         
-        fill(backgroundC);
-        ellipse(this.pos.x, this.pos.y, 22);
+        //fill(backgroundC);
+        //ellipse(this.pos.x, this.pos.y, 22);
         
         fill('#32a852');
         noStroke();
