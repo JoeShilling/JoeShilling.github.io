@@ -37,3 +37,17 @@ function getOppositeHue(hue) { //returns the hue on the opposite side of the col
     }
     
 }
+
+function getColourTriad(startColour, wiggle) { //wiggle is whether to get the exact triad or not
+    let colours = [];
+    colorMode(HSB);
+    let s = saturation(startColour);
+    let b = brightness(startColour);
+    
+    let temp = (hue(startColour) + 120) % 360;
+    colours.push(color(temp, s, b));
+    temp = (hue(startColour) + 240) % 360;
+    colours.push(color(temp, s, b));
+    
+    return(colours);
+}

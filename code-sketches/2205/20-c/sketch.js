@@ -9,7 +9,7 @@ let backgroundC = 'white';
 
 function setup() {
     cnv = createCanvas(1000, 1000);
-    frameRate(120);
+    frameRate(60);
     
     push();
     noFill();
