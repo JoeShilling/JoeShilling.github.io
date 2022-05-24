@@ -5,8 +5,14 @@ let colour2;
 function setup() {
     
     cnv = createCanvas(windowWidth, windowHeight);
-
+    noLoop();
     
+  
+    
+}
+
+function draw() {
+    background("white");
     let temp = getRndColour('hsb');
     let sets = 9;
     for (let i = 0; i < sets ; i++) {
@@ -27,11 +33,6 @@ function setup() {
     
 }
 
-function draw() {
-    
-    
-}
-
 class colourSquare {
     constructor(colour, pos) {
         this.colour = colour;
@@ -49,4 +50,8 @@ class colourSquare {
         pop();
         text("H: " + Math.round(hue(this.colour)) + " S: " + Math.round(saturation(this.colour)) + " B: " + Math.round(brightness(this.colour)), this.pos.x, this.pos.y + this.height + 10);
     }
+}
+
+function doubleClicked() {
+    draw();
 }

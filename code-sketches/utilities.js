@@ -13,8 +13,6 @@ function getRndColour(format='rgb') {
             colorMode(RGB)
             return color(getRndInteger(0,256),getRndInteger(0,256),getRndInteger(0,256));
     }
-    
-
 }
 
 function rotateAroundPoint(x , y, angle) {
@@ -23,6 +21,19 @@ function rotateAroundPoint(x , y, angle) {
     rotate(angle);
     translate(-x,-y);
 
+}
+
+function getRndColour(format='rgb') {
+    
+    switch (format) {
+        case 'hsb':
+            colorMode(HSB)
+            return color(getRndInteger(0,360),getRndInteger(0,100),getRndInteger(0,100))
+        case 'rgb':
+        default:
+            colorMode(RGB)
+            return color(getRndInteger(0,256),getRndInteger(0,256),getRndInteger(0,256));
+    }
 }
 
 function getOppositeHue(hue) { //returns the hue on the opposite side of the colour wheel
@@ -50,4 +61,13 @@ function getColourTriad(startColour, wiggle) { //wiggle is whether to get the ex
     colours.push(color(temp, s, b));
     
     return(colours);
+}
+
+function getNextColour(startColour) {
+    let h = hue(startColour);
+    let s = saturation(startColour);
+    let b = brightness(startColour);
+    
+    return(color((h + 20)%360, s, b));
+    
 }
