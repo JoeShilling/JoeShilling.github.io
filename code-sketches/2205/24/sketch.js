@@ -55,3 +55,4 @@ class colourSquare {
 function doubleClicked() {
     draw();
 }
+//update pls
