@@ -23,7 +23,7 @@ function setup() {
         while (positionFound == false) { //bunch of restrictions on where a track can be placed
             //we want to reduce overlap and keep a clear path in the middle
             positionFound = true;
-            pos = getRndInteger(-500,501);
+            pos = getRndInteger(-1000,1001);
             if (pos <= 100 && pos >= -100) { //keep middle path clear
                 positionFound = false;
             } else {
@@ -34,7 +34,7 @@ function setup() {
                 }
             }
         }
-        tracks.push(new spriteTrack(pos,1));
+        tracks.push(new spriteTrack(pos,3));
     }
     frameRate(60);
     cam = createCamera();
@@ -44,13 +44,39 @@ function draw() {
     background("grey");
     
     cam.lookAt(0,0,0);
-    cam.setPosition(0,0,2000);
+    cam.setPosition(0,-200,5000);
     
     //image(img,10,10, 10);
+    
+    //print all sprites from further to closest
+    let allSprites = [];
+    for (let track of tracks) {
+        for (let sprite of track.sprites) {
+            allSprites.push(sprite);
+        }
+        //track.show();
+        track.update();
+    }
+    
+    for (let i = 0; i < allSprites.length; i++) { //BUBBLE SORT BBY!!
+        for (let j = 0; j < (allSprites.length - i - 1); j++) {
+            if (allSprites[j].zPos > allSprites[j+1].zPos) {
+                let temp = allSprites[j];
+                allSprites[j] = allSprites[j+1];
+                allSprites[j+1] = temp;
+            }
+        }
+    }
+    
+    for (let sprite of allSprites) {
+        sprite.show();
+    }
+    
+    /*
     for (let track of tracks) {
         track.show();
         track.update();
-    }
+    } */
 }
 
 class spriteTrack { //holds sprites and moves them along the 'track'
@@ -61,38 +87,30 @@ class spriteTrack { //holds sprites and moves them along the 'track'
         
     }
     
-    show() {
-        push();
-        translate(this.xPos,0,0);
-        for (let i = this.sprites.length-1; i >= 0; i--) {
-            this.sprites[i].show();
-        }
-        pop();
-    }
-    
     update() {
         for (let i = 0; i < this.sprites.length; i++) {
-            this.sprites[i].position += this.step;
-            if (this.sprites[i].position > 2000) { //distance limit
+            this.sprites[i].zPos += this.step;
+            if (this.sprites[i].zPos > 3000) { //distance limit
                 this.sprites.splice(0,1);
             }
         }
-        if (getRndInteger(0, 1000 - this.sprites.length) > 990) { //chance of adding new trees
+        if (getRndInteger(0, 1000 - this.sprites.length) > 970) { //chance of adding new trees
             this.addSprite(img);
         }
     }
     
     addSprite(image) {
-        this.sprites.push(new sprite(image, 0));
+        this.sprites.push(new sprite(image, 0, this.xPos));
     }
     
 }
 
 class sprite {
-    constructor(image, position) {
+    constructor(image, zPosition, xPosition) {
         this.image = image;
-        this.position = position;
-        this.height = getRndInteger(300,401);
+        this.xPos = xPosition;
+        this.zPos = zPosition;
+        this.height = getRndInteger(300,701);
         
         let temp = this.image.width/this.image.height;
         this.width = this.height * temp;
@@ -101,7 +119,7 @@ class sprite {
     show() {
         push();
         
-        translate(0,0,this.position);
+        translate(this.xPos,-this.height/2,this.zPos);
         texture(this.image);
         noStroke();
         plane(this.width, this.height);
