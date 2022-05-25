@@ -3,14 +3,19 @@
 
 //TRANSPARENCY IS A LIE
 let img;
+let pathImg;
+let floorImg;
 let tracks = [];
 let step=3;
 let cam;
 let allSprites = [];
+let floorSprites = [];
 
 
 function preload() {
     img = loadImage("tree1.png");
+    floorImg = loadImage("floor.png");
+    pathImg = loadImage("path.png");
 }
 
 function setup() {
@@ -18,6 +23,9 @@ function setup() {
     
     frameRate(60);
     cam = createCamera();
+    for (let i = 500; i < 6000; i += 1000) {
+        floorSprites.push(new floor(pathImg, 0, 0, i));
+    }
 }
 
 function draw() {
@@ -30,11 +38,15 @@ function draw() {
     
     //print all sprites from further to closest
     
+    //FLOOR
+
+    
+    //TREES
     if (getRndInteger(0, 1000 - allSprites.length) > 900) { //chance of adding new trees
         addSprite(img);
     }
 
-    updateSprites();
+    //updateSprites();
     
     for (let i = 0; i < allSprites.length; i++) { //BUBBLE SORT BBY!!
         for (let j = 0; j < (allSprites.length - i - 1); j++) {
@@ -46,8 +58,14 @@ function draw() {
         }
     }
     
-    for (let sprite of allSprites) {
-        sprite.show();
+    for (let f of floorSprites) {
+        f.show();
+        f.update();
+    }
+    
+    for (let s of allSprites) {
+        s.show();
+        s.update();
     }
 
 }
@@ -66,7 +84,7 @@ function updateSprites() {
     }
 
 function addSprite(image) {
-    allSprites.push(new sprite(image, 0, getSpriteXpos()));
+    allSprites.push(new tree(image, getSpriteXpos(), 0, 0));
 }
 
 function getSpriteXpos() {
@@ -84,12 +102,23 @@ function getSpriteXpos() {
 }
 
 class sprite {
-    constructor(image, zPosition, xPosition) {
+    constructor(image, xPos, yPos, zPos) {
         this.image = image;
-        this.xPos = xPosition;
-        this.zPos = zPosition;
+        this.xPos = xPos;
+        this.zPos = zPos;
+        this.yPos = yPos;
+    }
+    
+    update() {
+        this.zPos += step;
+        this.zPos = this.zPos % 5500;
+    }
+}
+
+class tree extends sprite{
+    constructor(image, xPos, yPos, zPos) {
+        super(image, xPos, yPos, zPos);
         this.height = getRndInteger(300,701);
-        
         let temp = this.image.width/this.image.height;
         this.width = this.height * temp;
     }
@@ -104,4 +133,25 @@ class sprite {
         pop();
         //torus(30,15);
     }
+    
+}
+
+class floor extends sprite{
+    constructor(image, xPos, yPos, zPos) {
+        super(image, xPos, yPos, zPos);
+        
+    }
+    
+    show() {
+        print(this.zPos);
+        push();
+        rotateX(PI/2);
+        texture(pathImg);
+        noStroke();
+        translate(this.xPos,this.zPos,this.yPos);
+        plane(this.image.width, this.image.height);
+        pop();
+    }
+    
+
 }
