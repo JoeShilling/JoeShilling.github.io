@@ -24,7 +24,7 @@ function setup() {
             //we want to reduce overlap and keep a clear path in the middle
             positionFound = true;
             pos = getRndInteger(-1000,1001);
-            if (pos <= 100 && pos >= -100) { //keep middle path clear
+            if (pos <= 150 && pos >= -100) { //keep middle path clear
                 positionFound = false;
             } else {
                 for (let track of tracks) { //no overlaps
@@ -44,7 +44,7 @@ function draw() {
     background("grey");
     
     cam.lookAt(0,0,0);
-    cam.setPosition(0,-200,5000);
+    cam.setPosition(0,-200,3000);
     
     //image(img,10,10, 10);
     
@@ -90,7 +90,7 @@ class spriteTrack { //holds sprites and moves them along the 'track'
     update() {
         for (let i = 0; i < this.sprites.length; i++) {
             this.sprites[i].zPos += this.step;
-            if (this.sprites[i].zPos > 3000) { //distance limit
+            if (this.sprites[i].zPos > 3020) { //distance limit
                 this.sprites.splice(0,1);
             }
         }
