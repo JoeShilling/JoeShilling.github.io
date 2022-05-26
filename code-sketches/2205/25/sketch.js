@@ -21,30 +21,34 @@ function preload() {
 function setup() {
     createCanvas(1000, 1000, WEBGL);
     
-    frameRate(60);
+    frameRate(50);
     cam = createCamera();
-    for (let i = 500; i < 6000; i += 1000) {
+    for (let i = 500; i < 5000; i += 1000) {
         floorSprites.push(new floor(pathImg, 0, 0, i));
+        floorSprites.push(new floor(floorImg, 1000, 0, i));
+        floorSprites.push(new floor(floorImg, - 1000, 0, i));
+        floorSprites.push(new floor(floorImg, - 1500, 0, i));
+        floorSprites.push(new floor(floorImg, 1500, 0, i));
+        floorSprites.push(new floor(floorImg, 2000, 0, i));
+        floorSprites.push(new floor(floorImg, -2000, 0, i));
+        floorSprites.push(new floor(floorImg, -2500, 0, i));
+        floorSprites.push(new floor(floorImg, 2500, 0, i));
+    }
+    
+    for (let i = 0; i < 200; i++) {
+        allSprites.push(new tree(img, getSpriteXpos(), 0, getRndInteger(100,4500)));
     }
 }
 
 function draw() {
     background("grey");
-    
+    print(allSprites.length);
     cam.lookAt(0,0,0);
-    cam.setPosition(0,-170,5000);
+    cam.setPosition(0,-170 + sin(frameCount/10) * 5,4500);
     
     //image(img,10,10, 10);
     
     //print all sprites from further to closest
-    
-    //FLOOR
-
-    
-    //TREES
-    if (getRndInteger(0, 1000 - allSprites.length) > 900) { //chance of adding new trees
-        addSprite(img);
-    }
 
     //updateSprites();
     
@@ -57,6 +61,12 @@ function draw() {
             }
         }
     }
+    
+    push();
+    noStroke();
+    fill('#2e3652');
+    plane(7000,7000);
+    pop();
     
     for (let f of floorSprites) {
         f.show();
@@ -74,11 +84,11 @@ function draw() {
 function updateSprites() {
         for (let i = 0; i < allSprites.length; i++) {
             allSprites[i].zPos += step;
-            if (allSprites[i].zPos > 5020) { //distance limit
+            if (allSprites[i].zPos > 5000) { //distance limit
                 allSprites.splice(i,1);
             }
         }
-        if (getRndInteger(0, 1000 - allSprites.length) > 670) { //chance of adding new trees
+        if (getRndInteger(0, 10000 - allSprites.length) > 9800) { //chance of adding new trees
             addSprite(img);
         }
     }
@@ -93,8 +103,8 @@ function getSpriteXpos() {
     while (positionFound == false) { //bunch of restrictions on where a track can be placed
         //we want to reduce overlap and keep a clear path in the middle
         positionFound = true;
-        pos = getRndInteger(-1500,1501);
-        if (pos <= 150 && pos >= -100) { //keep middle path clear
+        pos = getRndInteger(-2000,2001);
+        if (pos <= 250 && pos >= -150) { //keep middle path clear
             positionFound = false;
         }
     }
@@ -111,14 +121,14 @@ class sprite {
     
     update() {
         this.zPos += step;
-        this.zPos = this.zPos % 5500;
+        this.zPos = this.zPos % 5000;
     }
 }
 
 class tree extends sprite{
     constructor(image, xPos, yPos, zPos) {
         super(image, xPos, yPos, zPos);
-        this.height = getRndInteger(300,701);
+        this.height = getRndInteger(300,1201);
         let temp = this.image.width/this.image.height;
         this.width = this.height * temp;
     }
@@ -126,7 +136,7 @@ class tree extends sprite{
     show() {
         push();
         
-        translate(this.xPos,-this.height/2,this.zPos);
+        translate(this.xPos,-this.height/2 + this.height/25,this.zPos);
         texture(this.image);
         noStroke();
         plane(this.width, this.height);
@@ -143,10 +153,9 @@ class floor extends sprite{
     }
     
     show() {
-        print(this.zPos);
         push();
         rotateX(PI/2);
-        texture(pathImg);
+        texture(this.image);
         noStroke();
         translate(this.xPos,this.zPos,this.yPos);
         plane(this.image.width, this.image.height);
