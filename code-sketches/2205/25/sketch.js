@@ -64,7 +64,7 @@ function draw() {
     
     push();
     noStroke();
-    fill('#2e3652');
+    fill('#74bbc7');
     plane(7000,7000);
     pop();
     
