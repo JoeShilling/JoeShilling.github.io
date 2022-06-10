@@ -2,14 +2,19 @@
 let cnv;
 let tapeImage1;
 let playImage;
+let ejectImage;
 let rec1, rec2, rec3;
 
 
 let objects = [];
 
+//Processing functions  -preload/setup/draw
+//#############################################################################
+
 function preload() {
     tapeImage1 = loadImage("images/tape.png");
     playImage = loadImage("images/play.png");
+    ejectImage = loadImage("images/eject.png");
     rec1 = loadImage("images/receiver1.png");
     rec2 = loadImage("images/receiver2.png");
     rec3 = loadImage("images/receiver3.png");
@@ -21,15 +26,33 @@ function setup() {
     cnv.mousePressed(setDragged);
     cnv.mouseReleased(setClicked);
     
+    let reciever1 = new reciever(500,500, [rec1, rec2, rec3], 250, 100 );
+    
+ 
+    let pButton = new button(reciever1.pos.x - 75 , reciever1.pos.y + (reciever1.height * 0.5) - 25, playImage, 50,50, () => {reciever1.playTape()});
+    
+    
+    
+    let eButton = new button(reciever1.pos.x + reciever1.width + 25 , reciever1.pos.y + (reciever1.height * 0.5) - 25, ejectImage, 50,50,  () => {reciever1.ejectTape()});
+    
+    let tape1 = new tape(100,100,tapeImage1, 187, 25, "I'm tape 1");
+    let tape2 = new tape(100,200,tapeImage1, 187, 25, "I'm tape 2");
+    
+    tape1.state = "test";
+    
+    /*
     objects.push(new reciever(500,500, [rec1, rec2, rec3], 250, 100 ));
-    objects.push(new tape(100,100,tapeImage1, 187, 25));
+    objects.push();
     objects.push(new tape(100,200,tapeImage1, 187, 25));
-    objects.push(new button(400,400, playImage, 50,50, () => {print("pressed")}));
+    objects.push(pButton);
+    objects.push(eButton);
+    */
 }
 
 function draw() {
     background("clear");
     
+    objects[1].state = "test";
     
     for (let ob of objects) {
         ob.update();
@@ -37,27 +60,23 @@ function draw() {
     }
 }
 
+//
 
-function overlapping( l1,  r1,  l2,  r2) {
-        // If one rectangle is on right side of other
-        if (r1.x < l2.x || l1.x > r2.x) {
-            return false;
-        }
- 
-        // If one rectangle is below the other
-        if (l1.y > r2.y || l2.y > r1.y) {
-            return false;
-        }
-        return true;
-    }
+
 
 //classes and related functions go below the line
 //#############################################################################
+//TODO - order of neededness?
+//create a setter for the state system, only allow it to be set to values in the states property
+//move the generic classes into a seperate file for portability
+//create layering system?
+//create grouping system?
+
 
 function setDragged() { //sets objects as dragged
     for (let ob of objects) {
         if (ob.mouseHover()) {
-            if (ob.tags.includes("dragable")) {
+            if (ob.tags.includes("dragable") ) {
                 ob.state = ob.states[1];
             }
 
@@ -86,7 +105,7 @@ class interactable { //objects that can be interacted with.
         this.width = width;
         this.height = height;
         
-
+        objects.push(this);
     }
     
     update() {
@@ -157,13 +176,38 @@ class dragable extends interactable { //objects that can be dragged around
 
     
     
-} //objects that can be dragged around
+} //generic, objects that can be dragged around
 
 class tape extends dragable { //specifically tape objects
     constructor(xPos, yPos, image, width, height, content) {
         super(xPos, yPos, image, width, height);
         this.tags.push("tape");
         this.content = content; //what the tape links to
+        this.states = ["idle", "dragged", "held"];
+    }
+    
+    update() {
+        //setting state to 'dragged' is now done by setDragged()
+
+        if (!mouseIsPressed && this.state == this.states[1]) {
+            this.state = this.states[0];
+            this.oldMousePos = null;
+        }
+
+        switch (this.state) {
+            case ("dragged"):
+                if (this.oldMousePos == null) {
+                    this.oldMousePos = createVector(mouseX, mouseY);
+                }
+
+                let movement = p5.Vector.sub(createVector(mouseX, mouseY), this.oldMousePos);
+                this.pos.add(movement);
+
+                this.oldMousePos = createVector(mouseX, mouseY);
+                break;
+            case ("held"):
+                break;
+        } 
     }
     
     show() {
@@ -180,7 +224,7 @@ class tape extends dragable { //specifically tape objects
         pop();
         
     }
-} //specifically tape objects
+} //bespoke,  tape objects
 
 class button extends interactable { //clickable, should probably combine this and interactable with a central base class. can do that at some point in the future
     constructor(xPos, yPos, image, width, height, content) {
@@ -205,28 +249,36 @@ class button extends interactable { //clickable, should probably combine this an
         image(this.image, this.pos.x, this.pos.y, this.width, this.height);
     }
     
-} //clickable
+} //generic, clickable
 
 class reciever extends interactable { //holds tapes, does thing depending on the content of the tape
     constructor (xPos, yPos, images, width, height) {
         super(xPos, yPos, images, width, height);
-        this.states = ["empty", "nearby", "full"];
+        this.states = ["idle", "nearby", "full"];
         this.state = this.states[0];
         this.images = images; //needs an image for each state, ideally all the same size
+        this.heldTape = null;
 
     }
 
     
     update() {
         this.state = this.states[0];
+        
         for (let ob of objects) {
-            if (ob.constructor.name == "tape") {
-                let l1 = createVector(this.pos.x, this.pos.y);
-                let r1 = createVector(this.pos.x + this.width, this.pos.y + this.height);
+            if (ob.tags.includes("tape")) {
+                
                 let l2 = createVector(ob.pos.x, ob.pos.y);
                 let r2 = createVector(ob.pos.x + ob.width, ob.pos.y + ob.height);
-                if ( overlapping(l1, r1, l2, r2) ) {
-                    this.state = this.states[1];
+                if ( this.overlap(l2, r2) ) {
+
+                    if (ob.state == "dragged") {
+                        this.state = "nearby";
+                    } else if (ob.state == "idle" || ob.state == "held") {
+                        this.holdTape(ob);
+                        
+
+                    }
                 }
             }
         }
@@ -234,27 +286,57 @@ class reciever extends interactable { //holds tapes, does thing depending on the
     
     show () {
         switch (this.state) {
-            case (this.states[0]):
+            case ("idle"):
                 image(this.images[0],this.pos.x, this.pos.y,  this.width, this.height);
                 break;
-            case (this.states[1]):
+            case ("nearby"):
                 image(this.images[1],this.pos.x, this.pos.y,  this.width, this.height);
                 break;
-            case (this.states[2]):
+            case ("full"):
                 image(this.images[2],this.pos.x, this.pos.y,  this.width, this.height);
                 break;
         }
     }
     
-    /*    
-    mouseHover() {
-        if (((mouseX > this.pos.x) && (mouseX < this.pos.x + this.width)) && ((mouseY > this.pos.y) && (mouseY < this.pos.y + this.height))) {
-            return true;
+    playTape() {
+        print("playing");
+        print(this.state);
+        if (this.state == "full") {
+            print(this.heldTape.content);
         } else {
             return false;
         }
-    } */
+    }
     
-
+    holdTape(tape) {
+        if (this.state != "full") {
+            this.state= "full";
+            this.heldTape = tape;
+            this.heldTape.state= "held";
+            
+            this.heldTape.pos.x = (this.pos.x + 0.5 * this.width) - this.heldTape.width * 0.5;
+            this.heldTape.pos.y = (this.pos.y + 0.5 * this.height) - this.heldTape.height * 0.5;
+            
+        } else {
+            return false; //failed
+        }
+    }
     
-} //interacts with tapes
+    ejectTape() {
+        print("ejecting");
+        if (this.state == "full") {
+            this.state = "idle";
+            this.heldTape.state = "idle";
+            
+            this.heldTape.pos.x = this.pos.x + (0.5 * this.width) - 0.5 * this.heldTape.width;
+            this.heldTape.pos.y = this.pos.y + this.height + 30;
+            
+            let temp = this.heldTape;
+            this.heldTape = null;
+            return temp;
+        } else {
+            return null;
+        }
+    }
+    
+} //bespoke, interacts with tapes
