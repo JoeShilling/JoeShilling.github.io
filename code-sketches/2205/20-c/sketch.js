@@ -334,7 +334,7 @@ class herbage {
         //fill(backgroundC);
         //ellipse(this.pos.x, this.pos.y, 22);
         
-        fill('#32a852');
+        fill('black');
         noStroke();
         ellipse(this.pos.x, this.pos.y, this.growth * 20);
     }

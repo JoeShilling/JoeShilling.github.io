@@ -4,9 +4,10 @@ let tapeImage1;
 let playImage;
 let ejectImage;
 let rec1, rec2, rec3;
+let screenImage;
 
 
-let objects = [];
+let objects = []; // all interactables go in here
 
 //Processing functions  -preload/setup/draw
 //#############################################################################
@@ -18,6 +19,7 @@ function preload() {
     rec1 = loadImage("images/receiver1.png");
     rec2 = loadImage("images/receiver2.png");
     rec3 = loadImage("images/receiver3.png");
+    screenImage = loadImage("images/screen.png");
 }
 
 function setup() {
@@ -26,33 +28,29 @@ function setup() {
     cnv.mousePressed(setDragged);
     cnv.mouseReleased(setClicked);
     
-    let reciever1 = new reciever(500,500, [rec1, rec2, rec3], 250, 100 );
+    let screen1 = new Screen(475,200, screenImage, 300,300);
+    let reciever1 = new Reciever(500,500, [rec1, rec2, rec3], 250, 100, screen1 );
+    let pButton = new Button(reciever1.pos.x - 75 , reciever1.pos.y + (reciever1.height * 0.5) - 25, playImage, 50,50, () => {reciever1.playTape()});
     
- 
-    let pButton = new button(reciever1.pos.x - 75 , reciever1.pos.y + (reciever1.height * 0.5) - 25, playImage, 50,50, () => {reciever1.playTape()});
+    let eButton = new Button(reciever1.pos.x + reciever1.width + 25 , reciever1.pos.y + (reciever1.height * 0.5) - 25, ejectImage, 50,50,  () => {reciever1.ejectTape()});
     
+    let c1 = new ContentObject(
+        color(300,86,43),
+        "Weave. \nThe loom is alive.",
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects");
     
+    let c2 = new ContentObject(
+        color(110,86,43),
+        "Trees. \nA stroll through the woods.", 
+        "https://joeshilling.github.io/code-sketches/2205/25/index.html");
     
-    let eButton = new button(reciever1.pos.x + reciever1.width + 25 , reciever1.pos.y + (reciever1.height * 0.5) - 25, ejectImage, 50,50,  () => {reciever1.ejectTape()});
-    
-    let tape1 = new tape(100,100,tapeImage1, 187, 25, "I'm tape 1");
-    let tape2 = new tape(100,200,tapeImage1, 187, 25, "I'm tape 2");
-    
-    tape1.state = "test";
-    
-    /*
-    objects.push(new reciever(500,500, [rec1, rec2, rec3], 250, 100 ));
-    objects.push();
-    objects.push(new tape(100,200,tapeImage1, 187, 25));
-    objects.push(pButton);
-    objects.push(eButton);
-    */
+    let tape1 = new Tape(100,100,tapeImage1, 187, 25, c1);
+    let tape2 = new Tape(100,200,tapeImage1, 187, 25, c2);
+
 }
 
 function draw() {
-    background("clear");
-    
-    objects[1].state = "test";
+    background("white");
     
     for (let ob of objects) {
         ob.update();
@@ -63,8 +61,14 @@ function draw() {
 //
 
 
+function ContentObject(colour, words, url) {
+    this.colour = colour;
+    this.words = words;
+    this.url = url;
+}
 
-//classes and related functions go below the line
+
+//interactable classes and related functions go below the line
 //#############################################################################
 //TODO - order of neededness?
 //create a setter for the state system, only allow it to be set to values in the states property
@@ -95,7 +99,7 @@ function setClicked() { //if mouse is released on an object
     }
 } //runs the click function on click objects
 
-class interactable { //objects that can be interacted with.
+class Interactable { //objects that can be interacted with.
     constructor(xPos, yPos, image, width, height) {
         this.tags = ["interactable"];
         this.pos = createVector(xPos, yPos);
@@ -141,9 +145,9 @@ class interactable { //objects that can be interacted with.
     }
     
     
-} //objects that can be interacted with.
+} //generic, objects that can be interacted with.
 
-class dragable extends interactable { //objects that can be dragged around
+class Dragable extends Interactable { //objects that can be dragged around
     constructor (xPos, yPos, image, width, height) {
         super(xPos, yPos, image, width, height);
         this.states = ["idle", "dragged"];
@@ -178,7 +182,32 @@ class dragable extends interactable { //objects that can be dragged around
     
 } //generic, objects that can be dragged around
 
-class tape extends dragable { //specifically tape objects
+class Button extends Interactable { //clickable, should probably combine this and interactable with a central base class. can do that at some point in the future
+    constructor(xPos, yPos, image, width, height, content) {
+        super(xPos, yPos, image, width, height);
+        this.tags.push("button");
+        this.content = content;
+    }
+    
+    mouseHover() {
+        if (((mouseX > this.pos.x) && (mouseX < this.pos.x + this.width)) && ((mouseY > this.pos.y) && (mouseY < this.pos.y + this.height))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    update() {
+        return;
+    }
+    
+    show() {
+        image(this.image, this.pos.x, this.pos.y, this.width, this.height);
+    }
+    
+} //generic, clickable
+
+class Tape extends Dragable { //specifically tape objects
     constructor(xPos, yPos, image, width, height, content) {
         super(xPos, yPos, image, width, height);
         this.tags.push("tape");
@@ -226,38 +255,14 @@ class tape extends dragable { //specifically tape objects
     }
 } //bespoke,  tape objects
 
-class button extends interactable { //clickable, should probably combine this and interactable with a central base class. can do that at some point in the future
-    constructor(xPos, yPos, image, width, height, content) {
-        super(xPos, yPos, image, width, height);
-        this.tags.push("button");
-        this.content = content;
-    }
-    
-    mouseHover() {
-        if (((mouseX > this.pos.x) && (mouseX < this.pos.x + this.width)) && ((mouseY > this.pos.y) && (mouseY < this.pos.y + this.height))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    update() {
-        return;
-    }
-    
-    show() {
-        image(this.image, this.pos.x, this.pos.y, this.width, this.height);
-    }
-    
-} //generic, clickable
-
-class reciever extends interactable { //holds tapes, does thing depending on the content of the tape
-    constructor (xPos, yPos, images, width, height) {
+class Reciever extends Interactable { //holds tapes, does thing depending on the content of the tape
+    constructor (xPos, yPos, images, width, height, screen) {
         super(xPos, yPos, images, width, height);
         this.states = ["idle", "nearby", "full"];
         this.state = this.states[0];
         this.images = images; //needs an image for each state, ideally all the same size
         this.heldTape = null;
+        this.screen = screen; //connected Screen object
 
     }
 
@@ -282,6 +287,11 @@ class reciever extends interactable { //holds tapes, does thing depending on the
                 }
             }
         }
+        if (this.state == "full") {
+            this.screen.content = this.heldTape.content;
+        } else {
+            this.screen.content = null;
+        }
     }
     
     show () {
@@ -302,7 +312,7 @@ class reciever extends interactable { //holds tapes, does thing depending on the
         print("playing");
         print(this.state);
         if (this.state == "full") {
-            print(this.heldTape.content);
+            window.open(this.heldTape.content.url);
         } else {
             return false;
         }
@@ -340,3 +350,34 @@ class reciever extends interactable { //holds tapes, does thing depending on the
     }
     
 } //bespoke, interacts with tapes
+
+class Screen extends Interactable {
+    constructor(xPos, yPos, images, width, height) {
+        super(xPos, yPos, images, width, height);
+        this.states = ["idle", "displaying"];
+        this.content = null;
+    }
+    
+    update() {
+        if (this.content != null) {
+            this.state = "displaying";
+        } else {
+            this.state = "idle";
+        }
+    }
+    
+    show() {
+        
+        if (this.content != null) {
+            push();
+            fill(this.content.colour);
+            
+            rect(this.pos.x+5, this.pos.y+5, this.width-10, this.height-10);
+            textSize(32);
+            fill("black");
+            text(this.content.words, this.pos.x + this.width/8, this.pos.y + this.height/8, this.width * 0.8, this.height * 0.8);
+            pop();
+        }
+        image(this.image, this.pos.x, this.pos.y, this.width, this.height);
+    }
+}
