@@ -80,7 +80,7 @@ class snake {
         
         //pop();
     }
-}
+} //this isnt used at all???
 
 class shape {
     constructor(x,y, width,height, sound, scaleLimit=2) { //x,y is the centre point

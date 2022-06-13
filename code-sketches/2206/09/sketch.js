@@ -44,7 +44,7 @@ function setup() {
     
     let c2 = new ContentObject(
         color(110,86,43),
-        "Trees. May 25th 2022.\nA stroll through the woods.", 
+        "Trees. May 25th 2022.\nA stroll through the woods.\nFirst time experimenting with a 3D enviroment, I wanted to use 2D sprites in 3D as I had liked other its usage in other projects.", 
         "https://joeshilling.github.io/code-sketches/2205/25/index.html");
     
     let c3 = new ContentObject(
@@ -87,7 +87,7 @@ function ContentObject(colour, words, url) {
 
 //interactable classes and related functions go below the line
 //#############################################################################
-//TODO - order of neededness?
+//TODO - in order of neededness?
 //create a setter for the state system, only allow it to be set to values in the states property
 //move the generic classes into a seperate file for portability
 //create layering system?
@@ -103,7 +103,7 @@ function setDragged() { //sets objects as dragged
 
         }
     }
-} //sets draggable objects to 'dragged' state
+} //sets draggable objects to 'dragged' state, attached to mouseDragged listener
 
 function setClicked() { //if mouse is released on an object
     for (let ob of objects) {
@@ -114,9 +114,9 @@ function setClicked() { //if mouse is released on an object
 
         }
     }
-} //runs the click function on click objects
+} //runs the click function on click objects, attached to mousePressed listener
 
-class Interactable { //objects that can be interacted with.
+class Interactable { //objects that can be interacted with. everything extends this
     constructor(xPos, yPos, image, width, height) {
         this.tags = ["interactable"];
         this.pos = createVector(xPos, yPos);
@@ -129,15 +129,15 @@ class Interactable { //objects that can be interacted with.
         objects.push(this);
     }
     
-    update() {
+    update() { //basic update
         return;
     }
     
-    show() {
+    show() { //basic show
         image(this.image, this.pos.x, this.pos.y, this.width, this.height);
     }
     
-    mouseHover() {
+    mouseHover() { //check if mouse over the object
         if (((mouseX > this.pos.x) && (mouseX < this.pos.x + this.width)) && ((mouseY > this.pos.y) && (mouseY < this.pos.y + this.height))) {
             return true;
         } else {
@@ -162,7 +162,7 @@ class Interactable { //objects that can be interacted with.
     }
     
     
-} //generic, objects that can be interacted with.
+} //generic, objects that can be interacted with, everything extends this
 
 class Dragable extends Interactable { //objects that can be dragged around
     constructor (xPos, yPos, image, width, height) {
