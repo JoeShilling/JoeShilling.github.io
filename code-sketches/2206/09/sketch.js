@@ -1,6 +1,7 @@
 
 let cnv;
-let tapeImage1;
+let tapeImage1, tapeImage2;
+let spraypaintTapeImage;
 let playImage;
 let ejectImage;
 let rec1, rec2, rec3;
@@ -13,44 +14,60 @@ let objects = []; // all interactables go in here
 //#############################################################################
 
 function preload() {
-    tapeImage1 = loadImage("images/tape.png");
+    tapeImage1 = loadImage("images/weaveTape.png");
+    tapeImage2 = loadImage("images/treesTape.png");
+    spraypaintTapeImage = loadImage("images/spraypaintTape.png");
     playImage = loadImage("images/play.png");
     ejectImage = loadImage("images/eject.png");
-    rec1 = loadImage("images/receiver1.png");
-    rec2 = loadImage("images/receiver2.png");
-    rec3 = loadImage("images/receiver3.png");
-    screenImage = loadImage("images/screen.png");
+    rec1 = loadImage("images/newReceiver1.png");
+    rec2 = loadImage("images/newReceiver2.png");
+    rec3 = loadImage("images/newReceiver3.png");
+    screenImage = loadImage("images/screen1.png");
 }
 
 function setup() {
     colorMode(HSB);
-    cnv = createCanvas(1000,1000);
+    cnv = createCanvas(windowWidth,windowHeight);
     cnv.mousePressed(setDragged);
     cnv.mouseReleased(setClicked);
     
-    let screen1 = new Screen(475,200, screenImage, 300,300);
-    let reciever1 = new Reciever(500,500, [rec1, rec2, rec3], 250, 100, screen1 );
-    let pButton = new Button(reciever1.pos.x - 75 , reciever1.pos.y + (reciever1.height * 0.5) - 25, playImage, 50,50, () => {reciever1.playTape()});
+    let screen1 = new Screen(640,155, screenImage, 600,600);
+    let reciever1 = new Reciever(530,755, [rec1, rec2, rec3], 900, 245, screen1 );
+    let pButton = new Button(reciever1.pos.x + 50 , reciever1.pos.y + (reciever1.height * 0.5) - 70, playImage, 100,100, () => {reciever1.playTape()});
     
-    let eButton = new Button(reciever1.pos.x + reciever1.width + 25 , reciever1.pos.y + (reciever1.height * 0.5) - 25, ejectImage, 50,50,  () => {reciever1.ejectTape()});
+    let eButton = new Button(reciever1.pos.x + reciever1.width - 150 , reciever1.pos.y + (reciever1.height * 0.5) - 70, ejectImage, 100,100,  () => {reciever1.ejectTape()});
     
     let c1 = new ContentObject(
         color(300,86,43),
-        "Weave. \nThe loom is alive.",
-        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects");
+        "Weave. May 20th 2022.\nThe loom is alive. \nFurther experimentation in my work using autonomous agents to create interesting patterns. Each strand of the weave is an autonomous agent looking for 'food' in order to keep itself alive. The food nodes are indicated by the dots. \nThe design itself was inspired by art deco carpet weaving patterns and wondering how I could recreate those textures computationally. \nInterestingly I found myself removing more and more of the 'intelligence' of the underlying program in pursuit of creating more aesthetically pleasing outcomes. In this model the agents are unlikely to die and there is no threat of predators, meaning they soley move towards the closest fully grown food node.",
+        "https://joeshilling.github.io/code-sketches/2205/20-c/index.html");
     
     let c2 = new ContentObject(
         color(110,86,43),
-        "Trees. \nA stroll through the woods.", 
+        "Trees. May 25th 2022.\nA stroll through the woods.", 
         "https://joeshilling.github.io/code-sketches/2205/25/index.html");
     
-    let tape1 = new Tape(100,100,tapeImage1, 187, 25, c1);
-    let tape2 = new Tape(100,200,tapeImage1, 187, 25, c2);
+    let c3 = new ContentObject(
+        color(175,79,38),
+        "Spraypaint. April 11th 2022.\nExperimenting with recursive patterns. \nAnother use of the 'sigil' object I developed early on. A sigil being a shape made up completely of bezier curves that can easily be manipulated with other functions.",
+        "https://joeshilling.github.io/code-sketches/2204/11/index.html");
+        
+    
+    let tape1 = new Tape(100,880,tapeImage1, 400, 60, c1);
+    let tape2 = new Tape(100,940,tapeImage2, 400, 60, c2);
+    let tape3 = new Tape(100,820,spraypaintTapeImage,400,60,c3);
 
 }
 
 function draw() {
     background("white");
+    
+    push();
+    noStroke();
+    let c = color(33,60,78);
+    fill(c);
+    rect(0, 1000, windowWidth, windowHeight);
+    pop();
     
     for (let ob of objects) {
         ob.update();
@@ -277,7 +294,7 @@ class Reciever extends Interactable { //holds tapes, does thing depending on the
                 let r2 = createVector(ob.pos.x + ob.width, ob.pos.y + ob.height);
                 if ( this.overlap(l2, r2) ) {
 
-                    if (ob.state == "dragged") {
+                    if (ob.state == "dragged" && this.state!="full") {
                         this.state = "nearby";
                     } else if (ob.state == "idle" || ob.state == "held") {
                         this.holdTape(ob);
@@ -325,7 +342,7 @@ class Reciever extends Interactable { //holds tapes, does thing depending on the
             this.heldTape.state= "held";
             
             this.heldTape.pos.x = (this.pos.x + 0.5 * this.width) - this.heldTape.width * 0.5;
-            this.heldTape.pos.y = (this.pos.y + 0.5 * this.height) - this.heldTape.height * 0.5;
+            this.heldTape.pos.y = (this.pos.y + 0.23 * this.height) - this.heldTape.height * 0.5;
             
         } else {
             return false; //failed
@@ -377,7 +394,12 @@ class Screen extends Interactable {
             fill("black");
             text(this.content.words, this.pos.x + this.width/8, this.pos.y + this.height/8, this.width * 0.8, this.height * 0.8);
             pop();
+        } else {
+            push();
+            fill("black");
+            rect(this.pos.x+5, this.pos.y+5, this.width-10, this.height-10);
+            pop();
         }
         image(this.image, this.pos.x, this.pos.y, this.width, this.height);
     }
-}
+} //bespoke
