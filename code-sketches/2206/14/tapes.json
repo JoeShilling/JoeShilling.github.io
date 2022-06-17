@@ -1,0 +1,20 @@
+[
+    {
+        "colour":"300,86,43",
+        "words":"Weave. May 20th 2022.\nThe loom is alive. \nFurther experimentation in my work using autonomous agents to create interesting patterns. Each strand of the weave is an autonomous agent looking for 'food' in order to keep itself alive. The food nodes are indicated by the dots. \nThe design itself was inspired by art deco carpet weaving patterns and wondering how I could recreate those textures computationally. \nInterestingly I found myself removing more and more of the 'intelligence' of the underlying program in pursuit of creating more aesthetically pleasing outcomes. In this model the agents are unlikely to die and there is no threat of predators, meaning they soley move towards the closest fully grown food node.",
+        "url":"https://joeshilling.github.io/code-sketches/2205/20-c/index.html",
+        "image":"images/weaveTape.png"
+    },
+    {
+        "colour":"110,86,43",
+        "words":"Trees. May 25th 2022.\nA stroll through the woods.\nFirst time experimenting with a 3D enviroment, I wanted to use 2D sprites in 3D as I had liked other its usage in other projects.",
+        "url":"https://joeshilling.github.io/code-sketches/2205/25/index.html",
+        "image":"images/treesTape.png"
+    },
+    {
+        "colour":"175,79,38",
+        "words":"Spraypaint. April 11th 2022.\nExperimenting with recursive patterns. \nAnother use of the 'sigil' object I developed early on. A sigil being a shape made up completely of bezier curves that can easily be manipulated with other functions.",
+        "url":"https://joeshilling.github.io/code-sketches/2204/11/index.html",
+        "image":"images/spraypaintTape.png"
+    }
+]
