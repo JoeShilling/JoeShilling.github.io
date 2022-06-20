@@ -30,7 +30,7 @@ function draw() {
     centrey=mouseY;
     spacing = SpaceSlider.value();
     bend = BendSlider.value() / 10;
-    sizeconst = SizeSlider.value() / 40     ;
+    sizeconst = SizeSlider.value() / 40;
     
     
     stroke(235,255,255);

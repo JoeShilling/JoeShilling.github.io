@@ -12,9 +12,9 @@ function setup() {
     frameRate(120);
     
 
-    let unit = windowWidth/12;
-    for (let x = unit*2; x <= windowWidth - 400; x += unit) {
-        for (let y = unit*2; y <= windowHeight - 400; y += unit) {
+    let unit = windowWidth/20;
+    for (let x = unit*2; x <= windowWidth - 200; x += unit) {
+        for (let y = unit*2; y <= windowHeight - 200; y += unit) {
             herbages.push(new herbage(x, y, 120));
         }
     }

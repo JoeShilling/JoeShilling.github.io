@@ -159,7 +159,7 @@ class Interactable { //objects that can be interacted with. everything extends t
     }
 
 
-} //generic, objects that can be interacted with, everything extends this //transferred
+} //generic, objects that can be interacted with, everything extends this
 
 class Dragable extends Interactable { //objects that can be dragged around
     constructor (xPos, yPos, image, width, height) {
@@ -270,100 +270,99 @@ show() {
 } //bespoke,  tape objects //transferred
 
 class Reciever extends Interactable { //holds tapes, does thing depending on the content of the tape
-constructor (xPos, yPos, images, width, height, screen) {
-    super(xPos, yPos, images, width, height);
-    this.states = ["idle", "nearby", "full", "playing"];
-    this.state = this.states[0];
-    this.images = images; //needs an image for each state, ideally all the same size
-    this.heldTape = null;
-    this.screen = screen; //connected Screen object
-
-}
-
-
-update() {
-
-    if (this.state != "playing") {
+    constructor (xPos, yPos, images, width, height, screen) {
+        super(xPos, yPos, images, width, height);
+        this.states = ["idle", "nearby", "full", "playing"];
         this.state = this.states[0];
-        for (let ob of p.objects) {
-            if (ob.tags.includes("tape")) {
+        this.images = images; //needs an image for each state, ideally all the same size
+        this.heldTape = null;
+        this.screen = screen; //connected Screen object
 
-                let l2 = p.createVector(ob.pos.x, ob.pos.y);
-                let r2 = p.createVector(ob.pos.x + ob.width, ob.pos.y + ob.height);
-                if ( this.overlap(l2, r2) ) {
+    }
 
-                    if (ob.state == "dragged" && this.state!="full") {
-                        this.state = "nearby";
-                    } else if (ob.state == "idle" || ob.state == "held") {
-                        this.holdTape(ob);
+
+    update() {
+        if (this.state != "playing") {
+            this.state = this.states[0];
+            for (let ob of p.objects) {
+                if (ob.tags.includes("tape")) {
+
+                    let l2 = p.createVector(ob.pos.x, ob.pos.y);
+                    let r2 = p.createVector(ob.pos.x + ob.width, ob.pos.y + ob.height);
+                    if ( this.overlap(l2, r2) ) {
+
+                        if (ob.state == "dragged" && this.state!="full") {
+                            this.state = "nearby";
+                        } else if (ob.state == "idle" || ob.state == "held") {
+                            this.holdTape(ob);
+                        }
                     }
                 }
             }
+            if (this.state == "full" || this.state == "playing") {
+                this.screen.content = this.heldTape.content;
+            } else {
+                this.screen.content = null;
+            }
         }
-        if (this.state == "full" || this.state == "playing") {
-            this.screen.content = this.heldTape.content;
+
+    }
+
+    show () {
+        switch (this.state) {
+            case ("idle"):
+                p.image(this.images[0],this.pos.x, this.pos.y,  this.width, this.height);
+                break;
+            case ("nearby"):
+                p.image(this.images[1],this.pos.x, this.pos.y,  this.width, this.height);
+                break;
+            case ("full"):
+            case ("playing"):
+                p.image(this.images[2],this.pos.x, this.pos.y,  this.width, this.height);
+                break;
+        }
+    }
+
+    playTape() {
+
+        if (this.state == "full") {
+            this.screen.state = "playing";
+            this.state = "playing";
         } else {
-            this.screen.content = null;
+            return false;
         }
     }
 
-}
+    holdTape(tape) {
+        if (this.state != "full") {
+            this.state= "full";
+            this.heldTape = tape;
+            this.heldTape.state= "held";
 
-show () {
-    switch (this.state) {
-        case ("idle"):
-            p.image(this.images[0],this.pos.x, this.pos.y,  this.width, this.height);
-            break;
-        case ("nearby"):
-            p.image(this.images[1],this.pos.x, this.pos.y,  this.width, this.height);
-            break;
-        case ("full"):
-        case ("playing"):
-            p.image(this.images[2],this.pos.x, this.pos.y,  this.width, this.height);
-            break;
+            this.heldTape.pos.x = (this.pos.x + 0.5 * this.width) - this.heldTape.width * 0.5;
+            this.heldTape.pos.y = (this.pos.y + 0.23 * this.height) - this.heldTape.height * 0.5;
+
+        } else {
+            return false; //failed
+        }
     }
-}
 
-playTape() {
+    ejectTape() {
+        console.log("ejecting");
+        if (this.state == "full" || this.state =="playing") {
+            this.state = "idle";
+            this.heldTape.state = "idle";
 
-    if (this.state == "full") {
-        this.screen.state = ['playing'];
-        this.state = "playing";
-    } else {
-        return false;
+            this.heldTape.pos.x = this.pos.x + (0.5 * this.width) - 0.5 * this.heldTape.width;
+            this.heldTape.pos.y = this.pos.y + this.height + 30;
+
+            let temp = this.heldTape;
+            this.heldTape = null;
+            return temp;
+        } else {
+            return null;
+        }
     }
-}
-
-holdTape(tape) {
-    if (this.state != "full") {
-        this.state= "full";
-        this.heldTape = tape;
-        this.heldTape.state= "held";
-
-        this.heldTape.pos.x = (this.pos.x + 0.5 * this.width) - this.heldTape.width * 0.5;
-        this.heldTape.pos.y = (this.pos.y + 0.23 * this.height) - this.heldTape.height * 0.5;
-
-    } else {
-        return false; //failed
-    }
-}
-
-ejectTape() {
-    console.log("ejecting");
-    if (this.state == "full" || this.state =="playing") {
-        this.state = "idle";
-        this.heldTape.state = "idle";
-
-        this.heldTape.pos.x = this.pos.x + (0.5 * this.width) - 0.5 * this.heldTape.width;
-        this.heldTape.pos.y = this.pos.y + this.height + 30;
-
-        let temp = this.heldTape;
-        this.heldTape = null;
-        return temp;
-    } else {
-        return null;
-    }
-}
 
 } //bespoke, interacts with tapes
 
@@ -378,6 +377,16 @@ constructor(xPos, yPos, images, width, height) {
 }
 
 update() {
+    //TODO state changing logic needs updating to include "playing" state
+    switch (this.state) {
+        case "playing":
+            break;
+        case "displaying":
+            break;
+        case "idle":
+            break;
+        default:
+    } 
     if (this.content != null) {
         this.state = "displaying";
 

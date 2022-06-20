@@ -8,30 +8,59 @@ let backgroundC = 'white';
 
 
 function setup() {
-    cnv = createCanvas(1000, 1000);
+    cnv = createCanvas(windowWidth, windowHeight);
     frameRate(60);
     
     push();
     noFill();
     strokeWeight(8);
-    rect(0,0, 1000, 1000);
+    //rect(0,0, 1000, 1000);
     pop();
     
     let unit = windowWidth/12;
 
+    /*
     for (let x = unit*2; x <= windowWidth - 100; x += unit) {
         for (let y = unit*2; y <= windowHeight - 100; y += unit) {
             herbages.push(new herbage(x, y, 120));
         }
     }
+    */
+    
+    let yStart = 280;
+    
+    for (let x = 200; x <= windowWidth - 200; x+= 100) {
+        herbages.push(new herbage(x, yStart, 120));
+    }
+    for (let x = 250; x <= windowWidth - 200; x+= 80) {
+        herbages.push(new herbage(x, yStart + 50, 120));
+    }
+    for (let x = 250; x <= windowWidth - 200; x+= 80) {
+        herbages.push(new herbage(x, yStart + 120, 120));
+    }
+    for (let x = 200; x <= windowWidth - 200; x+= 100) {
+        herbages.push(new herbage(x, yStart + 170, 120));
+    }
+
+    for (let x = 200; x <= windowWidth - 200; x+= 100) {
+        herbages.push(new herbage(x, yStart + 300, 120));
+    }
+    for (let x = 250; x <= windowWidth - 200; x+= 80) {
+        herbages.push(new herbage(x, yStart + 350, 120));
+    }
+    for (let x = 200; x <= windowWidth - 200; x+= 100) {
+        herbages.push(new herbage(x, yStart + 470, 120));
+    }
+    for (let x = 250; x <= windowWidth - 200; x+= 80) {
+        herbages.push(new herbage(x, yStart + 420, 120));
+    }
     
     //preys.push(new prey (50,50));
-    preys.push(new prey (-10, 200));
-    preys.push(new prey (-10, 400));
-    preys.push(new prey (-10, 600));
-    
-    //predators.push(new predator(600,600));
-    //predators.push(new predator(800,600));
+    preys.push(new prey (-10, yStart));
+    //preys.push(new prey (-10, 400));
+    preys.push(new prey (-10, yStart + 170));
+    preys.push(new prey (-10, yStart + 300));
+    preys.push(new prey (-10, yStart + 470));
     
 }
 
@@ -321,9 +350,11 @@ class herbage {
     }
     
     update() {
+        /*
         if (this.growth < 1) {
             this.growth += 1 / this.regrowTime;
         }
+        */
     }
     
     show() {

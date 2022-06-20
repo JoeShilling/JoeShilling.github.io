@@ -23,7 +23,7 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(1000, 1000, WEBGL);
+    createCanvas(1465, 1100, WEBGL);
     
     frameRate(50);
     cam = createCamera();
@@ -39,11 +39,11 @@ function setup() {
         floorSprites.push(new floor(floorImg, 2500, 0, i));
     }
     
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 200; i++) {
         allSprites.push(new tree(img, getSpriteXpos(), 0, getRndInteger(100,10000)));
     }
     
-    allSprites.push(new hog(0,50,9000));
+    //allSprites.push(new hog(0,50,9000));
 }
 
 function draw() {
