@@ -1,7 +1,5 @@
-//trying out 3d stuff
 //walking through a forest of tree sprites
 
-//TRANSPARENCY IS A LIE
 let img;
 let pathImg;
 let floorImg;
@@ -22,7 +20,7 @@ function preload() {
     
 }
 
-function setup() {
+function setup() { //runs once at the beginning
     createCanvas(1465, 1100, WEBGL);
     
     frameRate(50);
@@ -42,21 +40,16 @@ function setup() {
     for (let i = 0; i < 200; i++) {
         allSprites.push(new tree(img, getSpriteXpos(), 0, getRndInteger(100,10000)));
     }
-    
-    //allSprites.push(new hog(0,50,9000));
+
 }
 
-function draw() {
+function draw() { //runs every frame
     background('#7ccedd');
     print(allSprites.length);
     cam.lookAt(0,0,0);
     cam.setPosition(0,-170 + sin(frameCount/10) * 5,9700);
     
-    //image(img,10,10, 10);
-    
     //print all sprites from further to closest
-
-    //updateSprites();
     
     for (let i = 0; i < allSprites.length; i++) { //BUBBLE SORT BBY!!
         for (let j = 0; j < (allSprites.length - i - 1); j++) {
@@ -90,7 +83,7 @@ function addSprite(image) {
     allSprites.push(new tree(image, getSpriteXpos(), 0, 0));
 }
 
-function getSpriteXpos() {
+function getSpriteXpos() { //finds valid X cordinate for sprites
     let positionFound = false;
     let pos;
     while (positionFound == false) { //bunch of restrictions on where a track can be placed
@@ -104,7 +97,7 @@ function getSpriteXpos() {
     return(pos);
 }
 
-class sprite {
+class sprite { //defines an 2d sprite in the enviroment
     constructor(image, xPos, yPos, zPos) {
         this.image = image;
         this.xPos = xPos;
@@ -118,7 +111,7 @@ class sprite {
     }
 }
 
-class tree extends sprite{
+class tree extends sprite{ //tree sprites
     constructor(image, xPos, yPos, zPos) {
         super(image, xPos, yPos, zPos);
         this.height = getRndInteger(300,1201);
@@ -139,7 +132,7 @@ class tree extends sprite{
     
 }
 
-class floor extends sprite{
+class floor extends sprite{ //floor sprites
     constructor(image, xPos, yPos, zPos) {
         super(image, xPos, yPos, zPos);
         
