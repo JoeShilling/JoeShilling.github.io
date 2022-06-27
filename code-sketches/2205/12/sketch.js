@@ -11,23 +11,27 @@ function setup() {
     cnv = createCanvas(windowWidth, windowHeight);
     frameRate(120);
     
-
+    /*
     let unit = windowWidth/8;
     for (let x = unit*2; x <= windowWidth - 400; x += unit) {
         for (let y = unit*2; y <= windowHeight - 400; y += unit) {
             herbages.push(new herbage(x, y, 120));
         }
-    }
+    } */
     
-    herbages.push(new herbage (200,200));
-    herbages.push(new herbage (400,600));
-    herbages.push(new herbage (800,100));
+    herbages.push(new herbage (300,300));
+    herbages.push(new herbage (700,300));
+    herbages.push(new herbage (250,500));
+    herbages.push(new herbage (750,500));
+    herbages.push(new herbage (300,700));
+    herbages.push(new herbage (700,700));
     
-    preys.push(new prey (50,50));
-    preys.push(new prey (900,900));
+    preys.push(new prey (100,100));
+    preys.push(new prey (100,900));
+    preys.push(new prey (900,100));
     
-    predators.push(new predator(600,600));
-    predators.push(new predator(800,600));
+    predators.push(new predator(900,900));
+
     
 }
 
@@ -81,7 +85,7 @@ class predator extends animal {
     update() {
         
         if (this.hunger > 0) {
-            this.hunger -= 0.12;
+            this.hunger -= 0.06;
         }
         
         if (this.hunger <= 0) {
@@ -98,9 +102,16 @@ class predator extends animal {
                         distance  = this.pos.dist(prey.pos);
                         direction = p5.Vector.sub(prey.pos,  this.pos);
 
-                        if (direction.mag() > 1) { //so this probably shouldnt be here but we access to which prey the predator is touching
+                        if (direction.mag() > 2) { //so this probably shouldnt be here but we access to which prey the predator is touching
                             direction.normalize();
-                            direction.mult(this.speed);
+                            
+                            if (this.hunger < 30) {
+                                direction.mult(this.speed * 2);
+                            } else {
+                                direction.mult(this.speed);
+                            }
+                            
+                            
 
                         } else {
                             this.hunger += 25;
@@ -146,7 +157,7 @@ class prey extends animal {
         
         if (this.hunger >= 100) {
             preys.push(new prey(this.pos.x, this.pos.y));
-            this.hunger -= 30;
+            this.hunger -= 25;
         }
         
         if (this.hunger > 0) {
@@ -226,7 +237,7 @@ class herbage {
     
     update() {
         if (this.growth < 1) {
-            this.growth += 1 / this.regrowTime;
+            this.growth += 3 / this.regrowTime;
         }
     }
     
