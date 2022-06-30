@@ -11,13 +11,6 @@ function setup() {
     cnv = createCanvas(windowWidth, windowHeight);
     frameRate(120);
     
-    /*
-    let unit = windowWidth/8;
-    for (let x = unit*2; x <= windowWidth - 400; x += unit) {
-        for (let y = unit*2; y <= windowHeight - 400; y += unit) {
-            herbages.push(new herbage(x, y, 120));
-        }
-    } */
     
     herbages.push(new herbage (300,300));
     herbages.push(new herbage (700,300));

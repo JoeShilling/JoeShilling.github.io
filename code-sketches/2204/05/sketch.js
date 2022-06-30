@@ -1,11 +1,6 @@
 //050422
 //rectangle drawing/recognition
 
-/*
-
-
-
-*/
 var cnv;
 var active_points = [];
 var active_polygons = []; //array of polygon objets
