@@ -28,8 +28,8 @@ let graph;
 let file = 0;
 
 function setup() {
-    canvasHeight = 500;
-    canvasWidth = 500;
+    canvasHeight = 1000;
+    canvasWidth = 1000;
     centreX =canvasWidth/2;
     centreY = canvasHeight/2;
     strokeWeight(100);
