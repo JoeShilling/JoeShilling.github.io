@@ -116,6 +116,7 @@ function generateShapes() {
         //         translateFactor = createVector(0,0);
         // }
         translateFactor = (createVector(getRandomFloat(-1,1,3), getRandomFloat(-1,1,3)))
+        console.log(translateFactor);
 
         if (seed % 64 < 3) {
             rotateFactor = 3;
