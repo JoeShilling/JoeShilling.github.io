@@ -72,6 +72,11 @@ function setup() {
 
 }
 
+function getRandomFloat(min, max, decimals) {
+    const str = (Math.random() * (max - min) + min).toFixed(decimals);
+    return parseFloat(str);
+}
+
 function generateShapes() {
     if (filesGenerated < fileLimit) {
         toDraw = [];
@@ -82,34 +87,35 @@ function generateShapes() {
         seed = getRndInteger(1, 10000000000);
         fill('white');
 
-        switch (seed % 9) { //picking which way to move
-            case 1:
-                translateFactor = createVector(0,unit);
-                break;
-            case 2:
-                translateFactor = createVector(unit,unit);
-                break;
-            case 3:
-                translateFactor = createVector(unit,0);
-                break;
-            case 4:
-                translateFactor = createVector(unit,-unit);
-                break;
-            case 5:
-                translateFactor = createVector(0,-unit);
-                break;
-            case 6:
-                translateFactor = createVector(-unit,-unit);
-                break;
-            case 7:
-                translateFactor = createVector(-unit,0);
-                break;
-            case 8:
-                translateFactor = createVector(-unit,unit);
-                break;
-            default:
-                translateFactor = createVector(0,0);
-        }
+        // switch (seed % 9) { //picking which way to move
+        //     case 1:
+        //         translateFactor = createVector(0,unit);
+        //         break;
+        //     case 2:
+        //         translateFactor = createVector(unit,unit);
+        //         break;
+        //     case 3:
+        //         translateFactor = createVector(unit,0);
+        //         break;
+        //     case 4:
+        //         translateFactor = createVector(unit,-unit);
+        //         break;
+        //     case 5:
+        //         translateFactor = createVector(0,-unit);
+        //         break;
+        //     case 6:
+        //         translateFactor = createVector(-unit,-unit);
+        //         break;
+        //     case 7:
+        //         translateFactor = createVector(-unit,0);
+        //         break;
+        //     case 8:
+        //         translateFactor = createVector(-unit,unit);
+        //         break;
+        //     default:
+        //         translateFactor = createVector(0,0);
+        // }
+        translateFactor = (createVector(getRandomFloat(-1,1,3), getRandomFloat(-1,1,3)))
 
         if (seed % 64 < 3) {
             rotateFactor = 3;
