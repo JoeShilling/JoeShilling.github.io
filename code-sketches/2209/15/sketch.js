@@ -21,7 +21,7 @@ let rotateY, rotateX;
 
 let seed = 0;
 
-let unit =1;
+let unit =0.5;
 
 let cnv;
 let graph;
