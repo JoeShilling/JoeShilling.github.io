@@ -28,8 +28,8 @@ let graph;
 let file = 0;
 
 function setup() {
-    canvasHeight = 8000;
-    canvasWidth = 8000;
+    canvasHeight = 1000;
+    canvasWidth = 1000;
     centreX =canvasWidth/2;
     centreY = canvasHeight/2;
     strokeWeight(100);
@@ -211,7 +211,7 @@ function draw() {
     t +=1;
     if (t > 700) {
         image(graph,0,0);
-        saveCanvas(cnv, 'image' + seed , 'png');
+        //saveCanvas(cnv, 'image' + seed , 'png');
         filesGenerated+=1;
         generateShapes();
         
