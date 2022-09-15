@@ -136,7 +136,7 @@ function draw() {
         toDraw[o].sigil.sTranslate(translateFactor);
         toDraw[o].sigil.sScale(createVector(centreX, centreY), scaleFactor , scaleFactor);
         toDraw[o].sigil.wiggleControls(0.01);
-        //toDraw[o].sigil.wiggleAnchors(0.03);
+        toDraw[o].sigil.wiggleAnchors(0.03);
         
         /*
         if (toDraw[o].s < toDraw[o].sigil.s) { //only draw if you havent drawn all the segments yet
