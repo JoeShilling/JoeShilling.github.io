@@ -134,7 +134,7 @@ function generateShapes() {
                 rotateY = seed % canvasHeight;
         }
 
-        unit = canvasWidth / (seed % 20)/100 //sets speed of movement
+        unit = canvasWidth / (seed % 20)/500 //sets speed of movement
 
         scaleFactor = (getRndInteger(9900, 10100))/10000;
         rotate
