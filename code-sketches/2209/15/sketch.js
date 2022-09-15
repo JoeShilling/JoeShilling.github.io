@@ -17,7 +17,7 @@ var t = 0;
 let scaleFactor = 1;
 let translateFactor;
 let rotateFactor;
-let rotateY, rotateX;
+let rotateY, rotateX2;
 
 let seed = 0;
 
@@ -126,11 +126,11 @@ function generateShapes() {
 
         switch (seed % 3) { //picking whether to rotate around the centre of the shape or a point within the canvas
             case 1,2:
-                rotateX = null;
+                rotateX2 = null;
                 rotateY = null;
                 break;
             default:
-                rotateX = seed % canvasWidth;
+                rotateX2 = seed % canvasWidth;
                 rotateY = seed % canvasHeight;
         }
 
@@ -167,7 +167,7 @@ function draw() {
         stroke(c);
         
         c = c - 0.001;
-        toDraw[o].sigil.sRotate(PI/rotateFactor, rotateX, rotateY);   
+        toDraw[o].sigil.sRotate(PI/rotateFactor, rotateX2, rotateY);   
        
         
         toDraw[o].sigil.sDraw();
