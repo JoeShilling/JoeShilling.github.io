@@ -119,7 +119,23 @@ function generateShapes() {
     rotate
 
     // toDraw.push({sigil: new sigilLayer(getRndInteger(0, canvasWidth/2) + canvasWidth/4, getRndInteger(0, canvasHeight/2) + canvasHeight/4,  getRndInteger(canvasWidth/8, canvasWidth/3), (seed%10) + 1, seed%2, getRndInteger(3,6))});
-    toDraw.push({sigil: new sigilLayer(getRndInteger(0, canvasWidth), getRndInteger(0, canvasHeight),  getRndInteger(canvasWidth/8, canvasWidth/3), (seed%10) + 1, seed%2, getRndInteger(3,6))});
+    let centreX, centreY;
+    centreX  = getRndInteger(0,100);
+    if (centreX > 50) {
+        centreX + canvasWidth;
+    } else {
+        centreX - 50;
+    }
+    centreY  = getRndInteger(0,100);
+    if (centreY > 50) {
+        centreY + canvasHeight;
+    } else {
+        centreY - 50;
+    }
+
+    
+    
+    toDraw.push({sigil: new sigilLayer(centreX, centreY,  getRndInteger(canvasWidth/8, canvasWidth/2), (seed%10) + 1, seed%2, getRndInteger(3,6))});
 
 }
 
