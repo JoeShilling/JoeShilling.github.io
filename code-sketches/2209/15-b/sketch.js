@@ -17,7 +17,7 @@ var t = 0;
 let scaleFactor = 1;
 let translateFactor;
 let rotateFactor;
-let rotateY, rotateX2;
+let rotateY2, rotateX2;
 
 let seed = 0;
 
@@ -78,95 +78,49 @@ function getRandomFloat(min, max, decimals) {
 }
 
 function generateShapes() {
-    if (filesGenerated < fileLimit) {
-        toDraw = [];
-        t = 0;
-        c = 255;
-        background('black');
-        noFill();
-        seed = getRndInteger(1, 10000000000);
-        fill('white');
 
-        // switch (seed % 9) { //picking which way to move
-        //     case 1:
-        //         translateFactor = createVector(0,unit);
-        //         break;
-        //     case 2:
-        //         translateFactor = createVector(unit,unit);
-        //         break;
-        //     case 3:
-        //         translateFactor = createVector(unit,0);
-        //         break;
-        //     case 4:
-        //         translateFactor = createVector(unit,-unit);
-        //         break;
-        //     case 5:
-        //         translateFactor = createVector(0,-unit);
-        //         break;
-        //     case 6:
-        //         translateFactor = createVector(-unit,-unit);
-        //         break;
-        //     case 7:
-        //         translateFactor = createVector(-unit,0);
-        //         break;
-        //     case 8:
-        //         translateFactor = createVector(-unit,unit);
-        //         break;
-        //     default:
-        //         translateFactor = createVector(0,0);
-        // }
-        translateFactor = (createVector(getRandomFloat(-1,1,3), getRandomFloat(-1,1,3)))
-        console.log(translateFactor);
+    toDraw = [];
+    t = 0;
+    c = 255;
+    background('black');
+    noFill();
+    seed = getRndInteger(1, 10000000000);
+    fill('white');
 
-        if (seed % 64 < 3) {
-            rotateFactor = 3;
-        } else {
-            rotateFactor = seed%64;
-        }
+    translateFactor = (createVector(getRandomFloat(-1,1,3), getRandomFloat(-1,1,3)))
+    print(translateFactor);
 
-        if (seed % 2 == 1) { //decides the direction of the rotation
-            rotateFactor = -rotateFactor;
-
-            noFill();
-
-        }
-
-        switch (seed % 3) { //picking whether to rotate around the centre of the shape or a point within the canvas
-            case 1,2:
-                rotateX2 = null;
-                rotateY = null;
-                break;
-            default:
-                rotateX2 = seed % canvasWidth;
-                rotateY = seed % canvasHeight;
-        }
-
-        unit = canvasWidth / (seed % 20)/500 //sets speed of movement
-
-        scaleFactor = (getRndInteger(9900, 10100))/10000;
-        rotate
-
-        toDraw.push({sigil: new sigilLayer(getRndInteger(0, canvasWidth/2) + canvasWidth/4, getRndInteger(0, canvasHeight/2) + canvasHeight/4,  getRndInteger(canvasWidth/8, canvasWidth/3), (seed%10) + 1, seed%2, getRndInteger(3,6))});
+    if (seed % 64 < 3) {
+        rotateFactor = 3;
     } else {
-        noLoop();
+        rotateFactor = seed%64;
     }
-    
-    
-    
-    /*
-    let num = getRndInteger(1,6);
-    for (let i = 0; i < num; i ++) {
-        toDraw.push({sigil: new sigilLayer( centreX, centreY, 2, getRndInteger(2,6))});
+
+    if (seed % 2 == 1) { //decides the direction of the rotation
+        rotateFactor = -rotateFactor;
+
+        noFill();
+
     }
-    for (let i in toDraw) {
-        if (getRndInteger(0,2) == 0) {
-            toDraw[i].sigil.sTranslate(createVector(getRndInteger(0,40), getRndInteger(0,40)));
-        } else {
-            toDraw[i].sigil.sTranslate(createVector(-(getRndInteger(0,40)), -(getRndInteger(0,40))));
-        }
-        
+
+    switch (seed % 3) { //picking whether to rotate around the centre of the shape or a point within the canvas
+        case 1,2:
+            rotateX2 = null;
+            rotateY2 = null;
+            break;
+        default:
+            rotateX2 = seed % canvasWidth;
+            rotateY2 = seed % canvasHeight;
     }
-    */
+
+    unit = canvasWidth / (seed % 20)/500 //sets speed of movement
+
+    scaleFactor = (getRndInteger(9900, 10100))/10000;
+    rotate
+
+    // toDraw.push({sigil: new sigilLayer(getRndInteger(0, canvasWidth/2) + canvasWidth/4, getRndInteger(0, canvasHeight/2) + canvasHeight/4,  getRndInteger(canvasWidth/8, canvasWidth/3), (seed%10) + 1, seed%2, getRndInteger(3,6))});
+    toDraw.push({sigil: new sigilLayer(getRndInteger(0, canvasWidth), getRndInteger(0, canvasHeight),  getRndInteger(canvasWidth/8, canvasWidth/3), (seed%10) + 1, seed%2, getRndInteger(3,6))});
+
 }
 
 function draw() {
@@ -174,7 +128,7 @@ function draw() {
         stroke(c);
         
         c = c - 0.001;
-        toDraw[o].sigil.sRotate(PI/rotateFactor, rotateX2, rotateY);   
+        toDraw[o].sigil.sRotate(PI/rotateFactor, rotateX2, rotateY2);   
        
         
         toDraw[o].sigil.sDraw();
@@ -219,7 +173,6 @@ function draw() {
     if (t > 700) {
         image(graph,0,0);
         //saveCanvas(cnv, 'image' + seed , 'png');
-        filesGenerated+=1;
         generateShapes();
         
     }
