@@ -122,15 +122,15 @@ function generateShapes() {
     let centreX, centreY;
     centreX  = getRndInteger(0,100);
     if (centreX > 50) {
-        centreX + canvasWidth;
+        centreX = centreX + canvasWidth;
     } else {
-        centreX - 50;
+        centreX = centreX - 50;
     }
     centreY  = getRndInteger(0,100);
     if (centreY > 50) {
-        centreY + canvasHeight;
+        centreY = centreY + canvasHeight;
     } else {
-        centreY - 50;
+        centreY = centreY - 50;
     }
 
     print(centreX);
