@@ -133,7 +133,8 @@ function generateShapes() {
         centreY - 50;
     }
 
-    
+    print(centreX);
+    print(centreY);
     
     toDraw.push({sigil: new sigilLayer(centreX, centreY,  getRndInteger(canvasWidth/8, canvasWidth/2), (seed%10) + 1, seed%2, getRndInteger(3,6))});
 
