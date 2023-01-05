@@ -4,9 +4,28 @@
     transform-style: preserve-3d;
 }
 
-.front.cover {
-    position: relative;
-    width: 1em;
-    height: 1.7em;
+div {
+    transform-style: preserve-3d;
+}
 
+.cover {
+    background-color: rgb(49, 175, 133);
+}
+
+.pages {
+    background-color: rgb(190, 199, 179);
+}
+
+.front {
+    position: relative;
+    width: 3.5em;
+    height: 5.1em;
+}
+
+.spine .top .side .bottom{
+    width: 20%;
+}
+
+.spine .back{
+    height: 100%
 }
