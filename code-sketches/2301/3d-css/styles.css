@@ -2,30 +2,98 @@
     position: relative;
     font-size: 5vmin;
     transform-style: preserve-3d;
+    
+}
+
+@keyframes spin {
+    from {
+        /*transform: rotateX(0deg); */
+         transform: rotateX(0deg) rotateY(0deg); 
+
+    }
+    to {
+        /* transform: rotateX(360deg); */
+         transform: rotateX(360deg) rotateY(360deg); 
+    }
 }
 
 div {
     transform-style: preserve-3d;
+    transform-origin: top left;
 }
 
 .cover {
+    --border: 4px;
     background-color: rgb(49, 175, 133);
+    border-width: var(--border);
+    border-color: rgb(7, 87, 67);
+    border-style: solid;
+    background-image: url("star.webp");
 }
 
 .pages {
-    background-color: rgb(190, 199, 179);
+    background-color: rgb(199, 199, 179);
 }
 
 .front {
-    position: relative;
+    position: absolute;
+    top:2em;
+    left:2em;
     width: 3.5em;
     height: 5.1em;
+    z-index: 1;
+    transform-origin: center;
+    animation-name: spin;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    border-left: 0px;
+
 }
 
-.spine .top .side .bottom{
-    width: 20%;
+.top.pages {
+    position: absolute;
+    top: 5%;
+    left: 0%;
+    height: 1em;
+    width: 95%;
+    transform: rotateX(90deg);
 }
 
-.spine .back{
-    height: 100%
+.side.pages {
+    position: absolute;
+    top: 5%;
+    left: 95%;
+    height: calc(95% - calc(2 * var(--border)));
+    width:1em;
+    transform: rotateY(-90deg);
+}
+
+.bottom.pages {
+    position: absolute;
+    top:95%;
+    left: 0%;
+    width: 95%;
+    height: 1em;
+    transform: rotateX(90deg);
+}
+
+.spine.cover {
+    position: absolute;
+    top: calc(-1 * var(--border));
+    left: 0%;
+    height: 100%;
+    width: 1em;
+    transform: rotateY(-90deg);
+    border-left: 0px;
+    border-right: 0px;
+}
+
+.back.cover {
+    position: absolute;
+    transform: translateZ(1em);
+    width:100%;
+    top: calc(-1 * var(--border));
+    height: calc(100%);
+    border-left: 0px;
+
 }
