@@ -1,0 +1,12 @@
+.scene {
+    position: relative;
+    font-size: 5vmin;
+    transform-style: preserve-3d;
+}
+
+.front .cover {
+    position: relative;
+    width: 10em;
+    height: 17em;
+    
+}
