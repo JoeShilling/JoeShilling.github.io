@@ -4,7 +4,7 @@
     transform-style: preserve-3d;
 }
 
-.front .cover {
+.front.cover {
     position: relative;
     width: 1em;
     height: 1.7em;
