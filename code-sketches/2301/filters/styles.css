@@ -1,0 +1,35 @@
+:root {
+    --bg-color: #1c6a81;
+    --fg-color: #c97eaa;
+}
+
+.img-wrapper {
+    background-color: var(--bg-color);
+    position: relative;
+    padding: 2em;
+}
+
+.img-wrapper img {
+    mix-blend-mode: lighten;
+    filter: grayscale(100%) contrast(1);
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    flex: 1 0 100%;
+}
+
+.img-wrapper::before {
+    background-color: var(--fg-color);
+    position: absolute;
+    bottom:0;
+    left: 0;
+    right:0;
+    top:0;
+    content: '';
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    mix-blend-mode: multiply;
+
+}
+
