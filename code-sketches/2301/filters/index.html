@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Duotone Testing</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+  <script src="fabric.min.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" href="styles.css">
+
+
+</head>
+
+<body>
+    <main>
+      <h3>This is a css solution</h3>
+      <p>difficult to export in a usable format</p>
+      <div class="img-wrapper">
+        <img src='toad.jpeg' id='source' crossorigin="anonymous" >
+      </div>
+      <h3>This is a js solution</h3>
+      <p>when it works, exporting it should be straightforwards</p>
+      <canvas id="duo" width="600" height="600"></canvas>
+      <div style="display:flex; flex-direction: row; row-gap: 1em; margin-bottom: 2em;" >
+        <div style="display:flex; flex-direction: column; row-gap: 0.5em;">
+          <button type="button" onclick="download()">Download</button>
+        </div>
+      </div>
+        
+     
+    </main>
+    <script src="sketch.js" type="text/javascript"></script>
+</body>
+
+</html>
