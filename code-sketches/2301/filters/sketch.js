@@ -10,22 +10,38 @@ window.onload = () => {
     canvas.add(fabricImage);
 
     let grey = new fabric.Image.filters.Grayscale();
+    let contrast = new fabric.Image.filters.Contrast({
+        contrast: 0.1
+    })
 
-
-    let bgFilter = new fabric.Image.filters.Blend({
+    let bgFilter = new fabric.Image.filters.BlendColor({
         color: "#1c6a81",
         mode: 'lighten'
     })
 
-    let fgFilter = new fabric.Image.filters.Blend({
+    let fgFilter = new fabric.Image.filters.BlendColor({
         color: "#c97eaa",
         mode: 'multiply'
     })
 
+    fabricImage.clone((clo) => {
+        clo.clipPath = new fabric.Text("CA", {
+            fontSize: 100,
+            left:-100,
+            top: -100
+        });
+        clo.filters.push(bgFilter);
+        clo.applyFilters();
+        canvas.add(clo)
+    })
+
+
+
+    fabricImage.filters.push(contrast);
     fabricImage.filters.push(grey);
     fabricImage.filters.push(bgFilter);
     fabricImage.filters.push(fgFilter);
-    fabricImage.applyFilters(canvas.renderAll.bind(canvas));
+    fabricImage.applyFilters();
 }
 
 
