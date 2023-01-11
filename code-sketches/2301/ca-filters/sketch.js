@@ -30,12 +30,17 @@ window.onload = () => {
         mode: 'multiply'
     })
 
+    colourRemove = new fabric.Image.filters.BlendColor({
+        color: "#b9553c",
+        distance: 20
+    })
+
     fabricImage.clone((clo) => {
         clo.set('selectable', false);
         clo.clipPath = new fabric.Text("CA", {
             fontSize: 400,
             left: -0.5 * clo.width,
-            top: -0.5 * clo.height
+            top: -0.0 * clo.height
         });
         clo.filters.push(contrast);
         clo.filters.push(grey);
@@ -46,8 +51,7 @@ window.onload = () => {
         canvas.add(clo)
     })
 
-
-
+    fabricImage.filters.push(colourRemove);
     fabricImage.filters.push(contrast);
     fabricImage.filters.push(grey);
     fabricImage.filters.push(bgFilter);
@@ -57,7 +61,6 @@ window.onload = () => {
 
 
 let updateColors = () => {
-    console.log('hello');
     bgFilter.color = document.getElementById('background').value;
     fgFilter.color = document.getElementById('foreground').value;
     altFgFilter.color = document.getElementById('mask').value;
@@ -69,7 +72,6 @@ let updateColors = () => {
 
 
 let download = () => {
-    console.log("download");
     let  content = canvas.toDataURL();
     saveAs(content, 'toad.png')
 };
