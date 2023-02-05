@@ -533,8 +533,8 @@ video {
 .mt-\[5vh\] {
   margin-top: 5vh;
 }
-.mt-4 {
-  margin-top: 1rem;
+.mb-1 {
+  margin-bottom: 0.25rem;
 }
 .flex {
   display: flex;
@@ -560,6 +560,9 @@ video {
 .list-disc {
   list-style-type: disc;
 }
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
@@ -584,8 +587,15 @@ video {
 .gap-5 {
   gap: 1.25rem;
 }
+.gap-x-10 {
+  -moz-column-gap: 2.5rem;
+       column-gap: 2.5rem;
+}
 .overflow-y-hidden {
   overflow-y: hidden;
+}
+.overflow-x-clip {
+  overflow-x: clip;
 }
 .bg-rifle-green {
   --tw-bg-opacity: 1;
@@ -598,8 +608,17 @@ video {
 .bg-\[url\(\'assets\/images\/inferno\.webp\'\)\] {
   background-image: url(assets/images/inferno.webp);
 }
+.bg-\[url\(\'assets\/images\/tails\.webp\'\)\] {
+  background-image: url(assets/images/tails.webp);
+}
+.bg-\[url\(\'assets\/images\/heads\.webp\'\)\] {
+  background-image: url(assets/images/heads.webp);
+}
 .bg-cover {
   background-size: cover;
+}
+.bg-center {
+  background-position: center;
 }
 .object-cover {
   -o-object-fit: cover;
@@ -610,10 +629,6 @@ video {
 }
 .p-5 {
   padding: 1.25rem;
-}
-.px-5 {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
 }
 .pb-5 {
   padding-bottom: 1.25rem;
@@ -630,9 +645,13 @@ video {
 .font-inconsolata {
   font-family: Inconsolata, monospace;
 }
-.text-8xl {
-  font-size: 6rem;
-  line-height: 1;
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 .text-xl {
   font-size: 1.25rem;
@@ -665,7 +684,7 @@ video {
 html{scroll-behavior:smooth}
 
 #coin{
-  --coin-size: 50px;
+  --coin-size: 200px;
 
   width: var(--coin-size);
   height: var(--coin-size);
@@ -684,15 +703,19 @@ html{scroll-behavior:smooth}
   animation: spin 2.5s ease-in-out;
 }
 
+#coin.rotate {
+  animation: rotate 20s linear infinite;
+}
+
 .back{
-  background-image: url(assets/images/back.png);
+  /* background-image: url("assets/images/back.png"); */
   background-size: 100% 100%;
   width: var(--coin-size);
   height: var(--coin-size);
 }
 
 .middle{
-  background-image: url(assets/images/front.png);
+  
   background-size: 100% 100%;
   width: var(--coin-size);
   height: var(--coin-size);
@@ -702,7 +725,7 @@ html{scroll-behavior:smooth}
 }
 
 .front{
-    background-image: url(assets/images/front.png);
+    
     background-size: 100% 100%;
     height: var(--coin-size);
     position: absolute;
@@ -774,9 +797,34 @@ html{scroll-behavior:smooth}
   100% {transform: rotateZ(360deg) rotateY(-40deg);}
 }
 
+@keyframes rotate{
+  0% {transform: rotateY(0deg);}
+  100% {transform: rotateY(360deg);}
+}
+
 @media (min-width: 768px) {
+
+  .md\:flex {
+    display: flex;
+  }
 
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:flex-row {
+    flex-direction: row;
+  }
+
+  .md\:justify-around {
+    justify-content: space-around;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .lg\:text-6xl {
+    font-size: 3.75rem;
+    line-height: 1;
   }
 }
