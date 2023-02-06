@@ -517,11 +517,11 @@ video {
   bottom: 0px;
   left: 0px;
 }
-.left-\[95\%\] {
-  left: 95%;
+.left-\[90\%\] {
+  left: 90%;
 }
-.-top-\[8\%\] {
-  top: -8%;
+.-top-\[20\%\] {
+  top: -20%;
 }
 .-z-10 {
   z-index: -10;
@@ -530,11 +530,21 @@ video {
   margin-left: auto;
   margin-right: auto;
 }
+.my-10 {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
 .mt-\[5vh\] {
   margin-top: 5vh;
 }
 .mb-1 {
   margin-bottom: 0.25rem;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.mr-auto {
+  margin-right: auto;
 }
 .flex {
   display: flex;
@@ -683,7 +693,7 @@ video {
 
 html{scroll-behavior:smooth}
 
-#coin{
+.coin{
   --coin-size: 200px;
 
   width: var(--coin-size);
@@ -694,17 +704,29 @@ html{scroll-behavior:smooth}
   transform-style: preserve-3d;
 }
 
-#coin.idle {
-  animation: idle 20s linear infinite;
+.coin.small {
+  --coin-size: 75px;
+}
+
+.coin.idle {
+  animation: idle 20s ease-in-out infinite;
 
 }
 
-#coin.spin {
-  animation: spin 2.5s ease-in-out;
+.coin.spin-heads {
+  animation: spin-heads 2.5s ease-in-out;
 }
 
-#coin.rotate {
+.coin.spin-tails {
+  animation: spin-tails 5s ease-in-out;
+}
+
+.coin.rotate {
   animation: rotate 20s linear infinite;
+}
+
+.coin.reset {
+  animation: spin-reset 2.5s ease-in-out;
 }
 
 .back{
@@ -771,35 +793,46 @@ html{scroll-behavior:smooth}
   transform: translateZ(9px);
 }
 
-@keyframes spin{
-  0% {transform: rotateX(0deg);}
-  5% {transform: rotateX(360deg);}
- 
-  20% {transform: rotateX(0deg);}
-  25% {transform: rotateX(360deg);}
-  
-  40% {transform: rotateX(0deg);}
-  45% {transform: rotateX(360deg);}
+@keyframes spin-heads{
+  0% {transform: rotateX(0turn);}
+  5% {transform: rotateX(1turn);}
+  25% {transform: rotateX(2turn);}
+  45% {transform: rotateX(3turn);}
+  65% {transform: rotateX(4turn);}
+  75% {transform: rotateX(5turn);}
+  85% {transform: rotateX(6turn);}
+  100% {transform: rotateX(7turn);}
+}
 
-  60% {transform: rotateX(0deg);}
-  65% {transform: rotateX(360deg);}
-  
-  80% {transform: rotateX(0deg);}
-  85% {transform: rotateX(360deg);}
-  
-  95% {transform: rotateX(360deg);}
-  100% {transform: rotateX(0deg);}
+@keyframes spin-tails{
+  0% {transform: rotateX(0turn);}
+  3% {transform: rotateX(1turn);}
+  16% {transform: rotateX(2turn);}
+  23% {transform: rotateX(3turn);}
+  33% {transform: rotateX(4turn);}
+  38% {transform: rotateX(5turn);}
+  42% {transform: rotateX(6turn);}
+  50% {transform: rotateX(6.5turn);}
+
+  90% {transform: rotateX(6.5turn);}
+  100% {transform: rotateX(7turn);}
 }
 
 @keyframes idle{
-  0% {transform: rotateZ(0deg) rotateY(-40deg);}
+  0% {transform: rotateZ(0deg) rotateY(0deg);}
   50% {transform: rotateZ(180deg) rotateY(40deg)}
-  100% {transform: rotateZ(360deg) rotateY(-40deg);}
+  100% {transform: rotateZ(360deg) rotateY(0deg);}
 }
 
 @keyframes rotate{
   0% {transform: rotateY(0deg);}
   100% {transform: rotateY(360deg);}
+}
+
+@keyframes reset{
+  0% {transform: rotateX(1.5turn);}
+  50% {transform: rotateX(1.5turn);}
+  100% {transform: rotateX(1turn);}
 }
 
 @media (min-width: 768px) {
