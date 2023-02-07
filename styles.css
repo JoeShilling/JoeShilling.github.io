@@ -540,6 +540,12 @@ video {
 .mb-1 {
   margin-bottom: 0.25rem;
 }
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+.mt-5 {
+  margin-top: 1.25rem;
+}
 .ml-auto {
   margin-left: auto;
 }
@@ -581,6 +587,9 @@ video {
 }
 .flex-col {
   flex-direction: column;
+}
+.items-center {
+  align-items: center;
 }
 .justify-between {
   justify-content: space-between;
@@ -643,11 +652,11 @@ video {
 .pb-5 {
   padding-bottom: 1.25rem;
 }
-.pt-5 {
-  padding-top: 1.25rem;
-}
 .pl-5 {
   padding-left: 1.25rem;
+}
+.pt-5 {
+  padding-top: 1.25rem;
 }
 .font-dom-serif-display {
   font-family: DM Serif Display, serif;
@@ -663,12 +672,16 @@ video {
   font-size: 2.25rem;
   line-height: 2.5rem;
 }
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 .text-lg {
   font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.text-xl {
+  font-size: 1.25rem;
   line-height: 1.75rem;
 }
 .text-eggshell {
@@ -833,6 +846,11 @@ html{scroll-behavior:smooth}
   0% {transform: rotateX(1.5turn);}
   50% {transform: rotateX(1.5turn);}
   100% {transform: rotateX(1turn);}
+}
+
+.hover\:text-celadon:hover {
+  --tw-text-opacity: 1;
+  color: rgb(161 210 187 / var(--tw-text-opacity));
 }
 
 @media (min-width: 768px) {
