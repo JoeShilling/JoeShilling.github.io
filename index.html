@@ -1,11 +1,218 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./styles.css">
+        <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
+        <title>Joe Shilling</title>
     </head>
-    <body>
-        <h1>Hello World</h1>
-        <p>I'm hosted with GitHub Pages.</p>
-        <a href="code-sketches/2204/04/index.html">please work</a>
+    <body class="p-10 text-base overflow-x-clip" id="top">
+        <div class="bg-[url('assets/images/inferno.webp')] bg-cover bg-center overflow fixed inset-0 -z-10"></div>
+        <div class="container mx-auto mt-[5vh] max-w-3xl flex flex-col gap-[3rem]">
+            <div class="flex flex-row">
+                    <div class='shrink bg-rifle-green text-eggshell relative font-dom-serif-display p-5 flex flex-col gap-3'>
+                        <h1 class="font-dom-serif-display cursor-pointer text-4xl lg:text-6xl mb-1 text-eggshell">Joseph Shilling</h1>
+                        <p class="font-dom-serif-display cursor-pointer text-l  ">is looking for work as a junior web developer</p>
+                        <div id="coin" class=" coin small idle absolute left-[90%] -top-[20%] cursor-pointer">
+                            <div class="back bg-[url('assets/images/tails.webp')]"></div>
+                              <div class="middle bg-[url('assets/images/tails.webp')]"></div>
+                              <div class="middle bg-[url('assets/images/tails.webp')]"></div>
+                              <div class="middle bg-[url('assets/images/tails.webp')]"></div>
+                              <div class="middle bg-[url('assets/images/tails.webp')]"></div>
+                              <div class="middle bg-[url('assets/images/tails.webp')]"></div>
+                              <div class="middle bg-[url('assets/images/tails.webp')]"></div>
+                              <div class="middle bg-[url('assets/images/tails.webp')]"></div>
+                              <div class="middle bg-[url('assets/images/tails.webp')]"></div>
+                              <div class="middle bg-[url('assets/images/tails.webp')]"></div>
+                            <div class="front bg-[url('assets/images/heads.webp')]"></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-x-10 md:flex md:flex-row " id="navbar">
+                            <a href="#experience"  class="underline hover:text-celadon">Experience</a>
+                            <a href="#education" class="underline hover:text-celadon">Education</a>
+                            <a href="#skills" class="underline hover:text-celadon">Skills</a>
+                            <a href="#about" class="underline hover:text-celadon">About</a>
+
+                        </div>
+                    </div>
+            </div>
+            <div class='text-white bg-eerie-black p-5 font-inconsolata'>
+                <p class="pb-5">I'm still working on my full site, so I've made this page for my CV as a placeholder. If you'd like to read this in PDF form, <a class="underline hover:text-celadon" href="/assets/Joe Shilling-CV-2023.pdf" download>you can download it from here.</a> If you have any other questions, you can <a class="underline hover:text-celadon" href="mailto:joe.g.shilling@gmail.com">contact me here.</a></p>
+            </div>
+
+            
+            <div class="dropdown text-white bg-eerie-black p-5" id="experience">
+                <div class="mb-5 dropdown-header font-dom-serif-display flex flex-row justify-between" content="experience" dropdown="header">
+                    <h2 class="text-3xl"> Experience & Previous Work</h2>
+                    <a href="#top"><p class="text-lg underline hover:text-celadon">Back to top</p></a>
+                </div>
+                <div class="dropdown-content font-inconsolata" content="experience" dropdown="content">
+                    <h3 class=" text-xl">JUNIOR WEBFLOW DEVELOPER </h3>
+                    <p class="pb-5 text-lg">OCTOBER 2022 - MARCH 2023 | FLOWJOY WEBFLOW AGENCY</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 pb-5">
+                        <div  class="flex flex-col gap-3 items-center">
+                            <a href="https://www.bray-st.com/" target="_blank" rel="noopener noreferrer"> 
+                                <p class="underline hover:text-celadon">Bray St. agency website. </p>  
+                            </a> 
+                            <img class="object-cover" src="assets/images/bray-st.webp" alt="Bray St website desktop view" width="300px"> 
+                            <p>Developed using Webflow, with additional custom functionality added with JS.</p>
+                        </div>
+                           
+                        <div  class="flex flex-col gap-3 items-center">
+                            <a href="https://handbook-bray.webflow.io" target="_blank" rel="noopener noreferrer">
+                                <p class="underline hover:text-celadon">Bray St. agency online employee handbook</p>
+                                
+                            </a>
+                            <img class="object-cover" src="assets/images/handbook.webp" alt="Bray St website desktop view" width="300px" >
+                            <p>Built using a framework I developed for rapidly creating simple one-page, side-nav sites such as employee handbooks or brand guidelines in Webflow.</p>
+                        </div>
+
+                        <div class="flex flex-col gap-3 items-center">
+                            <a href="https://www.flowjoy.co.uk/" target="_blank" rel="noopener noreferrer">
+                                <p class="underline hover:text-celadon">Flowjoy agency website. </p>
+                                
+                            </a>
+                            <img class="object-cover" src="assets/images/flowjoy.webp" alt="Bray St website desktop view" width="300px" >
+                            <p>Developed using Webflow, with additional custom functionality added with JS.</p>
+                        </div>
+
+                    </div>
+
+                    <ul class="pl-5 pb-5 list-disc">
+                        <li>Developed websites for professional clients using the <a class="underline hover:text-celadon" href="https://www.webflow.com"  target="_blank" rel="noopener noreferrer">Webflow</a> development tool to the design specifications created by the designer. When these designs exceeded the capabilities of Webflow, I developed custom Javascript and CSS as needed.</li>
+                        <li>Integrating Webflow sites with other external services as needed by the client, such as Google Tag Manager and Mailchimp.</li>
+                        <li>Maintaining sites previously developed by the agency.</li>
+                        <li>Helping to guide the future of the agency with regards to possible areas of expansion and pricing models.</li>
+                    </ul>
+
+                    <h3 class="pt-5 text-xl">JUNIOR CREATIVE</h3>
+                    <p class="pb-5 text-lg">MARCH 2022 - SEPTEMBER 2022 | GRAFFIO ARTS</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 pb-5">
+                        <div class="flex flex-col gap-3 items-center">
+                            <a href="https://joeshilling.github.io/design-app/" target="_blank" rel="noopener noreferrer"> 
+                                <p class="underline hover:text-celadon">Branded design web app</p>
+                                
+                            </a> 
+                            <img class="object-cover" src="assets/images/design.webp" alt="Bray St website desktop view" width="300px" > 
+                            <p>Created using React and fabric.js, this was a prototype for an application that would allow clients without access to design software to still create media that fit their brand.</p>
+                        </div>
+                        <div class="flex flex-col gap-3 items-center">
+                            <a href="https://github.com/JoeShilling/JoeShilling.github.io/tree/main/code-sketches" target="_blank" rel="noopener noreferrer">
+                                <p class="underline hover:text-celadon">Assorted code 'sketches'</p>
+                                
+                            </a>  
+                            <img class="object-cover" src="assets/images/sketches.webp" alt="Bray St website desktop view" width="300px" >
+                            <p>A collection of experimental creative coding pieces created using p5.js</p>
+                        </div>
+                       
+                    </div>
+
+                    <ul class="pl-5 pb-5 list-disc">
+                        <li>The code sketching was inspired by the work of <a class="underline hover:text-celadon" href="https://youtu.be/bmztlO9_Wvo" target="_blank" rel="noopener noreferrer">Zach Liebermann</a> and <a class="underline" href="https://processing.org/" target="_blank" rel="noopener noreferrer">Processing by Casey Reas and Ben Fry.</a> Using the graphics library p5.js to generate visuals for use in potential branding and novelty, often drawing upon the alogrithms from my computer science background as inspiration. While I'm still working on creating a way to present them all together, you can see the code behind them at my <a class="underline" href="https://github.com/JoeShilling/JoeShilling.github.io/tree/main/code-sketches" target="_blank" rel="noopener noreferrer">Github</a></li>
+                        <li>Developing a web app using React.js and Fabric to allow a client to generate branded content without the need for specialist designers. 
+                            <p>In the app, the client's specific brand is broken down into a JSON file containing components such as logos or text in specific styles, and the specific values of that component that could be altered by the user. This allows for some customisation and creation of new content, but without allowing the user to disregard the brand identity created by a designer.</p>
+                            <p>The example on the live site is for generating posters that use a format of a heading and subheadings at the top, then a 9x9 grid that can be filled with specific components.</p>
+                        </li>
+                    </ul>
+                    <h3 class="pt-5 text-xl">DATA ENTRY</h3>
+                    <p class="pb-5 text-lg">JULY 2019 - JANUARY 2020 | WITHAM 3RD INTERNAL DRAINAGE BOARD</p>
+                    <ul class="pl-5 pb-5 list-disc">
+                        <li>Transferring a large paper archive into a digital format with no loss of information.</li>
+                        <li>Creating an organizational system that allowed for easy finding and retrieval of documents.</li>
+                    </ul>
+                    <h3 class="pt-5 text-xl">LIGHTING TECHNICIAN (VOLUNTEER)</h3>
+                    <p class="pb-5 text-lg">2013 – 2018 | CAISTOR GRAMMAR SCHOOL</p>
+                    <ul class="pl-5 pb-5 list-disc">
+                        <li>Setting up, programming, and operating stage lighting for a variety of productions.</li>
+                        <li>Trained younger students as my replacements.</li>
+                    </ul>
+                    <h3 class="pt-5 text-xl">BUSHCRAFT SKILLS SUPERVISOR</h3>
+                    <p class="pb-5 text-lg">2016 - 2017 | WILD WOODCRAFT</p>
+                </div>
+            </div>
+            <div class="dropdown text-white bg-eerie-black p-5" id="education">
+                <div class="dropdown-header font-dom-serif-display flex flex-row justify-between" content="education">
+                    <h2 class="text-3xl"> Education</h2>
+                    <a href="#top"><p class="text-lg underline hover:text-celadon">Back to top</p></a>
+                </div>
+                <div class="dropdown-content font-inconsolata  duration-200 transition-all   overflow-y-hidden" content="education">
+                    <h3 class="pt-5">COMPUTER SCIENCE BSC | 2018 – 2021 | LOUGHBOROUGH UNIVERSITY</h3>
+                    <ul class="pl-5 pb-5 list-disc">
+                        <li> Graduated with First-Class Honours.</li>
+                        <li> Modules on website development, software engineering, artifical intelligence and neural networks.</li>
+                        <li> Research project focused on linear cryptanalysis of the Trivium cipher</li>
+                    </ul>
+                    <h3>A-LEVELS | 2016 - 2018 | CAISTOR GRAMMAR SCHOOL</h3>
+                    <ul class="pl-5 pb-5 list-disc">
+                        <li> Computer Science - A</li>
+                        <li> Mathematics – B</li>
+                        <li> Physics- B</li>
+                        <li> Further Mathematics (AS level) – B</li>
+                    </ul>
+                    <h3>GCSES | 2014 - 2016 | CAISTOR GRAMMAR SCHOOL</h3>
+                    <ul class="pl-5 pb-5 list-disc">
+                        <li>12 GCSEs at grade A or A* including Maths, English, Computer Science and German</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="dropdown text-white bg-eerie-black p-5" id="skills">
+                <div class="mb-5 dropdown-header font-dom-serif-display flex flex-row justify-between" content="skills">
+                    <h2 class="text-3xl">Skills</h2>
+                    <a href="#top"><p class="text-lg underline hover:text-celadon">Back to top</p></a>
+                </div>
+                <div class="dropdown-content font-inconsolata duration-200 transition-all flex flex-col md:flex-row md:justify-around overflow-y-hidden" content="skills">
+                    <div>
+                        <h3>DEVELOPMENT</h3>
+                        <ul class="pl-5 pb-5 list-disc">
+                            <li>React</li>
+                            <li>Javascript, Jquery</li>
+                            <li>Tailwind, SASS</li>
+                            <li>Python</li>
+                            <li>Java</li>
+                            <li>Webflow</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>THEORY</h3>
+                        <ul class="pl-5 pb-5 list-disc">
+                            <li>UML</li>
+                            <li>Cryptography</li>
+                            <li>Formal language theory</li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="dropdown text-white bg-eerie-black p-5" id="about">
+                <div class="mb-5 dropdown-header font-dom-serif-display flex flex-row justify-between" content="about">
+                    <h2 class="text-3xl"> About</h2>
+                    <a href="#top"><p class="text-lg underline hover:text-celadon">Back to top</p></a>
+                </div>
+                <div class="dropdown-content font-inconsolata duration-200 transition-all overflow-y-hidden" content="about">
+                    <p>I've been playing with code since I was a teenager, but when I'm not behind a keyboard you can find me shuffling up for a card game, or dressing up as a wizard.</p>
+                    <div class="mt-5 w-100%">
+                        <a class="underline hover:text-celadon" href="mailto:joe.g.shilling@gmail.com">joe.g.shilling@gmail.com</a>
+                    </div>
+                    
+                    <div class="coin rotate relative my-10 ml-auto mr-auto">
+                        <div class="back  bg-[url('assets/images/tails.webp')]"></div>
+                          <div class="middle bg-[url('assets/images/tails.webp')]""></div>
+                          <div class="middle bg-[url('assets/images/tails.webp')]""></div>
+                          <div class="middle bg-[url('assets/images/tails.webp')]""></div>
+                          <div class="middle bg-[url('assets/images/tails.webp')]""></div>
+                          <div class="middle bg-[url('assets/images/tails.webp')]""></div>
+                          <div class="middle bg-[url('assets/images/tails.webp')]""></div>
+                          <div class="middle bg-[url('assets/images/tails.webp')]""></div>
+                          <div class="middle bg-[url('assets/images/tails.webp')]""></div>
+                          <div class="middle bg-[url('assets/images/tails.webp')]""></div>
+                        <div class="front bg-[url('assets/images/heads.webp')]""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
     </body>
+    <script src="bundle.js"></script>
 </html>
