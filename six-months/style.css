@@ -1,0 +1,83 @@
+body {
+    margin: 2rem;
+    background-color: rgb(255, 255, 255);
+    color: white;
+}
+
+.outer-grid {
+    position: absolute;
+    margin: 1rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top:0;
+    display:grid;
+    grid-template-columns: 1fr 0.25fr 0.25fr 1fr;
+    grid-template-rows: 1fr 0.25fr 0.25fr 1fr;
+    grid-gap: 1rem;
+}
+
+.grid-element {
+    background-color: rgb(0, 0, 0);
+
+    grid-row-end: span 2;
+    grid-column-end: span 2;
+    padding: 1rem;
+}
+
+.grid-element.a {
+    grid-column-start: 1;
+
+    grid-row-start: 1;
+
+}
+
+.grid-element.b {
+    grid-column-start: 3;
+    /* grid-column-end: 4; */
+    grid-row-start: 1;
+    /* grid-row-end: 2; */
+}
+
+.grid-element.c {
+    grid-column-start: 1;
+    /* grid-column-end: 2; */
+    grid-row-start: 3;
+    /* grid-row-end: 4; */
+}
+
+.grid-element.d {
+    grid-column-start: 3;
+    grid-row-start: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-element.center {
+    background-color: rgb(255, 255, 255);
+    z-index: 2;
+    grid-column-start: 2;
+    grid-row-start: 2;
+    -webkit-clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%, 50% 0%);
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%, 50% 0%);
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-num {
+    color: black;
+    font-size: 8vh;
+}
+
+.console_bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.console_arrow{
+    height: 5rem;
+    color: white;
+}
