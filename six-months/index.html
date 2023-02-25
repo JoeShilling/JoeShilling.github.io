@@ -10,20 +10,29 @@
   <body>
     <div class="outer-grid">
         <div class="grid-element a">
-
+            
         </div>
         <div class="grid-element b ">
             
         </div>
         <div class="grid-element c">
             <div class="console_top">
-                <div class="console_command-line"></div>
+                <div class="console_command-line-outer">
+                    <div class="console_command-line" id="command-line"></div>
+                </div>
+                
             </div>
             <div class="console_bottom">
                 <img class="console_arrow" src="assets/icon_slider-arrow-left.svg"/>
-                <div class="console_icon-row">
-                    <div class="console_icon"></div>
+                <div class="console_icon-row-outer">
+                    <div class="console_icon-row">
+                        <div class="console_icon" draggable="true" style="background-color: aqua;"></div>
+                        <div class="console_icon" draggable="true" style="background-color: rgb(102, 255, 0);"></div>
+                        <div class="console_icon" draggable="true" style="background-color: rgb(251, 0, 255);"></div>
+                        <div class="console_icon" draggable="true" style="background-color: rgb(255, 132, 0);"></div>
+                    </div>
                 </div>
+
                 <img class="console_arrow" src="assets/icon_slider-arrow-right.svg"/>
             </div>
         </div>

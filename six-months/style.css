@@ -4,6 +4,10 @@ body {
     color: white;
 }
 
+.hidden {
+    display: none;
+}
+
 .outer-grid {
     position: absolute;
     margin: 1rem;
@@ -74,13 +78,23 @@ body {
 
 .console_top {
     flex-grow: 1;
+    margin-bottom: 2rem;
+    display:flex;
+    flex-direction: column;
+}
+
+.console_command-line-outer {
+    flex-grow: 1;
 }
 
 .console_command-line {
     height: 100%;
-    width: 100%;
-    padding: 0.5rem;
-    background-color: white;
+    padding: 1rem;
+    background-color: rgb(208, 206, 206);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.25rem;
 }
 
 .console_bottom {
@@ -94,13 +108,26 @@ body {
 }
 
 .console_arrow{
-    height: 3rem;
+    height: 2rem;
     color: white;
 }
-.console_icon-row {
+
+.console_icon-row-outer {
+    overflow-y: hidden;
     flex-grow: 1;
+}
+
+.console_icon-row {
+
     background-color: white;
     padding: 0.5rem;
     display: flex;
     flex-direction: row;
+    gap: 0.25rem;
+}
+
+.console_icon {
+    height: 3rem;
+    width: 3rem;
+    /* background-color: blueviolet; */
 }
