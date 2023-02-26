@@ -10,7 +10,13 @@
   <body>
     <div class="outer-grid">
         <div class="grid-element a">
-            
+
+            <div class="output_root" id="output_root"></div>
+            <div class="console_mid">
+                <div class="button" id="output_save">Save</div>
+                <div class="button" id="output_clear">Clear</div>
+                <div class="button hidden" id="output_"></div>
+            </div>
         </div>
         <div class="grid-element b ">
             
@@ -22,18 +28,27 @@
                 </div>
                 
             </div>
+            <div class="console_mid">
+                <div class="button" id="console-run">Run</div>
+                <div class="button is-secondary" id="console-clear">Clear</div>
+                <div class="console_output-wrapper"></div>
+            </div>
             <div class="console_bottom">
-                <img class="console_arrow" src="assets/icon_slider-arrow-left.svg"/>
+                <!-- <img class="console_arrow" src="assets/icon_slider-arrow-left.svg"/> -->
                 <div class="console_icon-row-outer">
                     <div class="console_icon-row">
-                        <div class="console_icon" draggable="true" style="background-color: aqua;"></div>
-                        <div class="console_icon" draggable="true" style="background-color: rgb(102, 255, 0);"></div>
-                        <div class="console_icon" draggable="true" style="background-color: rgb(251, 0, 255);"></div>
-                        <div class="console_icon" draggable="true" style="background-color: rgb(255, 132, 0);"></div>
+                        <div class="console_icon" console="break" style="background-color: aqua;"></div>
+                        <div class="console_icon" console="p-grid" style="background-color: rgb(102, 255, 0);"></div>
+                        <div class="console_icon" console="p-layers" style="background-color: rgb(0, 255, 115);"></div>
+                        <div class="console_icon" console="p-columns" style="background-color: rgb(0, 255, 149);"></div>
+                        <div class="console_icon" console="s-block" style="background-color: rgb(251, 0, 255);"></div>
+                        <div class="console_icon" console="s-circle" style="background-color: rgb(251, 0, 255);"></div>
+                        <div class="console_icon" console="c-green" style="background-color: rgb(255, 132, 0);"></div>
+                        <div class="console_icon" console="c-red" style="background-color: rgb(255, 0, 21);"></div>
                     </div>
                 </div>
 
-                <img class="console_arrow" src="assets/icon_slider-arrow-right.svg"/>
+                <!-- <img class="console_arrow" src="assets/icon_slider-arrow-right.svg"/> -->
             </div>
         </div>
         <div class="grid-element d">

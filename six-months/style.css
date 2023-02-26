@@ -1,3 +1,7 @@
+:root {
+    --output-spacing: 1rem;
+}
+
 body {
     margin: 2rem;
     background-color: rgb(255, 255, 255);
@@ -6,6 +10,12 @@ body {
 
 .hidden {
     display: none;
+}
+
+.button {
+    background-color: #828282;
+    padding: .5rem;
+    cursor: pointer;
 }
 
 .outer-grid {
@@ -25,6 +35,7 @@ body {
     background-color: rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
+    gap: 1rem;
     grid-row-end: span 2;
     grid-column-end: span 2;
     padding: 1rem;
@@ -32,7 +43,6 @@ body {
 
 .grid-element.a {
     grid-column-start: 1;
-
     grid-row-start: 1;
 
 }
@@ -49,6 +59,8 @@ body {
     /* grid-column-end: 2; */
     grid-row-start: 3;
     /* grid-row-end: 4; */
+    gap: 1rem;
+    overflow:hidden;
 }
 
 .grid-element.d {
@@ -76,25 +88,84 @@ body {
     font-size: 8vh;
 }
 
+/*output styles */
+
+
+.output_root {
+    background-color: white;
+    flex: 1 1 0;
+    display:flex;
+    flex-direction: column;
+    gap: var(--output-spacing);
+}
+
+.output_root div {
+    flex: 1;
+}
+
+.output_p-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--output-spacing); 
+}
+
+.output_p-grid div {
+    grid-row-end: span 1;
+}
+
+.output_p-layers {
+    flex: 1 1 0;
+    display:flex;
+    flex-direction: column;
+    gap: var(--output-spacing);
+}
+
+.output_p-layers div {
+    flex: 1;
+}
+
+.output_p-columns {
+    flex: 1 1 0;
+    display:flex;
+    flex-direction: row;
+    gap: var(--output-spacing);
+}
+
+.output_p-columns div {
+    flex: 1;
+}
+
+/* console styles */
 .console_top {
     flex-grow: 1;
-    margin-bottom: 2rem;
     display:flex;
     flex-direction: column;
 }
 
 .console_command-line-outer {
-    flex-grow: 1;
+    flex: 1 1 0;
+    background-color: rgb(208, 206, 206);
+    overflow-y: auto;
 }
 
 .console_command-line {
-    height: 100%;
     padding: 1rem;
-    background-color: rgb(208, 206, 206);
+    min-height: min-content;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 0.25rem;
+}
+
+.console_mid {
+    display:flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.console_output-wrapper {
+    flex: 1;
+    background-color: white;
 }
 
 .console_bottom {
@@ -103,8 +174,7 @@ body {
     justify-items: stretch;
     gap: 0.5rem;
     align-items: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+
 }
 
 .console_arrow{
@@ -113,12 +183,13 @@ body {
 }
 
 .console_icon-row-outer {
-    overflow-y: hidden;
-    flex-grow: 1;
+    overflow-y: auto;
+    flex: 1;
+
 }
 
 .console_icon-row {
-
+    overflow: auto;
     background-color: white;
     padding: 0.5rem;
     display: flex;
@@ -129,5 +200,5 @@ body {
 .console_icon {
     height: 3rem;
     width: 3rem;
-    /* background-color: blueviolet; */
+    cursor: pointer;
 }
