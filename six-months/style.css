@@ -44,6 +44,7 @@ body {
 .grid-element.a {
     grid-column-start: 1;
     grid-row-start: 1;
+    overflow: auto;
 
 }
 
@@ -133,6 +134,30 @@ body {
 
 .output_p-columns div {
     flex: 1;
+}
+
+/* Gallery styles */
+.gallery_wrapper {
+    height: 100%;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    overflow:auto;
+}
+
+
+.gallery_element-wrapper {
+    height: 0px;
+    padding-bottom: 100%;
+    position: relative;
+}
+
+.gallery_element-wrapper .output_root {
+    position: absolute;
+    bottom: 0px;
+    top : 0px;
+    left: 0px;
+    right: 0px;
 }
 
 /* console styles */

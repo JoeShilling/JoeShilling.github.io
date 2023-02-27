@@ -1,8 +1,33 @@
+//output functions
+
+//output view ()
+let currentWork;
+const outputView = (element) => {
+    currentWork = document.querySelector("");
+}
+
 //output clear
 document.querySelector('#output_clear').addEventListener('click', (e) => {
     document.querySelector("#output_root").replaceChildren();
 });
 
+
+//output save
+document.querySelector('#output_save').addEventListener('click', (e) => {
+    let outputWrapper = document.createElement("div");
+    outputWrapper.classList.add("gallery_element-wrapper"); 
+    let output = document.querySelector("#output_root");
+    output.removeAttribute('id');
+    outputWrapper.append(output);
+    document.querySelector("#gallery_wrapper").prepend(outputWrapper);
+    let newRoot = document.createElement("div");
+    newRoot.classList.add("output_root");
+    newRoot.setAttribute("id", "output_root");
+    document.querySelector(".grid-element.a").prepend(newRoot);
+});
+
+
+//console functions
 
 //add onClick listeners to each of the icons on the iconRow
 document.querySelectorAll('.console_icon').forEach((i) => {
