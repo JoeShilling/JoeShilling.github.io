@@ -138,18 +138,24 @@ body {
 
 /* Gallery styles */
 .gallery_wrapper {
-    height: 100%;
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    /* height: 100%; */
+    display:flex;
+    flex-direction: row;
+    /* grid-template-columns: 1fr 1fr 1fr 1fr; */
     gap: 1rem;
+    flex-wrap: wrap;
     overflow:auto;
 }
 
 
 .gallery_element-wrapper {
-    height: 0px;
-    padding-bottom: 100%;
+    height: 12vw;
+    width: 12vw;
     position: relative;
+}
+
+.gallery_element-wrapper:hover .output_root {
+    opacity: 50%;
 }
 
 .gallery_element-wrapper .output_root {
@@ -159,6 +165,40 @@ body {
     left: 0px;
     right: 0px;
 }
+
+.gallery_element-label {
+    display:none;
+    z-index: 1;
+    position: relative;
+}
+
+.gallery_element-wrapper:hover .gallery_element-label {
+    height: 100%;
+    bottom: 0px;
+    top : 0px;
+    left: 0px;
+    right: 0px;
+
+    /*I just had to grab this from webflow bc it would not work by hand */
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+.gallery_element-wrapper p {
+}
+
 
 /* console styles */
 .console_top {

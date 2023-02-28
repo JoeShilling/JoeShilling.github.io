@@ -3,7 +3,14 @@
 //output view ()
 let currentWork;
 const outputView = (element) => {
-    currentWork = document.querySelector("");
+    currentWork = document.querySelector("#output_root");
+    const clone = element.querySelector(".output_root").cloneNode(true);
+    clone.setAttribute("id", "output_root");
+    currentWork.removeAttribute("id");
+    currentWork.replaceWith(clone);
+    document.querySelector("#output_save").classList.add('hidden');
+    document.querySelector("#output_clear").classList.add('hidden');
+    document.querySelector("#output_exit").classList.remove('hidden');
 }
 
 //output clear
@@ -19,11 +26,32 @@ document.querySelector('#output_save').addEventListener('click', (e) => {
     let output = document.querySelector("#output_root");
     output.removeAttribute('id');
     outputWrapper.append(output);
+
+    let outputLabel = document.createElement("div");
+    outputLabel.innerHTML = "<p>View</p>";
+    outputLabel.classList.add("gallery_element-label");
+    outputWrapper.append(outputLabel);     
+    outputWrapper.addEventListener("click", (e) => {
+        outputView(e.currentTarget);
+    });
     document.querySelector("#gallery_wrapper").prepend(outputWrapper);
+    
+    
     let newRoot = document.createElement("div");
     newRoot.classList.add("output_root");
     newRoot.setAttribute("id", "output_root");
     document.querySelector(".grid-element.a").prepend(newRoot);
+});
+
+//output exit
+document.querySelector('#output_exit').addEventListener('click', (e) => {
+    currentView = document.querySelector("#output_root");
+    currentWork.setAttribute("id", "output_root");
+    currentView.removeAttribute("id");
+    currentView.replaceWith(currentWork);
+    document.querySelector("#output_save").classList.remove('hidden');
+    document.querySelector("#output_clear").classList.remove('hidden');
+    document.querySelector("#output_exit").classList.add('hidden');
 });
 
 
