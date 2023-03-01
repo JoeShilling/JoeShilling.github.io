@@ -165,7 +165,7 @@ document.querySelector("#browser-home").addEventListener("click", (event) => {
 
 document.querySelector("#browser-back").addEventListener("click", (event) => {
     if (pageHistory.length >= 2) {
-        console.log(pageHistory.pop());
+        pageHistory.pop();
         switchPages(pageHistory.pop());
     }
 
