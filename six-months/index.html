@@ -28,15 +28,8 @@
                 <div class="console_command-line-outer">
                     <div class="console_command-line" id="command-line"></div>
                 </div>
-                
             </div>
             <div class="console_mid">
-                <div class="button" id="console-run">Run</div>
-                <div class="button is-secondary" id="console-clear">Clear</div>
-                <div class="console_output-wrapper"></div>
-            </div>
-            <div class="console_bottom">
-                <!-- <img class="console_arrow" src="assets/icon_slider-arrow-left.svg"/> -->
                 <div class="console_icon-row-outer">
                     <div class="console_icon-row">
                         <div class="console_icon" console="break" style="background-color: aqua;"></div>
@@ -49,12 +42,58 @@
                         <div class="console_icon" console="c-red" style="background-color: rgb(255, 0, 21);"></div>
                     </div>
                 </div>
+            </div>
+            <div class="console_bottom">
+                <!-- <img class="console_arrow" src="assets/icon_slider-arrow-left.svg"/> -->
+                
 
                 <!-- <img class="console_arrow" src="assets/icon_slider-arrow-right.svg"/> -->
+
+                <div class="button" id="console-run">Run</div>
+                <div class="button is-secondary" id="console-clear">Clear</div>
+                <div class="console_output-wrapper"></div>
             </div>
         </div>
         <div class="grid-element d">
-
+            <div class="browser_top">
+                <div class="browser_wrapper">
+                    <div class="browser_page" page-name="home">
+                        <h1>Hello Page 1</h1>
+                        <p>Sentence 1</p>
+                        <p>Sentence 2</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="page2">Page 2,</p>
+                            <p page-link="page3">Page 3,</p>
+                        </div>
+                    </div>
+                    <div class="browser_page" page-name="page2">
+                        <h1>Hello Page 2</h1>
+                        <p>Sentence 1</p>
+                        <p>Sentence 2</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="page2">Page 2,</p>
+                            <p page-link="page3">Page 3,</p>
+                        </div>
+                    </div>
+                    <div class="browser_page" page-name="page3">
+                        <h1>Hello Page 3</h1>
+                        <p>Sentence 1</p>
+                        <p>Sentence 2</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="page2">Page 2,</p>
+                            <p page-link="page3">Page 3,</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="console_bottom">
+                <div class="button" id="browser-home">Home</div>
+                <div class="button is-secondary" id="browser-back">Back</div>
+                <div class="browser_output-wrapper"></div>
+            </div>
             
 
         </div>

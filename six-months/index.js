@@ -140,6 +140,40 @@ let consoleRun = () => {
 }
 document.querySelector('#console-run').addEventListener('click', consoleRun);
 
+let pageHistory = [];
+
+//browser functions start
+const switchPages = (target) => {
+    pageHistory.push(target);
+    let allPages = document.querySelectorAll(".browser_page");
+    allPages.forEach((e) => {
+        e.classList.remove("is-active");
+    })
+    document.querySelector(`[page-name="${target}"]`).classList.add("is-active");
+}
+
+
+document.querySelectorAll("[page-link]").forEach((e) => {
+    e.addEventListener("click", (event) => {
+        switchPages(event.currentTarget.getAttribute('page-link'));
+    });
+})
+
+document.querySelector("#browser-home").addEventListener("click", (event) => {
+    switchPages('home');
+})
+
+document.querySelector("#browser-back").addEventListener("click", (event) => {
+    if (pageHistory.length >= 2) {
+        console.log(pageHistory.pop());
+        switchPages(pageHistory.pop());
+    }
+
+})
+
+switchPages("home");
+
+//browser functions end
 
 let keyPress = (event) => {
     switch (event.key) {
