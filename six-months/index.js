@@ -1,3 +1,9 @@
+//tickdown function
+const tickDown = (num = 1) => {
+    let numElement = document.querySelector('#countdown');
+    numElement.innerText = parseInt(numElement.innerText) - num;
+}
+
 //output functions
 
 //output view ()
