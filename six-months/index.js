@@ -66,17 +66,35 @@ document.querySelector('#output_exit').addEventListener('click', (e) => {
 
 //console functions
 
+let pages = Array.from(document.querySelectorAll('.browser_page'));
+// pages.sort(() => Math.random() - 0.5);
+pages = [...pages].sort(() => Math.random() - 0.5)
+
 //add onClick listeners to each of the icons on the iconRow
 document.querySelectorAll('.console_icon').forEach((i) => {
     i.addEventListener('click', (event) => {
-        const c = event.target.cloneNode()
-        c.setAttribute('draggable', false);
-        c.addEventListener("click" , (event) => {
-            let e = event.target;
-            e.parentNode.removeChild(e);
-        });
-        document.querySelector('#command-line').appendChild(c);
+        if (event.target.parentElement.classList.contains('console_icon-row')) { //only run this if its actually on the command row
+            const c = event.target.cloneNode()
+            c.setAttribute('draggable', false);
+            c.addEventListener("click" , (event) => {
+                let e = event.target;
+                e.parentNode.removeChild(e);
+            });
+            document.querySelector('#command-line').appendChild(c);
+        } else if (event.target.parentElement.classList.contains('browser_page')) { //if its current hidden in a browser page and its clicked, add it back to the icon row
+            document.querySelector('#console_icon-row').append(event.target);
+
+        };
+
     });
+
+    //then scatter the currently hidden ones into the browser pages
+    if (i.classList.contains('hidden')) {
+        let newParent = pages.pop();
+        newParent.append(i);
+        i.classList.remove('hidden');
+    }
+    
 });
 
 //console clear button
@@ -85,6 +103,7 @@ let consoleClear = () => {
 }
 document.querySelector('#console-clear').addEventListener('click', consoleClear);
 
+//running the sequence in the console
 let consoleRun = () => {
     let inputList = [];
     
@@ -122,6 +141,12 @@ let consoleRun = () => {
             case "p-columns":
                 child = document.createElement("div");
                 child.classList.add("output_p-columns");
+                current.appendChild(child);
+                current = child;
+            break;
+            case "p-spiral":
+                child = document.createElement("div");
+                child.classList.add("output_p-spiral");
                 current.appendChild(child);
                 current = child;
             break;
@@ -167,9 +192,11 @@ let consoleRun = () => {
 }
 document.querySelector('#console-run').addEventListener('click', consoleRun);
 
-let pageHistory = [];
+
 
 //browser functions start
+let pageHistory = [];
+
 const switchPages = (target) => {
     pageHistory.push(target);
     let allPages = document.querySelectorAll(".browser_page");
@@ -179,7 +206,7 @@ const switchPages = (target) => {
     document.querySelector(`[page-name="${target}"]`).classList.add("is-active");
 }
 
-
+//adding clickable links to pages
 document.querySelectorAll("[page-link]").forEach((e) => {
     e.addEventListener("click", (event) => {
         switchPages(event.currentTarget.getAttribute('page-link'));
@@ -202,6 +229,7 @@ switchPages("home");
 
 //browser functions end
 
+//keyboard commands
 let keyPress = (event) => {
     switch (event.key) {
         case '1':

@@ -31,28 +31,24 @@
             </div>
             <div class="console_mid">
                 <div class="console_icon-row-outer">
-                    <div class="console_icon-row">
+                    <div class="console_icon-row" id="console_icon-row">
                         <div class="console_icon" console="break" style="background-color: aqua;"></div>
                         <div class="console_icon" console="p-grid" style="background-color: rgb(102, 255, 0);"></div>
-                        <div class="console_icon" console="p-layers" style="background-color: rgb(0, 255, 115);"></div>
-                        <div class="console_icon" console="p-columns" style="background-color: rgb(0, 255, 149);"></div>
-                        <div class="console_icon" console="s-block" style="background-color: rgb(251, 0, 255);"></div>
+                        <div class="console_icon hidden" console="p-layers" style="background-color: rgb(0, 255, 115);"></div>
+                        <div class="console_icon hidden" console="p-columns" style="background-color: rgb(0, 255, 149);"></div>
+                        <div class="console_icon hidden" console="p-spiral" style="background-color: rgb(0, 255, 149);"></div>
+                        <div class="console_icon hidden" console="s-block" style="background-color: rgb(251, 0, 255);"></div>
                         <div class="console_icon" console="s-circle" style="background-color: rgb(251, 0, 255);"></div>
-                        <div class="console_icon" console="s-tri-up" style="background-color: rgb(251, 0, 255);"></div>
-                        <div class="console_icon" console="s-diamond" style="background-color: rgb(251, 0, 255);"></div>
-                        <div class="console_icon" console="c-red" style="background-color: rgb(255, 0, 21);"></div>
-                        <div class="console_icon" console="c-green" style="background-color: rgb(255, 132, 0);"></div>
-                        <div class="console_icon" console="c-blue" style="background-color: rgb(255, 132, 0);"></div>
+                        <div class="console_icon hidden" console="s-tri-up" style="background-color: rgb(251, 0, 255);"></div>
+                        <div class="console_icon hidden" console="s-diamond" style="background-color: rgb(251, 0, 255);"></div>
+                        <div class="console_icon hidden" console="c-red" style="background-color: rgb(255, 0, 21);"></div>
+                        <div class="console_icon hidden" console="c-green" style="background-color: rgb(255, 132, 0);"></div>
+                        <div class="console_icon hidden" console="c-blue" style="background-color: rgb(255, 132, 0);"></div>
                         <div class="console_icon" console="c-black" style="background-color: rgb(255, 0, 21);"></div>
                     </div>
                 </div>
             </div>
             <div class="console_bottom">
-                <!-- <img class="console_arrow" src="assets/icon_slider-arrow-left.svg"/> -->
-                
-
-                <!-- <img class="console_arrow" src="assets/icon_slider-arrow-right.svg"/> -->
-
                 <div class="button" id="console-run">Run</div>
                 <div class="button is-secondary" id="console-clear">Clear</div>
                 <div class="console_output-wrapper"></div>
@@ -61,34 +57,117 @@
         <div class="grid-element d">
             <div class="browser_top">
                 <div class="browser_wrapper">
+                    <!-- Home page -->
                     <div class="browser_page" page-name="home">
                         <h1>Hello Page 1</h1>
                         <p>Sentence 1</p>
                         <p>Sentence 2</p>
                         <div class="browser_see-more">
                             <p>See More:</p>
-                            <p page-link="page2">Page 2,</p>
+                            <p page-link="ecosystem">Ecosystem,</p>
+                            <p page-link="code-sketches">Code Sketches</p>
+                        </div>
+                    </div>
+
+                    <!-- Ecosystem Page -->
+                    <div class="browser_page" page-name="ecosystem">
+                        <h1>Ecosystem</h1>
+                        <p>The inspiration for Ecosystem came from a module in the second year of my degree called Autonomous Agents. The eponymous concept refers to anything that is able to perceive its environment and then take actions using what it ‘sees’ according to an internal logic, without the assistance or guidance from another agent. It’s a broad term and both people and thermostats could be considered autonomous agents. I was interested in seeing how I could use a system of agents to produce a visual.</p>
+                        <p>A lot of the module talked about biological inspirations for algorithms, so I used that as a starting point with a basic predator & prey scenario. The predator agents in red try to chase down the prey agents in blue before their internal timer runs out, while the prey agents want to both move towards the green ‘plant’ objects whilst also avoiding the predator agents.</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="code-sketches">Code Sketches,</p>
+                            <p page-link="weave">Weave,</p>
+                        </div>
+                    </div>
+
+                    <!-- Code Sketches page -->
+                    <div class="browser_page" page-name="code-sketches">
+                        <h1>Code Sketches</h1>
+                        <p>Inspired by several talks by Zach Liebermann and Processing by Casey Reas and Ben Fry, the first portion of my time as an intern at the lab was experimenting with code sketches. As the name suggests, these were small programs often based on whatever inspiration I found whilst doing other work or just from around the studio. Some of the inspirations for my sketches included: Brutalism architecture
+
+                            18th century loom weaving diagrams
+                            
+                            Autonomous agents
+                            
+                            VHS players
+                            
+                            A bookshelf
+                            
+                            A bug that happened whilst developing another sketch, or an iteration on a previous sketch.</p>
+                        <p>Whilst initially I was reading through Processing, I eventually settled on using p5.js as my medium due to the added ease of sharing my sketches over the internet.</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="processing">Processing & p5.js,</p>
                             <p page-link="page3">Page 3,</p>
                         </div>
                     </div>
-                    <div class="browser_page" page-name="page2">
-                        <h1>Hello Page 2</h1>
-                        <p>Sentence 1</p>
-                        <p>Sentence 2</p>
+                    <!-- Processing & p5.js page -->
+                    <div class="browser_page" page-name="processing">
+                        <h1>Processing & p5.js</h1>
+                        <p>Processing and p5.js are programming languages that were created with the intention of being used for the visual arts and design. They have become popular because of their ability to create visually appealing applications that are also interactive and engaging for the user.</p>
+                        <p>Processing was initially developed by two individuals, Ben Fry and Casey Reas, back in 2001. In 2014, Lauren McCarthy developed p5.js as a web-based alternative to Processing. The library was designed to run within a browser, making it easily accessible to anyone with an internet connection. Since then, p5.js has become increasingly popular for its simplicity and ease of use.</p>
+                        <p>While Processing and p5.js are different programming languages, they share many similarities in syntax and functionality. In fact, p5.js was designed to be similar to Processing, making it easy for users to switch between the two.</p>
                         <div class="browser_see-more">
                             <p>See More:</p>
                             <p page-link="page2">Page 2,</p>
                             <p page-link="page3">Page 3,</p>
                         </div>
                     </div>
-                    <div class="browser_page" page-name="page3">
-                        <h1>Hello Page 3</h1>
-                        <p>Sentence 1</p>
-                        <p>Sentence 2</p>
+                    <!-- Computer science page -->
+                    <div class="browser_page" page-name="computer-science">
+                        <h1>Computer Science BSc</h1>
+                        <p>I studied computer science at Loughborough University from 2017 to 2021, graduating with first class honours. The course was a mixture of practical modules you would expect such as mobile app development, functional programming, object-orientated programming and software engineering with theory modules on more esoteric topics that make up the basis of computer science theory such as logic, formal methods and the ominously titled ‘Difficult Problems in Computing’.</p>
+                        <p>For my final year project I studied linear cryptanalysis, specifically the cube attack when applied to varying numbers of iterations of the Trivium stream cipher.</p>
                         <div class="browser_see-more">
                             <p>See More:</p>
                             <p page-link="page2">Page 2,</p>
                             <p page-link="page3">Page 3,</p>
+                        </div>
+                    </div>
+
+                    <!-- Weave Sketch -->
+                    <div class="browser_page" page-name="weave">
+                        <h1>Weave</h1>
+                        <p>Following on from Ecosystem, the sketch inspired by autonomous agents, I was looking for alternative visuals I could apply the logic to. My inspiration came as I was flicking through some of the books in the studio and I found ‘Carpets of the Art Deco Era’ by Susan Day. In particular I really enjoyed the texture of the diagrams used for old looms and my thoughts went to how I could possibly use the logic of the autonomous agents to generate new ‘diagrams’.</p>
+                        <p>In the sketch that came out of it, most of my effort was spent replicating the visual look of the strings and the actual logic underneath it sort of fell by the wayside, which was a shame. In my efforts to create the rope aesthetic, I did end up having several bugs which themselves produced an interesting visual, which I then tweaked as sketches by themselves.</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="ecosystem">Ecosystem,</p>
+                            <p page-link="code-sketches">Code Sketches</p>
+                        </div>
+                    </div>
+
+                    <!-- Donkey Kong Sketch -->
+                    <div class="browser_page" page-name="home">
+                        <h1>Donkey Kong</h1>
+                        <p>Created by a bug whilst I was working on Weave (the agents controlling the ropes wouldn’t rotate properly), I found the fact that it created an interesting visual regardless to be worth preserving. </p>
+                        <p>Looking back upon the array of sketches I produced, the majority of them were trying to recreate a visual or aesthetic found in another medium and most of my code didn’t leave any room for an unexpected output.</p>
+                        <p></p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="code-sketches">Code Sketches,</p>
+                            <p page-link="ecosystem">Ecosystem</p>
+                        </div>
+                    </div>
+                    <div class="browser_page" page-name="home">
+                        <h1>Hello Page 1</h1>
+                        <p>Sentence 1</p>
+                        <p>Sentence 2</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="ecosystem">Ecosystem,</p>
+                            <p page-link="code-sketches">Code Sketches</p>
+                        </div>
+                    </div>
+                    <div class="browser_page" page-name="home">
+                        <h1>Hello Page 1</h1>
+                        <p>Sentence 1</p>
+                        <p>Sentence 2</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="ecosystem">Ecosystem,</p>
+                            <p page-link="code-sketches">Code Sketches</p>
                         </div>
                     </div>
                 </div>
