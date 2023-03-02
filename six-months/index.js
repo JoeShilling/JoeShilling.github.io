@@ -9,14 +9,17 @@ const tickDown = (num = 1) => {
 //output view ()
 let currentWork;
 const outputView = (element) => {
-    currentWork = document.querySelector("#output_root");
-    const clone = element.querySelector(".output_root").cloneNode(true);
-    clone.setAttribute("id", "output_root");
-    currentWork.removeAttribute("id");
-    currentWork.replaceWith(clone);
-    document.querySelector("#output_save").classList.add('hidden');
-    document.querySelector("#output_clear").classList.add('hidden');
-    document.querySelector("#output_exit").classList.remove('hidden');
+    if (document.querySelector("#output_save").classList.contains('hidden') == false) { //if we're not already previewing something
+        currentWork = document.querySelector("#output_root");
+        const clone = element.querySelector(".output_root").cloneNode(true);
+        clone.setAttribute("id", "output_root");
+        currentWork.removeAttribute("id");
+        currentWork.replaceWith(clone);
+        document.querySelector("#output_save").classList.add('hidden');
+        document.querySelector("#output_clear").classList.add('hidden');
+        document.querySelector("#output_exit").classList.remove('hidden');
+    }
+
 }
 
 //output clear
@@ -130,7 +133,19 @@ let consoleRun = () => {
             break;
             case "s-circle":
                 child = document.createElement("div");
-                child.classList.add("output_s-block");
+                child.classList.add("output_s-circle");
+                child.style.backgroundColor = colour;
+                current.appendChild(child);
+            break;
+            case "s-tri-up":
+                child = document.createElement("div");
+                child.classList.add("output_s-tri-up");
+                child.style.backgroundColor = colour;
+                current.appendChild(child);
+            break;
+            case "s-diamond":
+                child = document.createElement("div");
+                child.classList.add("output_s-diamond");
                 child.style.backgroundColor = colour;
                 current.appendChild(child);
             break;
@@ -139,6 +154,12 @@ let consoleRun = () => {
             break;
             case "c-red":
                 colour = "red";
+            break;
+            case "c-blue":
+                colour = "blue";
+            break;
+            case "c-black":
+                colour = "black";
             break;
         }
     });

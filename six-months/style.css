@@ -136,6 +136,21 @@ body {
     flex: 1;
 }
 
+.output_s-block {
+}
+
+.output_s-circle {
+    border-radius: 100%;
+}
+
+.output_s-tri-up{
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.output_s-diamond{
+    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
 /* Gallery styles */
 .gallery_wrapper {
     /* height: 100%; */
