@@ -7,11 +7,13 @@ const tickDown = (num = 1) => {
 //output functions
 
 //output view ()
-let currentWork;
+let currentWork = document.createElement('div');
+currentWork.id = 'output_root';
+currentWork.classList.add('output_root');
 const outputView = (element) => {
     if (document.querySelector("#output_save").classList.contains('hidden') == false) { //if we're not already previewing something
         currentWork = document.querySelector("#output_root");
-        const clone = element.querySelector(".output_root").cloneNode(true);
+        const clone = element.cloneNode(true);
         clone.setAttribute("id", "output_root");
         currentWork.removeAttribute("id");
         currentWork.replaceWith(clone);
@@ -19,7 +21,22 @@ const outputView = (element) => {
         document.querySelector("#output_clear").classList.add('hidden');
         document.querySelector("#output_exit").classList.remove('hidden');
     }
+}
 
+const viewImage = (imageName) => {
+    let imageElement  = document.createElement('img');
+    imageElement.src = imageName;
+    let wrapper = document.createElement('div');
+    wrapper.classList.add('output_image-wrapper')
+    wrapper.append(imageElement);
+    outputView(wrapper)
+}
+
+const viewVideo = (videoName) => {
+    let videoElement = document.createElement('video');
+    videoElement.src = videoName;
+    videoElement.controls = true;
+    outputView(videoElement);
 }
 
 //output clear
@@ -30,6 +47,7 @@ document.querySelector('#output_clear').addEventListener('click', (e) => {
 
 //output save
 document.querySelector('#output_save').addEventListener('click', (e) => {
+    tickDown(5);
     let outputWrapper = document.createElement("div");
     outputWrapper.classList.add("gallery_element-wrapper"); 
     let output = document.querySelector("#output_root");
@@ -41,7 +59,7 @@ document.querySelector('#output_save').addEventListener('click', (e) => {
     outputLabel.classList.add("gallery_element-label");
     outputWrapper.append(outputLabel);     
     outputWrapper.addEventListener("click", (e) => {
-        outputView(e.currentTarget);
+        outputView(e.currentTarget.querySelector('.output_root'));
     });
     document.querySelector("#gallery_wrapper").prepend(outputWrapper);
     
@@ -52,8 +70,12 @@ document.querySelector('#output_save').addEventListener('click', (e) => {
     document.querySelector(".grid-element.a").prepend(newRoot);
 });
 
+
+
+
 //output exit
-document.querySelector('#output_exit').addEventListener('click', (e) => {
+
+const outputExit = () => {
     currentView = document.querySelector("#output_root");
     currentWork.setAttribute("id", "output_root");
     currentView.removeAttribute("id");
@@ -61,6 +83,10 @@ document.querySelector('#output_exit').addEventListener('click', (e) => {
     document.querySelector("#output_save").classList.remove('hidden');
     document.querySelector("#output_clear").classList.remove('hidden');
     document.querySelector("#output_exit").classList.add('hidden');
+}
+
+document.querySelector('#output_exit').addEventListener('click', (e) => {
+    outputExit();
 });
 
 
@@ -82,6 +108,7 @@ document.querySelectorAll('.console_icon').forEach((i) => {
             });
             document.querySelector('#command-line').appendChild(c);
         } else if (event.target.parentElement.classList.contains('browser_page')) { //if its current hidden in a browser page and its clicked, add it back to the icon row
+            tickDown(2);
             document.querySelector('#console_icon-row').append(event.target);
 
         };
@@ -99,17 +126,21 @@ document.querySelectorAll('.console_icon').forEach((i) => {
 
 //console clear button
 let consoleClear = () => {
+    tickDown(1);
     document.querySelectorAll(".console_command-line .console_icon").forEach((e) => {e.click()});
 }
 document.querySelector('#console-clear').addEventListener('click', consoleClear);
 
 //running the sequence in the console
 let consoleRun = () => {
+    tickDown(5);
+    if (document.querySelector("#output_save").classList.contains('hidden') == true) {
+        outputExit();
+    }
     let inputList = [];
     
     document.querySelectorAll(".console_command-line .console_icon").forEach((e) => {
         inputList.push(e.getAttribute('console'));
-
     });
     console.log(inputList);
 
@@ -198,6 +229,7 @@ document.querySelector('#console-run').addEventListener('click', consoleRun);
 let pageHistory = [];
 
 const switchPages = (target) => {
+    tickDown(3);
     pageHistory.push(target);
     let allPages = document.querySelectorAll(".browser_page");
     allPages.forEach((e) => {
