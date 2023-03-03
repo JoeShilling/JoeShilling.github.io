@@ -252,7 +252,7 @@ document.querySelector('#console-run').addEventListener('click', consoleRun);
 let pageHistory = [];
 
 const switchPages = (target) => {
-    tickDown(1);
+    tickDown(2);
     pageHistory.push(target);
     let allPages = document.querySelectorAll(".browser_page");
     allPages.forEach((e) => {
