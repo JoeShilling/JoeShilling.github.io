@@ -124,6 +124,10 @@ body {
     font-size: 8vh;
 }
 
+.center-num.low {
+    color:red;
+}
+
 /*output styles */
 
 
@@ -156,7 +160,11 @@ body {
     height: 100%
 }
 
-
+#output_root {
+    border-style: solid;
+    border-width: .4rem;
+    border-color: white;
+}
 
 .output_p-grid {
     display: grid;
@@ -379,8 +387,8 @@ body {
     height: 3rem;
     width: 3rem;
     cursor: pointer;
+    border-radius: 3px;
 }
-
 /* Browser Styles */
 
 .browser_top {
@@ -397,7 +405,7 @@ body {
 
 .browser_page {
     display:none;
-    scroll: auto;
+    overflow-y: auto;
 }
 
 .browser_page.is-active {

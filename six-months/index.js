@@ -1,7 +1,11 @@
 //tickdown function
 const tickDown = (num = 1) => {
     let numElement = document.querySelector('#countdown');
-    numElement.innerText = parseInt(numElement.innerText) - num;
+    let newValue = parseInt(numElement.innerText) - num;
+    if (newValue <= 30) {
+        document.querySelector('#countdown').classList.add('low');
+    }
+    numElement.innerText = newValue;
 }
 
 //output functions
@@ -258,6 +262,7 @@ document.querySelector("#browser-back").addEventListener("click", (event) => {
 })
 
 switchPages("home");
+tickDown(-3); //reset the timer back to 182 after using switchPages
 
 //browser functions end
 
