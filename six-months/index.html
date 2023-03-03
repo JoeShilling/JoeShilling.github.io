@@ -8,12 +8,27 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div class="fullscreen_wrapper hidden">
+    <div class="fullscreen_wrapper">
         <div class="fullscreen_container">
-            
+            <div class="fullscreen_intro">
+                <div style="margin-top: 5rem; display:flex; flex-direction: column; align-items: center;" >
+                    <h1>SIX MONTHS OF CODE</h1>
+                    <h3 style="margin-top: 2rem;">JOE SHILLING</h3>
+                    <div class="button" style="width:auto; margin-top: 3rem;" onclick="start()">INITIATE STARTUP</div>
+                    <p style="margin-top: 5rem;">(You'll need the mouse and keyboard)</p>    
+                </div>
+                
+            </div>
+            <div class="fullscreen_outro hidden">
+                <h1>OUTPUT:</h1>
+                <div style="margin-top: 5rem; display:flex; flex-direction: column; align-items: center;" >
+                    <div class="button" style="width:auto;" onclick="location.reload()">REBOOT</div>
+                </div>
+                
+            </div>
         </div>
     </div>
-    <div class="outer-grid">
+    <div class="outer-grid fade">
         <div class="grid-element a">
 
             <div class="output_root" id="output_root"></div>
@@ -24,7 +39,10 @@
             </div>
         </div>
         <div class="grid-element b ">
-            <div class="gallery_wrapper" id="gallery_wrapper">
+            <div class="gallery_border">
+                <div class="gallery_wrapper" id="gallery_wrapper">
+            </div>
+
                 
             </div>
         </div>
@@ -39,10 +57,10 @@
                     <div class="console_icon-row" id="console_icon-row">
                         <div class="console_icon" console="break" style="background-image:url('./assets/icons/break.png'); background-position: center; background-size: contain;"></div>
                         <div class="console_icon" console="p-grid" style="background-image:url('./assets/icons/p-grid.png'); background-position: center; background-size: contain;"></div>
-                        <div class="console_icon" console="p-layers" style="background-image:url('./assets/icons/p-layers.png'); background-position: center; background-size: contain;"></div>
+                        <div class="console_icon hidden" console="p-layers" style="background-image:url('./assets/icons/p-layers.png'); background-position: center; background-size: contain;"></div>
                         <div class="console_icon hidden" console="p-columns" style="background-image:url('./assets/icons/p-columns.png'); background-position: center; background-size: contain;"></div>
                         <div class="console_icon hidden" console="p-spiral" style="background-image:url('./assets/icons/p-spiral.png'); background-position: center; background-size: contain;"></div>
-                        <div class="console_icon hidden" console="s-block" style="background-image:url('./assets/icons/p-block.png'); background-position: center; background-size: contain;"></div>
+                        <div class="console_icon hidden" console="s-block" style="background-image:url('./assets/icons/s-block.png'); background-position: center; background-size: contain;"></div>
                         <div class="console_icon" console="s-circle" style="background-image:url('./assets/icons/s-circle.png'); background-position: center; background-size: contain;"></div>
                         <div class="console_icon hidden" console="s-tri-up" style="background-image:url('./assets/icons/s-tri-up.png'); background-position: center; background-size: contain;"></div>
                         <div class="console_icon hidden" console="s-diamond" style="background-image:url('./assets/icons/s-diamond.png'); background-position: center; background-size: contain;"></div>
@@ -65,12 +83,181 @@
                     <!-- Home page -->
                     <div class="browser_page" page-name="home">
                         <h1>Browser</h1>
+                        <p>When asked to produce a showcase of the creative work I did as part of my internship here at the Institute, for the longest time I was unsure of what to do. Most of the outcomes I had produced weren't all that nice to look at, and a lot of the evidence of my process was locked up in hundreds of lines of code.</p>
+                        <p>Instead I ended up with this machine, with the hope of being able to recreate the atmosphere of experimentation and discovery that was a hallmark of my time here.</p>
+                        <p>Much like this machine, I started without really knowing what my final output would be, and without much experience working creatively. But as I researched (as you can do with this browser) and experiented (with a console much like the one in Termainal C) I was able to produce outputs I never thought I would.</p>
+                        <p>And as my time at the Institute was limited, so is your time with the machine.</p>
+                        <p>Make cool sh*t.</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="manual">Manual,</p>
+                            <p page-link="code-sketches">Code Sketches,</p>
+                            <p page-link="computer-science">Computer Science</p>
+                        </div>
+                    </div>
+
+                    <!-- Manual Page -->
+                    <div class="browser_page" page-name="manual">
+                        <h1>Manual</h1>
+                        <p>The machine is split into 4 terminals, A, B, C and D, from left to right, top to bottom.</p>
+                        <p>The console in terminal C accepts a string of icons as an input, which it interprets into graphics when run. Either click on an icon, or use the number keys to add an icon to the command line. The categories of icons are:</p>
+                        <ul>
+                            <li page-link="patterns">Patterns</li>
+                            <li page-link="shapes">Shapes</li>
+                            <li page-link="colours">Colours</li>
+                            <li page-link="breaks">Breaks</li>
+                        </ul>
+                        <p>The output is displayed in terminal A.</p>
+                        <p>Whilst your intial array of icons may be small, more can be found through exploring this browser in terminal D.</p>
+
+                    </div>
+
+                    <!-- Patterns page -->
+                    <div class="browser_page" page-name="patterns">
+                        <h1>Icons - Patterns</h1>
                         <p>Sentence 1</p>
                         <p>Sentence 2</p>
                         <div class="browser_see-more">
                             <p>See More:</p>
-                            <p page-link="ecosystem">Ecosystem,</p>
+                            <p page-link="manual">Manual,</p>
+                            <p page-link="shapes">Shapes</p>
+                        </div>
+                    </div>
+
+                    <!-- Shapes page -->
+                    <div class="browser_page" page-name="shapes">
+                        <h1>Icons - Shapes</h1>
+                        <p>Sentence 1</p>
+                        <p>Sentence 2</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="manual">Manual,</p>
+                            <p page-link="patterns">Patterns,</p>
+                            <p page-link="colours">Colours</p>
+                        </div>
+                    </div>
+
+                    <!-- Colours page -->
+                    <div class="browser_page" page-name="colours">
+                        <h1>Icons - Colours</h1>
+                        <p>Sentence 1</p>
+                        <p>Sentence 2</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="manual">Manual,</p>
+                            <p page-link="shapes">Shapes</p>
+                        </div>
+                    </div>
+
+                    <!-- Breaks page -->
+                    <div class="browser_page" page-name="breaks">
+                        <h1>Icons - Breaks</h1>
+                        <p>Sentence 1</p>
+                        <p>Sentence 2</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="manual">Manual,</p>
+                            <p page-link="patterns">Patterns</p>
+                        </div>
+                    </div>
+
+                    <!-- Code Sketches page -->
+                    <div class="browser_page" page-name="code-sketches">
+                        <h1>Code Sketches</h1>
+                        <p>Inspired by several talks by Zach Liebermann and Processing by Casey Reas and Ben Fry, the first portion of my time as an intern at the lab was experimenting with code sketches. As the name suggests, these were small programs often based on whatever inspiration I found whilst doing other work or just from around the studio. Some of the inspirations for my sketches included:</p>
+                        <ul>
+                            <li>Brutalism architecture</li>
+                            <li>20th century loom weaving diagrams</li>
+                            <li>Autonomous agents</li>
+                            <li>VHS players</li>
+                            <li>Bookshelves</li>
+                            <li>Bugs that occured during other sketches</li>
+                        </ul>
+                        <p>Whilst not all of these yielded interesting results, a selection of my sketches can be found below. Initially I was considering using Processing as that was the book that had put me onto creative coding as an idea, I eventually settled on using p5.js as my medium due to the added ease of sharing my sketches over the internet.</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="sketch-list">Sketch list,</p>
+                            <p page-link="processing">Processing & p5.js,</p>
+                            <p page-link="zach">Zach Liebermann</p>
+                            
+                        </div>
+                    </div>
+
+                    <!-- Zach Liebermann page-->
+                    <div class="browser_page" page-name="zach">
+                        <h1>Zach Liebermann</h1>
+                        <p>Zach Lieberman is a prominent figure in the field of creative coding and interactive art. He is a co-founder of the School for Poetic Computation and has also been a professor at MIT's Media Lab. His work often involves exploring the intersection between technology, art, and human experience.</p>
+                        <p>One of his most well-known projects is the EyeWriter, which is an open source eye-tracking system that allows individuals with paralysis to draw using just their eyes. He has also worked on other notable projects such as "Play the World" which used satellite data to create a real-time musical performance between musicians from different parts of the world.</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
                             <p page-link="code-sketches">Code Sketches</p>
+                        </div>
+                    </div>
+
+                    <!-- Lauren McCarthy page -->
+                    <div class="browser_page" page-name="lauren">
+                        <h1>Lauren McCarthy</h1>
+                        <p>Lauren McCarthy is an artist, programmer, and a professor at UCLA Design | Media Arts. She is also the creator of p5.js, a web-based programming language designed for creating interactive art and design. Her work often explores the intersection of technology, human behavior, and social interaction.</p>
+                        <p>McCarthy has exhibited her work at numerous galleries and museums around the world, including the Museum of Modern Art (MoMA) and the Whitney Museum of American Art in New York City. Some of her notable projects include "Follower", a performance art piece that explores the dynamics of social media, and "Lauren", an AI-powered home automation system that monitors and controls her daily life.</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="processing">Processing & p5.js</p>
+                        </div>
+                    </div>
+
+                    <!-- Casey Reas page -->
+                    <div class="browser_page" page-name="casey">
+                        <h1>Casey Reas</h1>
+                        <p>Casey Reas is one of the creators of the Processing programming language, which was developed in 2001 with Ben Fry. Processing was designed to be used for the visual arts and design, and has become popular for its ability to create visually appealing and interactive applications. </p>
+                        <p>Reas is also an artist and educator, and has exhibited his work in museums and galleries around the world. He has written several books on programming and art, and currently teaches at the University of California, Los Angeles (UCLA).</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="processing">Processing & p5.js</p>
+                            <p page-link="ben">Ben Fry</p>
+                        </div>
+                    </div>
+
+                    <!-- Ben Fry -->
+                    <div class="browser_page" page-name="ben">
+                        <h1>Ben Fry</h1>
+                        <p>Ben Fry is a co-creator of the Processing programming language, which was designed to be used for the visual arts and design. He is also an artist, designer, and author, and has written several books on data visualisation and information design. </p>
+                        <p>Fry's work often involves exploring large data sets and representing them in visually appealing and informative ways. He has exhibited his work in museums and galleries around the world, and currently works as a principal of the consulting firm Fathom Information Design.</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="processing">Processing & p5.js</p>
+                            <p page-link="casey">Casey Reas</p>
+                        </div>
+                    </div>
+
+                    <!-- Sketch List -->
+                    <div class="browser_page" page-name="sketch-list">
+                        <h1>Sketch List</h1>
+                        <ul>
+                            <li page-link="spraypaint">Spraypaint</li>
+                            <li page-link="sigils">Sigils</li>
+                            <li page-link="ladders">Ladders</li>
+                            <li page-link="polygons">Polygons</li>
+                            <li page-link="stroll">Stroll</li>
+                            <li page-link="weave">Weave</li>
+                            <li page-link="spiral">Spiral</li>
+                            <li page-link="ecosystem">Ecosystem</li>
+                        </ul>
+                    </div>
+
+                    
+
+                    <!-- Spraypaint Page -->
+                    <div class="browser_page" page-name="spraypaint">
+                        <h1>Spraypaint</h1>
+                        <p>One of my earliest sketches, this was my first sketch that I felt touched the potential of computer controlled visuals. The foundations of the sketch are the 'sigil' shapes, which are built from a number of bezier curves. When the computer gets 50% along the way of a curve, it creates a new sigil centred on that point, with one fewer curves than the sigil it is currently drawing. So a 5 sided sigil produces 5 4 sided sigils, which each produce 4 3 sided sigils and so on.</p>
+                        <p>As all the points are generated by the computer, they can be individually manipulated. The second half of the video below shows the points being randomised.</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="sketch-list">Sketch list,</p>
+                            <p page-link="sigils">Sigils</p>
+                        </div>
+                        <div class="browser_image-group">
+                            <img class="browser_image" src="assets/spraypaint.png" onclick="viewVideo('./assets/videos/spraypaintVideo.mp4')"/>
                         </div>
                     </div>
 
@@ -81,58 +268,108 @@
                         <p>A lot of the module talked about biological inspirations for algorithms, so I used that as a starting point with a basic predator & prey scenario. The predator agents in red try to chase down the prey agents in blue before their internal timer runs out, while the prey agents want to both move towards the green ‘plant’ objects whilst also avoiding the predator agents.</p>
                         <div class="browser_see-more">
                             <p>See More:</p>
-                            <p page-link="code-sketches">Code Sketches,</p>
-                            <p page-link="weave">Weave,</p>
+                            <p page-link="sketch-list">Sketch list,</p>
+                            <p page-link="weave">Weave</p>
                         </div>
                         <div class="browser_image-group">
-                            <img class="browser_image" src="assets/spiro1.png" onclick="viewVideo('./assets/videos/ecologyVid.mp4')"/>
+                            <img class="browser_image" src="assets/ecosystem.png" onclick="viewVideo('./assets/videos/ecologyVid.mp4')"/>
                         </div>
                         
                     </div>
 
-                    <!-- Code Sketches page -->
-                    <div class="browser_page" page-name="code-sketches">
-                        <h1>Code Sketches</h1>
-                        <p>Inspired by several talks by Zach Liebermann and Processing by Casey Reas and Ben Fry, the first portion of my time as an intern at the lab was experimenting with code sketches. As the name suggests, these were small programs often based on whatever inspiration I found whilst doing other work or just from around the studio. Some of the inspirations for my sketches included: Brutalism architecture
+                    <!-- Weave Page -->
+                    <div class="browser_page" page-name="weave">
+                        <h1>Weave</h1>
+                        <p>Following on from Ecosystem, the sketch inspired by autonomous agents, I was looking for alternative visuals I could apply the logic to. My inspiration came as I was flicking through some of the books in the studio and I found ‘Carpets of the Art Deco Era’ by Susan Day. In particular I really enjoyed the texture of the diagrams used for old looms and my thoughts went to how I could possibly use the logic of the autonomous agents to generate new ‘diagrams’. </p>
+                        <p>In the sketch that came out of it, most of my effort was spent replicating the visual look of the strings and the actual logic underneath it sort of fell by the wayside, which was a shame. In my efforts to create the rope aesthetic, I did end up having several bugs which themselves produced an interesting visual, which I then tweaked as sketches by themselves.</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="sketch-list">Sketch list,</p>
+                            <p page-link="ecosystem">Ecosystem</p>
+                        </div>
+                        <div class="browser_image-group">
+                            <img class="browser_image" src="assets/weave.png" onclick="viewVideo('./assets/videos/weaveVideo.mp4')"/>
+                        </div>
+                        
+                    </div>
 
-                            18th century loom weaving diagrams
-                            
-                            Autonomous agents
-                            
-                            VHS players
-                            
-                            A bookshelf
-                            
-                            A bug that happened whilst developing another sketch, or an iteration on a previous sketch.</p>
-                        <p>Whilst initially I was reading through Processing, I eventually settled on using p5.js as my medium due to the added ease of sharing my sketches over the internet.</p>
+                    <!-- Stroll Page -->
+                    <div class="browser_page" page-name="stroll">
+                        <h1>Stroll</h1>
+
+                        <p>An early trial within a 3d enviroment. I wanted to try creating something with an immersive feel and so chose a subject with a first person view inspired by the real world.</p>
+                        <p>I ended up using 2d sprites both to avoid spending too much time learning how to use models but also because I enjoyed the aesthetic of 2d sprites in the 2d enviroment.</p>
+                        <p>This sketch ended taking up more time than expected due to the number of times I had to rework the framework of my code. The large number of sprites could easily cause performance issues if manipulated carelessly.</p>
                         <div class="browser_see-more">
                             <p>See More:</p>
-                            <p page-link="processing">Processing & p5.js,</p>
-                            <p page-link="page3">Page 3,</p>
+                            <p page-link="sketch-list">Sketch list</p>
+                        </div>
+                        <div class="browser_image-group">
+                            <img class="browser_image" src="assets/stroll.png" onclick="viewVideo('./assets/videos/strollVideo.mp4')"/>
                         </div>
                     </div>
-                    <!-- Processing & p5.js page -->
-                    <div class="browser_page" page-name="processing">
-                        <h1>Processing & p5.js</h1>
-                        <p>Processing and p5.js are programming languages that were created with the intention of being used for the visual arts and design. They have become popular because of their ability to create visually appealing applications that are also interactive and engaging for the user.</p>
-                        <p>Processing was initially developed by two individuals, Ben Fry and Casey Reas, back in 2001. In 2014, Lauren McCarthy developed p5.js as a web-based alternative to Processing. The library was designed to run within a browser, making it easily accessible to anyone with an internet connection. Since then, p5.js has become increasingly popular for its simplicity and ease of use.</p>
-                        <p>While Processing and p5.js are different programming languages, they share many similarities in syntax and functionality. In fact, p5.js was designed to be similar to Processing, making it easy for users to switch between the two.</p>
+
+                    <!-- Polygons Page -->
+                    <div class="browser_page" page-name="polygons">
+                        <h1>Polygons</h1>
+                        <p>'Polygons' was the second ever sketch I made with p5.js and like with the other sketches I made early on I was less concerned with the end output and more on the novelty of using the maths I'd spent the last 7 years learning creatively!</p>
+                        <p>These early learning sketches also usually allowed for some more of user input, whether thath be drawing shapes or having options for numbers of inputs, but as my later sketches shifted more towards trying to produce a specific visual, I found myself removing the interactive elements in order to maintain as much control over the end results as possible.</p>
                         <div class="browser_see-more">
                             <p>See More:</p>
-                            <p page-link="page2">Page 2,</p>
-                            <p page-link="page3">Page 3,</p>
+                            <p page-link="sketch-list">Sketch list,</p>
+                            <p page-link="processing">Processing & p5.js</p>
+                        </div>
+                        <div class="browser_image-group">
+                            <img class="browser_image" src="assets/polygons.png" onclick="viewVideo('./assets/videos/polygons.mp4')"/>
                         </div>
                     </div>
-                    <!-- Computer science page -->
-                    <div class="browser_page" page-name="computer-science">
-                        <h1>Computer Science BSc</h1>
-                        <p>I studied computer science at Loughborough University from 2017 to 2021, graduating with first class honours. The course was a mixture of practical modules you would expect such as mobile app development, functional programming, object-orientated programming and software engineering with theory modules on more esoteric topics that make up the basis of computer science theory such as logic, formal methods and the ominously titled ‘Difficult Problems in Computing’.</p>
-                        <p>For my final year project I studied linear cryptanalysis, specifically the cube attack when applied to varying numbers of iterations of the Trivium stream cipher.</p>
+
+                    <!-- Spiral Page -->
+                    <div class="browser_page" page-name="spiral">
+                        <h1>Spiral</h1>
+                        <p>It was as I was adding rotation and translation effects to the 'Sigil' sketch that I realised that I had essentially ended up with a spirograph machine. So I thought it would be fun to make a version of the sketch that would randomise the various input variables and produce large images of the results.</p>
+                        <p>Out of the 100+ inputs produced, I found that most of them fell into 6 pattern types: 'meshes', 'looney tunes', 'black holes', 'sun rays', 'cones' and 'tubes'. The video below shows of each of these types as well as a few curious outliers.</p>
                         <div class="browser_see-more">
                             <p>See More:</p>
-                            <p page-link="page2">Page 2,</p>
-                            <p page-link="page3">Page 3,</p>
+                            <p page-link="sketch-list">Sketch list,</p>
+                            <p page-link="processing">Processing & p5.js</p>
                         </div>
+                        <div class="browser_image-group">
+                            <img class="browser_image" src="assets/spiro1.png" onclick="viewVideo('./assets/videos/spiralSlideshow.mp4')"/>
+                        </div>
+                    </div>
+
+                    <!-- Sigils Page -->
+                    <div class="browser_page" page-name="sigils">
+                        <h1>Sigils</h1>
+                        <p>This sketch started off with a selection of symbols that were shown to me by Guy, one of the people who runs the Institute Research Lab here. The symbols were being used as part of an identity for a brand and he wanted to see what I could do with them.</p>
+                        <p>My process started with me working out to break down the natural, handdrawn shapes intro something I could get the computer to replicate. I was fascinated with the way I could create a fascimile a handdrawn shape by adding a noise function to the position of the 'pen' as it drew out the shape.</p>
+                        <p>Eventually I added more and more functionalty to my representation of the shape and as I did I found inspiration for several other sketches that could use the same shape. Some of these turned into the sketches 'Spraypaint' and 'Spiral'.</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="sketch-list">Sketch list,</p>
+                            <p page-link="spiral">Spiral,</p>
+                            <p page-link="spraypaint">Spraypaint</p>
+                        </div>
+                        <div class="browser_image-group">
+                            <img class="browser_image" src="assets/spiro1.png" onclick="viewVideo('./assets/videos/loveVideo.mp4')"/>
+                        </div>
+                    </div>
+
+                    <!-- Ladders Page -->
+                    <div class="browser_page" page-name="ladders">
+                        <h1>Ladders</h1>
+                        <p>This was one of the more interesting sketches produced from bugs during development.</p>
+                        <p>This sketch in particular occured whilst I was creating the 'Weave' sketch, I had created the rope-esque visuals I was looking for but hadn't quite managed to get the ropes to curl around properly. This ended up producing a strange textured grid effect I really enjoyed. So I saved the version as a seperate sketch and came back to tweak it later, ending up with this final result.</p>
+                        <div class="browser_see-more">
+                            <p>See More:</p>
+                            <p page-link="sketch-list">Sketch list,</p>
+                            <p page-link="weave">Weave</p>
+                        </div>
+                        <div class="browser_image-group">
+                            <img class="browser_image" src="assets/ladders.png" onclick="viewVideo('./assets/videos/laddersVideo.mp4')"/>
+                        </div>
+                        
                     </div>
 
                     <!-- Weave Sketch -->
@@ -145,41 +382,36 @@
                             <p page-link="ecosystem">Ecosystem,</p>
                             <p page-link="code-sketches">Code Sketches</p>
                         </div>
-                    </div>
-
-                    <!-- Donkey Kong Sketch -->
-                    <div class="browser_page" page-name="home">
-                        <h1>Donkey Kong</h1>
-                        <p>Created by a bug whilst I was working on Weave (the agents controlling the ropes wouldn’t rotate properly), I found the fact that it created an interesting visual regardless to be worth preserving. </p>
-                        <p>Looking back upon the array of sketches I produced, the majority of them were trying to recreate a visual or aesthetic found in another medium and most of my code didn’t leave any room for an unexpected output.</p>
-                        <p></p>
-                        <div class="browser_see-more">
-                            <p>See More:</p>
-                            <p page-link="code-sketches">Code Sketches,</p>
-                            <p page-link="ecosystem">Ecosystem</p>
+                        <div class="browser_image-group">
+                            <img class="browser_image" src="assets/weave.png" onclick="viewVideo('./assets/videos/weaveVideo.mp4')"/>
                         </div>
                     </div>
 
-                    <div class="browser_page" page-name="home">
-                        <h1>Hello Page 1</h1>
-                        <p>Sentence 1</p>
-                        <p>Sentence 2</p>
+
+                    <!-- Processing & p5.js page -->
+                    <div class="browser_page" page-name="processing">
+                        <h1>Processing & p5.js</h1>
+                        <p>Processing and p5.js are programming languages that were created with the intention of being used for the visual arts and design. They have become popular because of their ability to create visually appealing applications that are also interactive and engaging for the user.</p>
+                        <p>Processing was initially developed by two individuals, Ben Fry and Casey Reas, back in 2001. In 2014, Lauren McCarthy developed p5.js as a web-based alternative to Processing. The library was designed to run within a browser, making it easily accessible to anyone with an internet connection. Since then, p5.js has become increasingly popular for its simplicity and ease of use.</p>
+                        <p>While Processing and p5.js are different programming languages, they share many similarities in syntax and functionality. In fact, p5.js was designed to be similar to Processing, making it easy for users to switch between the two.</p>
                         <div class="browser_see-more">
                             <p>See More:</p>
-                            <p page-link="ecosystem">Ecosystem,</p>
-                            <p page-link="code-sketches">Code Sketches</p>
+                            <p page-link="lauren">Lauren McCarthy,</p>
+                            <p page-link="ben">Ben Fry,</p>
+                            <p page-link="casey">Casey Reas</p>
                         </div>
                     </div>
-                    <div class="browser_page" page-name="home">
-                        <h1>Hello Page 1</h1>
-                        <p>Sentence 1</p>
-                        <p>Sentence 2</p>
-                        <div class="browser_see-more">
-                            <p>See More:</p>
-                            <p page-link="ecosystem">Ecosystem,</p>
-                            <p page-link="code-sketches">Code Sketches</p>
-                        </div>
+
+                    <!-- Computer science page -->
+                    <div class="browser_page" page-name="computer-science">
+                        <h1>Computer Science BSc</h1>
+                        <p>I studied computer science at Loughborough University from 2017 to 2021, graduating with first class honours. The course was a mixture of practical modules you would expect such as mobile app development, functional programming, object-orientated programming and software engineering with theory modules on more esoteric topics that make up the basis of computer science theory such as logic, formal methods and the ominously titled ‘Difficult Problems in Computing’.</p>
+                        <p>For my final year project I studied linear cryptanalysis, specifically the cube attack when applied to varying numbers of iterations of the Trivium stream cipher.</p>
                     </div>
+
+
+
+
                 </div>
             </div>
             <div class="console_bottom">

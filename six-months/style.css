@@ -22,7 +22,7 @@ body {
 }
 
 .button:hover {
-    background-color: red;
+    filter: brightness(50%);
 }
 
 .fullscreen_wrapper {
@@ -33,6 +33,29 @@ body {
     right:0;
     bottom:0;
     z-index: 10;
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 2s;
+    transition-timing-function: ease;
+}
+
+.fullscreen_wrapper.fade {
+    opacity: 0;
+    z-index: -10;
+    transition-property: opacity;
+    transition-duration: 2s;
+    transition-timing-function: ease;
+}
+
+
+.fullscreen_container {
+    text-align: center;
+    padding: 5%;
+    max-width: 200rem;
+    position: relative;
+    left:auto;
+    right:auto;
+
 }
 
 .outer-grid {
@@ -49,6 +72,16 @@ body {
     grid-template-columns: 1fr 0.25fr 0.25fr 1fr;
     grid-template-rows: 1fr 0.25fr 0.25fr 1fr;
     /* grid-gap: .2rem; */
+    transition-property: opacity;
+    transition-duration: 2s;
+    transition-timing-function: ease;
+}
+
+.outer-grid.fade {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 2s;
+    transition-timing-function: ease;
 }
 
 .grid-element {
@@ -145,7 +178,7 @@ body {
 
 .grid-element.a video {
     flex: 1;
-    height: 100%;
+    max-height: 90%;
 }
 
 .output_image-wrapper {
@@ -252,6 +285,16 @@ body {
 }
 
 /* Gallery styles */
+
+.gallery_border {
+    height: 100%;
+    border-style: solid;
+    border-width: .4rem;
+    border-color: white;
+    padding: .5rem;
+    overflow:auto;
+}
+
 .gallery_wrapper {
     /* height: 100%; */
     display:flex;
@@ -259,7 +302,8 @@ body {
     /* grid-template-columns: 1fr 1fr 1fr 1fr; */
     gap: 1rem;
     flex-wrap: wrap;
-    overflow:auto;
+    /* overflow:auto; */
+
 }
 
 
@@ -311,7 +355,17 @@ body {
 
 }
 
-.gallery_element-wrapper p {
+/* Need to disable the hover styles during the outro */
+.fullscreen_wrapper .gallery_element-wrapper:hover .output_root {
+    opacity: 100%;
+}
+
+.fullscreen_wrapper .gallery_element-wrapper:hover .gallery_element-label {
+    display:none;
+}
+
+.fullscreen_wrapper .gallery_wrapper {
+    min-height: 10vw;
 }
 
 
@@ -389,6 +443,11 @@ body {
     cursor: pointer;
     border-radius: 3px;
 }
+
+.console_icon:hover {
+    filter: brightness(50%);
+}
+
 /* Browser Styles */
 
 .browser_top {
@@ -424,7 +483,7 @@ body {
 
 [page-link]:hover {
     cursor: pointer;
-    color: red;
+    color: rgb(155, 155, 155);
 }
 
 .browser_page .console_icon {
@@ -443,4 +502,12 @@ body {
 .browser_image {
     height: 7rem;
     width: 7rem;
+    cursor: pointer;
+}
+
+.browser_image:hover {
+    height: 7rem;
+    width: 7rem;
+    cursor: pointer;
+    filter: brightness(50%);
 }
