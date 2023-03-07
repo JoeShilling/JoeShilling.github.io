@@ -1,7 +1,30 @@
+//start function 
+
+const start = () => {
+    document.querySelector('.fullscreen_intro').classList.add('hidden');
+    document.querySelector('.fullscreen_wrapper').classList.add('fade');
+    document.querySelector('.outer-grid').classList.remove('fade');
+}
+
+
 //tickdown function
 const tickDown = (num = 1) => {
     let numElement = document.querySelector('#countdown');
-    numElement.innerText = parseInt(numElement.innerText) - num;
+    let newValue = parseInt(numElement.innerText) - num;
+    if (newValue <= 30) {
+        document.querySelector('#countdown').classList.add('low');
+    }
+    numElement.innerText = newValue;
+
+    if (newValue <= 0) {
+        document.querySelector('.fullscreen_wrapper').classList.remove('fade');
+        document.querySelector('.outer-grid').classList.add('fade');
+
+        //trigger outro
+        let outro = document.querySelector('.fullscreen_outro')
+        outro.classList.remove('hidden');
+        outro.children[0].insertAdjacentElement("afterend", document.querySelector('.gallery_border'));
+    }
 }
 
 //output functions
@@ -229,7 +252,7 @@ document.querySelector('#console-run').addEventListener('click', consoleRun);
 let pageHistory = [];
 
 const switchPages = (target) => {
-    tickDown(3);
+    tickDown(2);
     pageHistory.push(target);
     let allPages = document.querySelectorAll(".browser_page");
     allPages.forEach((e) => {
@@ -258,6 +281,7 @@ document.querySelector("#browser-back").addEventListener("click", (event) => {
 })
 
 switchPages("home");
+tickDown(-1); //reset the timer back to 182 after using switchPages
 
 //browser functions end
 

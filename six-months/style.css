@@ -22,7 +22,7 @@ body {
 }
 
 .button:hover {
-    background-color: red;
+    filter: brightness(50%);
 }
 
 .fullscreen_wrapper {
@@ -33,7 +33,34 @@ body {
     right:0;
     bottom:0;
     z-index: 10;
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 2s;
+    transition-timing-function: ease;
 }
+
+.fullscreen_wrapper.fade {
+    opacity: 0;
+    z-index: -10;
+    transition-property: opacity;
+    transition-duration: 2s;
+    transition-timing-function: ease;
+}
+
+
+.fullscreen_container {
+    text-align: center;
+    padding: 5%;
+    max-width: 200rem;
+    position: relative;
+    left:auto;
+    right:auto;
+}
+
+.fullscreen_intro h1 {
+    font-size: 8rem;
+}
+
 
 .outer-grid {
     position: absolute;
@@ -49,6 +76,16 @@ body {
     grid-template-columns: 1fr 0.25fr 0.25fr 1fr;
     grid-template-rows: 1fr 0.25fr 0.25fr 1fr;
     /* grid-gap: .2rem; */
+    transition-property: opacity;
+    transition-duration: 2s;
+    transition-timing-function: ease;
+}
+
+.outer-grid.fade {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 2s;
+    transition-timing-function: ease;
 }
 
 .grid-element {
@@ -124,6 +161,10 @@ body {
     font-size: 8vh;
 }
 
+.center-num.low {
+    color:red;
+}
+
 /*output styles */
 
 
@@ -141,7 +182,7 @@ body {
 
 .grid-element.a video {
     flex: 1;
-    height: 100%;
+    max-height: 90%;
 }
 
 .output_image-wrapper {
@@ -156,7 +197,11 @@ body {
     height: 100%
 }
 
-
+#output_root {
+    border-style: solid;
+    border-width: .4rem;
+    border-color: white;
+}
 
 .output_p-grid {
     display: grid;
@@ -244,6 +289,16 @@ body {
 }
 
 /* Gallery styles */
+
+.gallery_border {
+    height: 100%;
+    border-style: solid;
+    border-width: .4rem;
+    border-color: white;
+    padding: .5rem;
+    overflow:auto;
+}
+
 .gallery_wrapper {
     /* height: 100%; */
     display:flex;
@@ -251,7 +306,8 @@ body {
     /* grid-template-columns: 1fr 1fr 1fr 1fr; */
     gap: 1rem;
     flex-wrap: wrap;
-    overflow:auto;
+    /* overflow:auto; */
+
 }
 
 
@@ -303,7 +359,17 @@ body {
 
 }
 
-.gallery_element-wrapper p {
+/* Need to disable the hover styles during the outro */
+.fullscreen_wrapper .gallery_element-wrapper:hover .output_root {
+    opacity: 100%;
+}
+
+.fullscreen_wrapper .gallery_element-wrapper:hover .gallery_element-label {
+    display:none;
+}
+
+.fullscreen_wrapper .gallery_wrapper {
+    min-height: 10vw;
 }
 
 
@@ -379,6 +445,11 @@ body {
     height: 3rem;
     width: 3rem;
     cursor: pointer;
+    border-radius: 3px;
+}
+
+.console_icon:hover {
+    filter: brightness(50%);
 }
 
 /* Browser Styles */
@@ -397,7 +468,7 @@ body {
 
 .browser_page {
     display:none;
-    scroll: auto;
+    overflow-y: auto;
 }
 
 .browser_page.is-active {
@@ -414,15 +485,20 @@ body {
     gap: .5rem;
 }
 
+
+[page-link] {
+    color: rgb(184, 34, 34);
+}
+
 [page-link]:hover {
     cursor: pointer;
-    color: red;
+    color: rgb(155, 155, 155);
 }
 
 .browser_page .console_icon {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    right: 5rem;
+    bottom: 5rem;
     transform: translate(-50%, -50%);
 }
 
@@ -435,4 +511,12 @@ body {
 .browser_image {
     height: 7rem;
     width: 7rem;
+    cursor: pointer;
+}
+
+.browser_image:hover {
+    height: 7rem;
+    width: 7rem;
+    cursor: pointer;
+    filter: brightness(50%);
 }
